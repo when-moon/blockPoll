@@ -1,0 +1,110 @@
+<head>
+  <title>VoteR</title>
+    <h1>Ethereum Voting System</h1>
+    <br>
+</head>
+
+<body>
+{{> WalletBallance}}
+  {{> findElection}}
+{{> vote}}
+</body>
+
+<template name="findElection">
+    <h1>Find Election On chain</h1>
+    <form>
+        <input type="text" name="address">
+        <input type="submit" value="Search">
+    </form>
+    <ul>
+        <li>
+            Number of votes: {{TemplateVar.get "numberOfVotes"}}
+        </li>
+        <li>
+            Number of Candidates: {{TemplateVar.get "numberOfCandidates"}}
+        </li>
+        <li>
+            Starting Block: {{TemplateVar.get "startingBlock"}}
+        </li>
+        <li>
+            Ending Block: {{TemplateVar.get "endingBlock"}}
+        </li>
+        <li>
+            Is Partial: {{TemplateVar.get "isPartial"}}
+        </li>
+        <li>
+            Election Status: {{TemplateVar.get "electionStatus"}}
+            {{electionStatus}}
+        </li>
+        <li>
+            Candidates:
+            <table>
+                <tbody>
+                <tr>
+                    <th>Candidate</th>
+                    <th>Votes</th>
+                </tr>
+                {{#each objectToPairs candidateMap}}
+                    <tr>
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </li>
+        <li>
+            Voters:
+            <table>
+                <tbody>
+                <tr>
+                    <th>Voter Address</th>
+                    <th>Credits</th>
+                </tr>
+                {{#each objectToPairs voterMap}}
+                    <tr>
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </li>
+    </ul>
+</template>
+
+<template name="WalletBallance">
+    <h1>Your Account Info</h1>
+    <ul>
+        <li>Your Address: {{Address}}</li>
+        <li>Your Ether Ballance: {{walletBallance}}</li>
+        <li>Connected Network: {{connectedNetwork}}</li>
+        <li>Current BlockNumber: {{blockNumber}}</li>
+    </ul>
+</template>
+
+<template name="vote">
+    <h1>Vote in an Election</h1>
+    {{#if registeredForElection}}
+        You are registered to vote for this election.
+        <br>
+        You have {{numberOfVotingCredits}} voting credits on your account. You can place a vote below:
+        <br>
+
+        <form>
+            Pick candidate: <select class="candidates" name="candidate">
+        </select>
+            <br>
+            Pick number of credits: <input type="number" name="credits" min="1" max="{{numberOfVotingCredits}}">
+            <br>
+            <input type="submit" value="vote">
+        </form>
+
+        <br>
+
+    {{else}}
+        You are not registered to vote for this election
+    {{/if}}
+
+
+</template>
