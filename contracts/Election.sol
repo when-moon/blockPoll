@@ -2,7 +2,7 @@ pragma solidity ^ 0.4.19;
 contract Election {
 
     string temp;
-    mapping (address => uint) public votingRoll;
+    mapping (address => int) public votingRoll;
     address[] public voters;
     uint public numberOfVoters;
     
@@ -19,15 +19,15 @@ contract Election {
         
         require(_voterIDs.length>0 && _voterIDs.length==_weights.length);
         require(_candidates.length>0);
-        require(_startingBlock>=block.number);
-        require(_endingBlock>=block.number);
-        require(_endingBlock>_startingBlock);
+        // require(_startingBlock>=block.number);
+        // require(_endingBlock>=block.number);
+        // require(_endingBlock>_startingBlock);
         
         voters=_voterIDs;
         votingCandidates=_candidates;
         numberOfVoters=voters.length;
         for(uint i=0; i< _voterIDs.length;i++){
-            votingRoll[_voterIDs[i]] = _weights[i];
+            votingRoll[_voterIDs[i]] = int(_weights[i]);
         }
         
         numberOfCandidates=votingCandidates.length;
@@ -42,38 +42,31 @@ contract Election {
     }
     
     function vote(bytes32 _candidate, uint _vote) public{
-        require(block.number>=startingBlock && block.number<=endingBlock);
+        // require(block.number>=startingBlock && block.number<=endingBlock);
         require(votingRoll[msg.sender]>0); //check that the caller is regestered voter
-        require(_vote<=votingRoll[msg.sender]); //check that the caller has enough credits to vote
-        require(candidates[_candidate]==-1 || candidates[_candidate]>0);
+        require(int(_vote)<=votingRoll[msg.sender]); //check that the caller has enough credits to vote
+        require(candidates[_candidate]==-1 || candidates[_candidate]>0); //check that candidate is registered
         if (candidates[_candidate]==-1){ //reset the initial vote for the candidiate
             candidates[_candidate]=0;
         }
         
         if(!isPartial){ //non-partial vote(All or nothing)
-            _vote=votingRoll[msg.sender]; //set to all the users credits
+            _vote=uint(votingRoll[msg.sender]); //set to all the users credits
         }
         
         candidates[_candidate]+=int(_vote);
-        votingRoll[msg.sender]-=_vote;
-        
+        if (votingRoll[msg.sender]-int(_vote)==0){
+            votingRoll[msg.sender]=int(-1);
+        }
+        else{
+            votingRoll[msg.sender]-=int(_vote);    
+        }
     }
     
     function deleteElection() public{
         require(msg.sender==electionOwner);
-        require(block.number<startingBlock);
+        // require(block.number<startingBlock);
         selfdestruct(this);
     }
-    
- function bytes32ToString (bytes32 data) returns (string) {
-    bytes memory bytesString = new bytes(32);
-    for (uint j=0; j<32; j++) {
-        byte char = byte(bytes32(uint(data) * 2 ** (8 * j)));
-        if (char != 0) {
-            bytesString[j] = char;
-        }
-    }
-    return string(bytesString);
-}
 }
 

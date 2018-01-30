@@ -1,13 +1,14 @@
 <head>
-  <title>VoteR</title>
+    <title>VoteR</title>
     <h1>Ethereum Voting System</h1>
     <br>
 </head>
 
 <body>
 {{> WalletBallance}}
-  {{> findElection}}
+{{> findElection}}
 {{> vote}}
+{{> createElection}}
 </body>
 
 <template name="findElection">
@@ -105,6 +106,71 @@
     {{else}}
         You are not registered to vote for this election
     {{/if}}
+</template>
 
+<template name="createElection">
+    <h1>Create a new Election</h1>
+    Partial Election: <input type="checkbox" id="partial" name="partial">
+    <br>
+    Starting Block: <input type="number" id="startingBlock" name="startingBlock" value="{{blockNumber}}"
+                           min="{{blockNumber}}">
+    <br>
+    Ending Block: <input type="number" id="endingBlock" name="EndingBlock" value="{{blockNumber}}"
+                         min="{{blockNumber}}">
+    <br>
+    <h2>Candidates:</h2>
+    <table>
+        <tr>
+            <th>Candidate</th>
+            <th></th>
+        </tr>
+        {{#each candidate in newCandidates}}
+            <tr>
+                <td>{{candidate}}</td>
+                <td>
+                    <button type="button" id="{{candidate}}" class="removeCandidate"><i class="fa fa-trash"
+                                                                                        aria-hidden="true"></i></button>
+                </td>
+            </tr>
+        {{/each}}
+    </table>
+    <p>Add new Candidates:
+        <input type="text" name="candidateName" placeholder="candidate Name" id="candidateName">
+        <button type="button" class="addCandidate" value="Add Candidate"><i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+    </p>
 
+    <h2>Voter Roll:</h2>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Weight</th>
+            <th></th>
+        </tr>
+        {{#each objectToPairs rollMap}}
+            <tr>
+                <td>{{value.[1]}}</td>
+                <td>{{key}}</td>
+                <td>{{value.[0]}}</td>
+                <td>
+                    <button type="button" name="{{key}}" id="{{key}}" class="removeVoter"><i class="fa fa-trash"
+                                                                                             aria-hidden="true"></i>
+                    </button>
+                </td>
+            </tr>
+        {{/each}}
+    </table>
+
+    <p>Add new voter:
+        <br>
+        <input type="text" name="voterName" placeholder="Voter Name" class="voterName">
+        <input type="text" name="voterAddress" placeholder="Voter Address" class="voterAddress">
+        <input type="number" name="voterWeight" placeholder="voter Weight" class="voterWeight" min="0" max="999999">
+        <button type="button" id="{{voters}}" class="addVoter"><i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+    </p>
+    <br>
+    <button type="button" class="createElection">Create Election</button>
 </template>

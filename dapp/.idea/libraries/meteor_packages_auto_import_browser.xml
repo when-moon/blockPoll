@@ -144,6 +144,7 @@
         <item url="file://$USER_HOME$/.meteor/packages/launch-screen/1.1.1/web.browser/default-behavior.js" />
         <item url="file://$USER_HOME$/.meteor/packages/http/1.3.0/web.browser/httpcall_client.js" />
         <item url="file://$USER_HOME$/.meteor/packages/launch-screen/1.1.1/web.browser/mobile-launch-screen.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/fortawesome_fontawesome/4.7.0/web.browser/upstream/css/font-awesome.css" />
         <item url="file://$USER_HOME$/.meteor/packages/http/1.3.0/web.browser/httpcall_server.js" />
         <item url="file://$USER_HOME$/.meteor/packages/mongo-dev-server/1.1.0/web.browser/server.js" />
         <item url="file://$USER_HOME$/.meteor/packages/base64/1.0.10/web.browser/base64.js" />
@@ -306,6 +307,7 @@
       <root url="file://$USER_HOME$/.meteor/packages/launch-screen/1.1.1/web.browser/default-behavior.js" />
       <root url="file://$USER_HOME$/.meteor/packages/http/1.3.0/web.browser/httpcall_client.js" />
       <root url="file://$USER_HOME$/.meteor/packages/launch-screen/1.1.1/web.browser/mobile-launch-screen.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/fortawesome_fontawesome/4.7.0/web.browser/upstream/css/font-awesome.css" />
       <root url="file://$USER_HOME$/.meteor/packages/http/1.3.0/web.browser/httpcall_server.js" />
       <root url="file://$USER_HOME$/.meteor/packages/mongo-dev-server/1.1.0/web.browser/server.js" />
       <root url="file://$USER_HOME$/.meteor/packages/base64/1.0.10/web.browser/base64.js" />

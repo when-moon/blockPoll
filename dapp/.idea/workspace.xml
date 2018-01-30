@@ -21,21 +21,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../client/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="467">
-              <caret line="99" column="45" lean-forward="false" selection-start-line="99" selection-start-column="45" selection-end-line="99" selection-end-column="45" />
+            <state relative-caret-position="323">
+              <caret line="157" column="112" lean-forward="true" selection-start-line="157" selection-start-column="112" selection-end-line="157" selection-end-column="112" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../client/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
-              <caret line="314" column="37" lean-forward="true" selection-start-line="314" selection-start-column="37" selection-end-line="314" selection-end-column="37" />
+            <state relative-caret-position="670">
+              <caret line="484" column="21" lean-forward="true" selection-start-line="484" selection-start-column="21" selection-end-line="484" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -55,36 +55,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>se</find>
-      <find>session.set(&quot;currentAddress</find>
-      <find>network</find>
-      <find>locked</find>
-      <find>accountLocked</find>
-      <find>templatevar.g</find>
-      <find>endingBlock</find>
+      <find>=&gt;</find>
+      <find>.foreach</find>
+      <find>newVoters</find>
+      <find>voterWeights</find>
+      <find>try</find>
+      <find>console.log(results</find>
+      <find>newvotersw</find>
+      <find>removevo</find>
+      <find>voterweights</find>
+      <find>weight</find>
+      <find>votersnames</find>
+      <find>weights</find>
+      <find>newVotersNames</find>
+      <find>newvotersNames</find>
+      <find>session.set(&quot;newvotersnames</find>
+      <find>curre</find>
+      <find>in</find>
+      <find>candidatename</find>
+      <find>createel</find>
+      <find>ispa</find>
+      <find>createe</find>
+      <find>starting block</find>
+      <find>createele</find>
       <find>Address</find>
-      <find>console.log(</find>
-      <find>address</find>
-      <find>session.get(&quot;add</find>
-      <find>vote</find>
-      <find>regi</find>
-      <find>session</find>
-      <find>alert</find>
-      <find>registeredForElection</find>
-      <find>al</find>
-      <find>credi</find>
+      <find>{</find>
+      <find>create</find>
+      <find>wrong</find>
       <find>numberOfVotingCredits</find>
-      <find>objectToPairs</find>
-      <find>console.log</find>
-      <find>submit</find>
-      <find>.c</find>
-      <find>from</find>
-      <find>function</find>
-      <find>getElectionFromBlockchain</find>
-      <find>v</find>
-      <find>electionAddress</find>
-      <find>vote.ca</find>
-      <find>credits</find>
+      <find>votersCredit</find>
+      <find>Credits</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -196,18 +196,18 @@
       <option name="presentableId" value="Default" />
       <updated>1517239316636</updated>
       <workItem from="1517239320483" duration="29000" />
-      <workItem from="1517239478963" duration="21975000" />
+      <workItem from="1517239478963" duration="37591000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22004000" />
+    <option name="totallyTimeSpent" value="37620000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="-3" width="1922" height="1054" extended-state="6" />
+    <frame x="-1" y="-3" width="1922" height="1054" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973656" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.50632244" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -245,18 +245,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../client/main.html">
+    <entry file="file://$PROJECT_DIR$/../client/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="99" column="45" lean-forward="false" selection-start-line="99" selection-start-column="45" selection-end-line="99" selection-end-column="45" />
+        <state relative-caret-position="670">
+          <caret line="484" column="21" lean-forward="true" selection-start-line="484" selection-start-column="21" selection-end-line="484" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../client/main.js">
+    <entry file="file://$PROJECT_DIR$/../client/main.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="314" column="37" lean-forward="true" selection-start-line="314" selection-start-column="37" selection-end-line="314" selection-end-column="37" />
+        <state relative-caret-position="323">
+          <caret line="157" column="112" lean-forward="true" selection-start-line="157" selection-start-column="112" selection-end-line="157" selection-end-column="112" />
           <folding />
         </state>
       </provider>
