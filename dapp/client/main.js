@@ -1,3 +1,4 @@
+SavedRolls= new Mongo.Collection('savedRolls');
 const ABI_ARRAY = [{
     "constant": true,
     "inputs": [],
@@ -272,6 +273,7 @@ Template.createElection.helpers({
         if (Session.get("newVoters") != undefined) {
             Session.get("newVoters").forEach((key, i) => result[key] = [Session.get("newVoterWeights")[i], Session.get("newVotersNames")[i]]);
         }
+        Session.set("voterRoll",result);
         console.log(result);
         return result;
     },
@@ -438,9 +440,28 @@ Template.createElection.events({
         //     console.log("Failed to create the certificate.");
         //     error(err);
         // }
+    },
+    'click .saveVoterRol': function(){
+        console.log($('#saveVoterRollName')[0].value);
+        SavedRolls.insert(
+            {
+                voterRollName: $('#saveVoterRollName')[0].value,
+                voterRoll: Session.get("voterRoll")
+            }
+        );
     }
-
 });
+
+Template.createElection.onRendered(function() {
+    let voterRollTemplatesList = SavedRolls.find().fetch()
+
+    $(".voterRollTemplates").empty();
+    $.each(candidates.list(), function (i, p) {
+        $('.voterRollTemplates').append($('<option></option>').val(p).html(p));
+    });
+});
+
+
 function getContract(certificateAddress) {
     try {
         return web3.eth.contract(ABI_ARRAY).at(certificateAddress);

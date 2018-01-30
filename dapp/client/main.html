@@ -141,7 +141,8 @@
     </p>
 
     <h2>Voter Roll:</h2>
-
+    <p>Load from existing voter roll:</p>
+    <select class="voterRollTemplates"></select>
     <table>
         <tr>
             <th>Name</th>
@@ -170,6 +171,12 @@
         <input type="number" name="voterWeight" placeholder="voter Weight" class="voterWeight" min="0" max="999999">
         <button type="button" id="{{voters}}" class="addVoter"><i class="fa fa-plus" aria-hidden="true"></i>
         </button>
+        <br>
+        <p>
+        Optionally, you can choose to save your voter roll to a database. This enables you to re-use your voter roll for later elections.
+        </p>
+        <input type="text" id="saveVoterRollName" name="savedVoterRollName" placeholder="Voter Roll name">
+        <button type="button" id="saveVoterRoll" class = "saveVoterRol">Save Roll</button>
     </p>
     <br>
     <button type="button" class="createElection">Create Election</button>
