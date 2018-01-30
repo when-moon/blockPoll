@@ -4,36 +4,36 @@
 **blockPoll** is a pseudo-anonymous, online, blockchain-based voting tool, used to facilitate organizational-based proxy voting and polling mechanisms for a wide array of uses.
 
 ## Table of Contents
-1. [What is it](#What is it)
-2. [How it works](#How it works)
-3. [Why it works](#Why it works)
-   1. [Current voting mechanisms](#Current voting mechanisms)
-   2. [How does blockPoll improve on these mechanisms?](#How does blockPoll improve on these mechanisms?)
+1. [What is it](#What-is-it)
+2. [How it works](#How-it-works)
+3. [Why it works](#Why-it-works)
+   1. [Current voting mechanisms](#Current-voting-mechanisms)
+   2. [How does blockPoll improve on these mechanisms?](#How-does-blockPoll-improve-on-these-mechanisms?)
 4. [Features](#Features)
-5. [How to use](#How to use)
+5. [How to use](#How-to-use)
    1. [Administrator](#Administrator)
    2. [Voter](#Voter)
    3. [Viewer](#Viewer)
-   4. [Running on your local machine](#Running on your local machine)
-6. [Current limitations and future considerations](#Current limitations and future considerations)
+   4. [Running on your local machine](#Running-on-your-local-machine)
+6. [Current limitations and future considerations](#Current-limitations-and-future-considerations)
 
-## What is it <a name="What is it"></a>
+## What is it <a name="What-is-it"></a>
 
 By leveraging the power of the Ethereum blockchain, coupled with an easy to use web API, **blockPoll** provides a mechanism whereby both corporate and non-corporate organisations can conduct voting or poll-like events in a decentralised manner. During the voting process, all participants (voters and candidates) are able to see in real-time the progress results of the undertaken vote without anyone other than the registrar(s) being able to see which voter voted for which candidate. 
 
 The final tallied outcome of the vote is also publicly accessible to all members, with the same level of anonymity discussed above. The creator of the vote is able to specify the type of proxy voting procedure (partial, non-partial) as well as user specified input arguments decided upon during contract creation.
 .
 
-## How it works <a name="How it works"></a>
+## How it works <a name="How-it-works"></a>
 
 Given a list of potential candidates, as well as the those who are eligible within the organization to vote for said candidates (Decided upon by a central authorizing committee within the organization), the tool allows a user to create both partial or non-partial proxy voting schemes. By uploading a CSV file of the voters and their associated “voting power” the admistrator can register voters for the election. The ID of each voter and the numerical representation of their voting power is made publically available, but the ID-voter pair is known only by the administrator/registrar and the voter itself.
 
 By displaying the ID of each voter, as well those that the ID voted for, the current progress of the voting process can be displayed to each voter and candidate. This means that the voter is able to verify that his/her vote has been logged correctly while still preserving the anonymity of the voter. An Ethereum smart contract manages the creation and tallying of votes. This allows for complete immutability of all results, and prevents those with malicious intent from interfering with the voting process. Additionally, after creation, as long as the voting process has not yet begun (Start and end date/time decided upon by administrator of the contract by specifying block numbers), the administrator is able to delete the contract in the event of a miscreated poll. However, once the specified begin block has been mined, the contract cannot be deleted, preserving its immutability and transparency for the benefit of both those who are voting and the candidates being voted for.
 
-## Why it works <a name="Why it works"></a>
+## Why it works <a name="Why-it-works"></a>
 
 
-### Current voting mechanisms <a name="Current voting mechanisms"></a>
+### Current voting mechanisms <a name="Current-voting-mechanisms"></a>
 In a corporate business context, proxy voting allows for a ballot to be cast by one person on behalf of a shareholder of a corporation. This allows for the vote to be conveniently cast without the shareholder having to attend a shareholders meeting. These shareholders receive a ballot - either by mail, internet or, in some cases, over the phone - along with an information booklet called a proxy statement. This statement outlines the circumstances surrounding the vote including new board electives, merger or acquisition approval, stock compensation, inter-office policies etc. Additionally, the proxy statement asserts whether the vote  is:
 
 * **Non-Partial** -- The vote is carried out in a binary type manner, ie: YES, NO or - in some cases - ABSTAIN. In circumstances where a specific candidate or event is being voted for, the voter is only allowed to vote for one candidate. Here the voter is forced to assign the full weight of their shareholding power behind their vote meaning that they are only allowed to vote for one candidate (event) and they are only allowed to vote once. 
@@ -41,7 +41,7 @@ In a corporate business context, proxy voting allows for a ballot to be cast by 
 
 Once the vote is cast, a central tallying authority is responsible for ensuring that the voting process was conducted fairly and - depending on the type of system used - the votes have been recorded and tallied correctly ensuring the validity of the winning candidate.
 
-### How does blockPoll improve on these mechanisms? <a name="How does blockPoll improve on these mechanisms?"></a>
+### How does blockPoll improve on these mechanisms? <a name="How-does-blockPoll-improve-on-these-mechanisms?"></a>
 
 #### Immutability
 The [Proof of Work (PoW)](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ) consensus protocol used by the Ethereum network ensures that once all nodes have agreed on its state, no one node has the power to falsify the data or to censor changes. As such, once the contract has been deployed and the start block has been mined, no individual can alter the state of the contract and in such disrupt the validity of the vote and subsequently the results of the election. 
@@ -92,7 +92,7 @@ This allows for proper control and supervision of the voting process and increas
 * The Dapp dynamically pulls the current gas price from [ETH Gas Station](https://ethgasstation.info/) to make it as cheap as possible for the user. This ensures that each transaction is executed with the currently decided upon minimum amount of gas possible that will still allow the transaction to go through successfully in a reasonable amount of time. This provides a good balance between performance and cost. 
 * The **web API** provides a wrapper for the contract whereby external third party companies and applications can build around to display current electoral progress and statistics in a more visually appealing way. This allows companies like **CNN** and the like to pull from information in the API and integrate it into their websites and applications in the manner they see fit. 
 
-## How to use <a name="How to use"></a>
+## How to use <a name="How-to-use"></a>
 **blockPoll** is intended to be used for the creation, interaction and viewing of a fully fledged electoral system on a decentralized blockchain. The way it works depends on its user at any given time. 
 
 ### Administrator <a name="Administrator"></a>	
@@ -132,7 +132,7 @@ Because the voting process is executed by, and stored on a public blockchain, bo
 2. Search for the public address of the contract through the interface.
 3. If necessary, view the transactional history of the contract on the public blockchain.
 
-### Running on your local machine <a name="Running on your local machine"></a>
+### Running on your local machine <a name="Running-on-your-local-machine"></a>
 
 If you wish to run **blockPoll** on your local machine for testing purposes you may do the following:
 
@@ -155,7 +155,7 @@ cd dapp
 meteor
 ```
 
-## Current limitations and future considerations  <a name="Current limitations and future considerations"></a>
+## Current limitations and future considerations  <a name="Current-limitations-and-future-considerations"></a>
 Currently, **blockPoll** has been built as a proof of concept **(PoC)** and is still just a Minimum Viable Product **(MVP)**. It is currently running on the Ropstan testnet network and still subject iteration and rapid prototyping. Because of this, there are inherent problems associated with **blockPoll** in its current form: 
 * The most obvious problem is that **blockPoll** is pseudo-anonymous. For mass adoption and use in large-scale sensitive type voting schemes (such as national or provincial elections) **blockPoll** would need to be entirely anonymous. In theory, to run **blockPoll** on the main network, this would include the implementation of some sort of [Zero Knowledge Proof (ZKP)](https://en.wikipedia.org/wiki/Non-interactive_zero-knowledge_proof). A [zk-SNARK](https://blog.ethereum.org/2016/12/05/zksnarks-in-a-nutshell/) would provide the anonymity necessary in creating such an application, but does not change how the voting mechanism works. 
 
