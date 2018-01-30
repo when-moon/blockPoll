@@ -1,6 +1,7 @@
 <head>
-    <title>VoteR</title>
-    <h1>Ethereum Voting System</h1>
+    <title>BlockPoll</title>
+    <h1>Ethereum Voting System(EVS)</h1>
+    <h2>BlockPoll</h2>
     <br>
 </head>
 
@@ -119,6 +120,15 @@
                          min="{{blockNumber}}">
     <br>
     <h2>Candidates:</h2>
+    Load candidates from previously saved election:
+
+    <select name="candidatesTemplates" id="candidatesTemplates">
+        <option selected="selected">Candidate Template</option>
+        {{#each template in savedCandidates}}
+            <option value="{{template._id}}">{{template.name}}</option>
+        {{/each}}
+    </select>
+
     <table>
         <tr>
             <th>Candidate</th>
@@ -140,9 +150,21 @@
         </button>
     </p>
 
+    <p>
+        Optionally, you can choose to save your candidate list to the database. This enables you to re-use your candidates for future elections.
+    </p>
+    <input type="text" id="savedCandidatesName" name="savedCandidatesName" placeholder="Candidate List name">
+    <button type="button" id="saveCandidateList" class = "saveCandidateList">Save Candidates</button>
+
     <h2>Voter Roll:</h2>
-    <p>Load from existing voter roll:</p>
-    <select class="voterRollTemplates"></select>
+    Load from existing voter roll:
+    <select name="voterRollTemplates" id="voterRollTemplates">
+        <option selected="selected">Voter Roll Template</option>
+    {{#each template in voteRollTemplates}}
+        <option value="{{template._id}}">{{template.name}}</option>
+    {{/each}}
+    </select>
+    <br>
     <table>
         <tr>
             <th>Name</th>

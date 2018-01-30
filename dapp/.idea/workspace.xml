@@ -21,21 +21,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../client/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="488">
-              <caret line="144" column="37" lean-forward="false" selection-start-line="144" selection-start-column="19" selection-end-line="144" selection-end-column="37" />
+            <state relative-caret-position="-1264">
+              <caret line="33" column="12" lean-forward="true" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../client/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="447" column="29" lean-forward="false" selection-start-line="447" selection-start-column="29" selection-end-line="447" selection-end-column="29" />
+            <state relative-caret-position="-1032">
+              <caret line="206" column="29" lean-forward="true" selection-start-line="206" selection-start-column="29" selection-end-line="206" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -44,8 +44,8 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../server/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+            <state relative-caret-position="72">
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -65,36 +65,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>newvotersw</find>
-      <find>removevo</find>
-      <find>voterweights</find>
-      <find>weight</find>
-      <find>votersnames</find>
-      <find>newVotersNames</find>
-      <find>newvotersNames</find>
-      <find>session.set(&quot;newvotersnames</find>
-      <find>curre</find>
-      <find>in</find>
-      <find>candidatename</find>
-      <find>createel</find>
-      <find>ispa</find>
-      <find>createe</find>
-      <find>starting block</find>
-      <find>createele</find>
-      <find>Address</find>
-      <find>{</find>
-      <find>create</find>
-      <find>wrong</find>
-      <find>numberOfVotingCredits</find>
-      <find>votersCredit</find>
-      <find>Credits</find>
-      <find>savedroll</find>
-      <find>saved</find>
-      <find>newvotersweights</find>
-      <find>weights</find>
+      <find>newvoterwe</find>
+      <find>return result</find>
+      <find>at this point</find>
+      <find>at result point</find>
+      <find>session.set(&quot;v</find>
+      <find>Session.set(&quot;voter</find>
+      <find>session.set(&quot;voter</find>
+      <find>session.set(&quot;voterRoll&quot;</find>
+      <find>console.log(&quot;toRemove</find>
+      <find>newvoterweight</find>
+      <find>voterRoll</find>
+      <find>save roll</find>
+      <find>console.log</find>
+      <find>SavedRolls</find>
+      <find>candidatelist</find>
+      <find>session.get(&quot;newcan</find>
       <find>insert</find>
-      <find>$(&quot;.candidate</find>
-      <find>select</find>
+      <find>.find</find>
+      <find>.find().</find>
+      <find>CandidateTemplates</find>
+      <find>session.get(&quot;new</find>
+      <find>console.log(eve</find>
+      <find>newcan</find>
+      <find>&lt;select</find>
+      <find>add</find>
+      <find>change</find>
+      <find>create</find>
+      <find>candidate tem</find>
+      <find>ispartial</find>
+      <find>isPartial</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -221,12 +221,12 @@
       <option name="presentableId" value="Default" />
       <updated>1517239316636</updated>
       <workItem from="1517239320483" duration="29000" />
-      <workItem from="1517239478963" duration="40060000" />
+      <workItem from="1517239478963" duration="52248000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40089000" />
+    <option name="totallyTimeSpent" value="52277000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="-3" width="1922" height="1054" extended-state="6" />
@@ -272,24 +272,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../server/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../client/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="144" column="37" lean-forward="false" selection-start-line="144" selection-start-column="19" selection-end-line="144" selection-end-column="37" />
+        <state relative-caret-position="72">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../client/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="447" column="29" lean-forward="false" selection-start-line="447" selection-start-column="29" selection-end-line="447" selection-end-column="29" />
+        <state relative-caret-position="-1032">
+          <caret line="206" column="29" lean-forward="true" selection-start-line="206" selection-start-column="29" selection-end-line="206" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../client/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1264">
+          <caret line="33" column="12" lean-forward="true" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
           <folding />
         </state>
       </provider>

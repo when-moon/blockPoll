@@ -1,18 +1,21 @@
 SavedRolls= new Mongo.Collection('savedRolls');
-const ABI_ARRAY = [{
-    "constant": true,
-    "inputs": [],
-    "name": "numberOfVoters",
-    "outputs": [
-        {
-            "name": "",
-            "type": "uint256"
-        }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-},
+SavedCandidates= new Mongo.Collection('savedCandidates');
+
+const ABI_ARRAY = [
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "numberOfCandidates",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
     {
         "constant": true,
         "inputs": [
@@ -25,7 +28,7 @@ const ABI_ARRAY = [{
         "outputs": [
             {
                 "name": "",
-                "type": "uint256"
+                "type": "int256"
             }
         ],
         "payable": false,
@@ -72,41 +75,8 @@ const ABI_ARRAY = [{
     },
     {
         "constant": true,
-        "inputs": [
-            {
-                "name": "",
-                "type": "bytes32"
-            }
-        ],
-        "name": "candidates",
-        "outputs": [
-            {
-                "name": "",
-                "type": "int256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
         "inputs": [],
         "name": "endingBlock",
-        "outputs": [
-            {
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [],
-        "name": "numberOfCandidates",
         "outputs": [
             {
                 "name": "",
@@ -134,6 +104,39 @@ const ABI_ARRAY = [{
     {
         "constant": true,
         "inputs": [],
+        "name": "numberOfVoters",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "bytes32"
+            }
+        ],
+        "name": "candidates",
+        "outputs": [
+            {
+                "name": "",
+                "type": "int256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
         "name": "startingBlock",
         "outputs": [
             {
@@ -147,19 +150,9 @@ const ABI_ARRAY = [{
     },
     {
         "constant": false,
-        "inputs": [
-            {
-                "name": "data",
-                "type": "bytes32"
-            }
-        ],
-        "name": "bytes32ToString",
-        "outputs": [
-            {
-                "name": "",
-                "type": "string"
-            }
-        ],
+        "inputs": [],
+        "name": "deleteElection",
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function"
@@ -177,15 +170,6 @@ const ABI_ARRAY = [{
             }
         ],
         "name": "vote",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [],
-        "name": "deleteElection",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
@@ -221,9 +205,10 @@ const ABI_ARRAY = [{
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "constructor"
-    }];
+    }
+];
 
-const BYTE_CODE = "606060405234156200001057600080fd5b60405162000c2238038062000c2283398101604052808051820191906020018051820191906020018051820191906020018051906020019091908051906020019091908051906020019091905050600080875111801562000072575085518751145b15156200007e57600080fd5b600085511115156200008f57600080fd5b8660029080519060200190620000a792919062000255565b508460059080519060200190620000c0929190620002e4565b50600280549050600381905550600090505b86518110156200015e578581815181101515620000eb57fe5b906020019060200201516001600089848151811015156200010857fe5b9060200190602002015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508080600101915050620000d2565b600580549050600681905550600090505b8451811015620001df577fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff600460008784815181101515620001ad57fe5b90602001906020020151600019166000191681526020019081526020016000208190555080806001019150506200016f565b826008819055508160098190555083600760006101000a81548160ff02191690831515021790555033600a60006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050505050505050620003aa565b828054828255906000526020600020908101928215620002d1579160200282015b82811115620002d05782518260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055509160200191906001019062000276565b5b509050620002e091906200033c565b5090565b82805482825590600052602060002090810192821562000329579160200282015b828111156200032857825182906000191690559160200191906001019062000305565b5b50905062000338919062000382565b5090565b6200037f91905b808211156200037b57600081816101000a81549073ffffffffffffffffffffffffffffffffffffffff02191690555060010162000343565b5090565b90565b620003a791905b80821115620003a357600081600090555060010162000389565b5090565b90565b61086880620003ba6000396000f3006060604052600436106100ba576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631a0478d5146100bf57806333be940d146100fa578063394180711461010f5780637b1f337d1461015c5780638c279f9f146101855780639201de55146101b25780639bcc3361146102525780639c84bb271461027b5780639ef1204c146102a4578063b09b2d45146102d4578063d91c98d314610313578063da58c7d91461033c575b600080fd5b34156100ca57600080fd5b6100e460048080356000191690602001909190505061039f565b6040518082815260200191505060405180910390f35b341561010557600080fd5b61010d6103b7565b005b341561011a57600080fd5b610146600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061042c565b6040518082815260200191505060405180910390f35b341561016757600080fd5b61016f610444565b6040518082815260200191505060405180910390f35b341561019057600080fd5b61019861044a565b604051808215151515815260200191505060405180910390f35b34156101bd57600080fd5b6101d760048080356000191690602001909190505061045d565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156102175780820151818401526020810190506101fc565b50505050905090810190601f1680156102445780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b341561025d57600080fd5b61026561055c565b6040518082815260200191505060405180910390f35b341561028657600080fd5b61028e610562565b6040518082815260200191505060405180910390f35b34156102af57600080fd5b6102d2600480803560001916906020019091908035906020019091905050610568565b005b34156102df57600080fd5b6102f560048080359060200190919050506107ab565b60405180826000191660001916815260200191505060405180910390f35b341561031e57600080fd5b6103266107cf565b6040518082815260200191505060405180910390f35b341561034757600080fd5b61035d60048080359060200190919050506107d5565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60046020528060005260406000206000915090505481565b600a60009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561041357600080fd5b3073ffffffffffffffffffffffffffffffffffffffff16ff5b60016020528060005260406000206000915090505481565b60095481565b600760009054906101000a900460ff1681565b610465610814565b61046d610828565b600080602060405180591061047f5750595b9080825280601f01601f19166020018201604052509250600091505b6020821015610551578160080260020a856001900402600102905060007f010000000000000000000000000000000000000000000000000000000000000002817effffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff19161415156105445780838381518110151561051357fe5b9060200101907effffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916908160001a9053505b818060010192505061049b565b829350505050919050565b60035481565b60065481565b6000600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020541115156105b657600080fd5b600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054811115151561060457600080fd5b7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6004600084600019166000191681526020019081526020016000205414806106685750600060046000846000191660001916815260200190815260200160002054135b151561067357600080fd5b7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6004600084600019166000191681526020019081526020016000205414156106d8576000600460008460001916600019168152602001908152602001600020819055505b600760009054906101000a900460ff16151561073157600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205490505b806004600084600019166000191681526020019081526020016000206000828254019250508190555080600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825403925050819055505050565b6005818154811015156107ba57fe5b90600052602060002090016000915090505481565b60085481565b6002818154811015156107e457fe5b90600052602060002090016000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b602060405190810160405280600081525090565b6020604051908101604052806000815250905600a165627a7a72305820b26977e09fba59e99207e81471bf13264dddc0477693657e73fe4ad3069485550029";
+const BYTE_CODE = "6060604052341561000f57600080fd5b604051610ae1380380610ae183398101604052808051820191906020018051820191906020018051820191906020018051906020019091908051906020019091908051906020019091905050600080875111801561006e575085518751145b151561007957600080fd5b6000855111151561008957600080fd5b866002908051906020019061009f929190610243565b5084600590805190602001906100b69291906102cd565b50600280549050600381905550600090505b86518110156101505785818151811015156100df57fe5b906020019060200201516001600089848151811015156100fb57fe5b9060200190602002015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000208190555080806001019150506100c8565b600580549050600681905550600090505b84518110156101ce577fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff60046000878481518110151561019d57fe5b9060200190602002015160001916600019168152602001908152602001600020819055508080600101915050610161565b826008819055508160098190555083600760006101000a81548160ff02191690831515021790555033600a60006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050505050505050610388565b8280548282559060005260206000209081019282156102bc579160200282015b828111156102bb5782518260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555091602001919060010190610263565b5b5090506102c99190610320565b5090565b82805482825590600052602060002090810192821561030f579160200282015b8281111561030e5782518290600019169055916020019190600101906102ed565b5b50905061031c9190610363565b5090565b61036091905b8082111561035c57600081816101000a81549073ffffffffffffffffffffffffffffffffffffffff021916905550600101610326565b5090565b90565b61038591905b80821115610381576000816000905550600101610369565b5090565b90565b61074a806103976000396000f3006060604052600436106100af576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631a0478d5146100b457806333be940d146100ef57806339418071146101045780637b1f337d146101515780638c279f9f1461017a5780639bcc3361146101a75780639c84bb27146101d05780639ef1204c146101f9578063b09b2d4514610229578063d91c98d314610268578063da58c7d914610291575b600080fd5b34156100bf57600080fd5b6100d96004808035600019169060200190919050506102f4565b6040518082815260200191505060405180910390f35b34156100fa57600080fd5b61010261030c565b005b341561010f57600080fd5b61013b600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610381565b6040518082815260200191505060405180910390f35b341561015c57600080fd5b610164610399565b6040518082815260200191505060405180910390f35b341561018557600080fd5b61018d61039f565b604051808215151515815260200191505060405180910390f35b34156101b257600080fd5b6101ba6103b2565b6040518082815260200191505060405180910390f35b34156101db57600080fd5b6101e36103b8565b6040518082815260200191505060405180910390f35b341561020457600080fd5b6102276004808035600019169060200190919080359060200190919050506103be565b005b341561023457600080fd5b61024a60048080359060200190919050506106b5565b60405180826000191660001916815260200191505060405180910390f35b341561027357600080fd5b61027b6106d9565b6040518082815260200191505060405180910390f35b341561029c57600080fd5b6102b260048080359060200190919050506106df565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60046020528060005260406000206000915090505481565b600a60009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561036857600080fd5b3073ffffffffffffffffffffffffffffffffffffffff16ff5b60016020528060005260406000206000915090505481565b60095481565b600760009054906101000a900460ff1681565b60035481565b60065481565b6000600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205413151561040c57600080fd5b600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054811315151561045a57600080fd5b7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6004600084600019166000191681526020019081526020016000205414806104be5750600060046000846000191660001916815260200190815260200160002054135b15156104c957600080fd5b7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff60046000846000191660001916815260200190815260200160002054141561052e576000600460008460001916600019168152602001908152602001600020819055505b600760009054906101000a900460ff16151561058757600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205490505b8060046000846000191660001916815260200190815260200160002060008282540192505081905550600081600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054031415610663577fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055506106b1565b80600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825403925050819055505b5050565b6005818154811015156106c457fe5b90600052602060002090016000915090505481565b60085481565b6002818154811015156106ee57fe5b90600052602060002090016000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a72305820b76da6b2c9d6deff7a6eebe6c86db0881f72d6704fc998d900a2e5fe681a6bde0029";
 
 Meteor.setInterval(checkWeb3Status, 1000);
 
@@ -269,14 +254,22 @@ Template.createElection.helpers({
     },
     rollMap: function () {
         var result = {};
-        console.log(Session.get("newVotersNames"));
         if (Session.get("newVoters") != undefined) {
             Session.get("newVoters").forEach((key, i) => result[key] = [Session.get("newVoterWeights")[i], Session.get("newVotersNames")[i]]);
+            //Object.assign is used to merge. this is needed in the case that the user selects a template then tries to add
+            //their own additions to it. both lists must persist. more over, in the case that the user adds voters to the list
+            //then selects a template. both should remain in both cases.
+            Session.set("voterRoll", Object.assign(result,Session.get("voterRoll")));
+
         }
-        Session.set("voterRoll",result);
-        console.log(result);
-        return result;
+        return Session.get("voterRoll");
     },
+    voteRollTemplates: function(){
+        return SavedRolls.find().fetch();
+    },
+    savedCandidates: function(){
+        return SavedCandidates.find().fetch();
+    }
 });
 
 let Address;
@@ -302,12 +295,13 @@ let newCandidates = [];
 let newVoters = [];
 let newVotersWeights = [];
 let newVotersNames = [];
+let voterRoll = {};
 Template.createElection.events({
     'click .addCandidate': function (e) {
         let newCandidateName = $('#candidateName')[0].value;
         if(($.inArray(newCandidateName,newCandidates))===-1){
             newCandidates.push(newCandidateName);
-            Session.set("newCandidates", newCandidates);
+            Session.set("newCandidates", Object.assign(newCandidates, Session.get("newCandidates")));
         }
     },
     'click .removeCandidate': function (e) {
@@ -317,10 +311,16 @@ Template.createElection.events({
         Session.set("newCandidates", newCandidates);
     },
     'click .removeVoter': function (e) {
-        let idToRemove = event.target.name;
+        let idToRemove = e.currentTarget.id;
+
         newVoters = Session.get("newVoters");
         newVotersWeights = Session.get("newVoterWeights");
-        newVotersNames = Session.get("newVoterWeights");
+        newVotersNames = Session.get("newVotersNames");
+        voterRoll = Session.get("voterRoll");
+
+        delete voterRoll[idToRemove];
+
+        Session.set("voterRoll",voterRoll);
 
         newVotersWeights.splice(newVoters.indexOf(idToRemove), 1);
         newVotersNames.splice(newVoters.indexOf(idToRemove), 1);
@@ -377,30 +377,26 @@ Template.createElection.events({
             return;
         }
 
-        console.log(Session.get("newVoters"));
-        console.log(Session.get("newVoterWeights"));
+        //extract all the weights from the voterRoll map. These are the inputed weights. need to use the voterRoll rather
+        //then the other session variable as this accounts for voters added through the use of a template; no voter is left behind :)
+        var VoterWeights = $.map(Session.get("voterRoll"),function(v){
+            return v[0];
+        });
 
-        var newVoterWeightsInts = Session.get("newVoterWeights").map(function (x) { //cast voter weights to ints for contract call
+        var VoterWeightsInts = VoterWeights.map(function (x) { //cast voter weights to ints for contract call
             return parseInt(x, 10);
         });
 
-        console.log(Session.get("newCandidates"));
-        console.log($('#partial').prop('checked'));
-        console.log($("#startingBlock")[0].value);
-        console.log($("#endingBlock")[0].value);
-
-
-
-        // try {
+        console.log(VoterWeightsInts);
 
             let election = web3.eth.contract(ABI_ARRAY);
             let contractInstance = election.new(
-                Session.get("newVoters"),
-                newVoterWeightsInts,
+                Object.keys(Session.get("voterRoll")),
+                VoterWeightsInts,
                 Session.get("newCandidates"),
                 $('#partial').prop('checked'),
-                $("#startingBlock")[0].value,
-                $("#endingBlock")[0].value,
+                parseInt($("#startingBlock")[0].value),
+                parseInt($("#endingBlock")[0].value),
                 {
                     from: Address,
                     data: BYTE_CODE,
@@ -445,20 +441,42 @@ Template.createElection.events({
         console.log($('#saveVoterRollName')[0].value);
         SavedRolls.insert(
             {
-                voterRollName: $('#saveVoterRollName')[0].value,
+                name: $('#saveVoterRollName')[0].value,
                 voterRoll: Session.get("voterRoll")
             }
         );
+    },
+    'change #voterRollTemplates': function (event) {
+        templateID=event.target.value;
+        if(templateID!="Voter Roll Template"){
+            Session.set("voterRoll",Object.assign(SavedRolls.find({_id : templateID}).fetch()[0].voterRoll),Session.get("voterRoll"));
+        }
+    },
+    'click .saveCandidateList': function (){
+        console.log($('#savedCandidatesName')[0].value);
+        SavedCandidates.insert(
+            {
+                name: $('#savedCandidatesName')[0].value,
+                candidateList: Session.get("newCandidates")
+            }
+        )
+    },
+    'change #candidatesTemplates':function(event){
+        candidateID=event.target.value;
+        if(candidateID!="Candidate Template"){
+            Session.set("newCandidates",Object.assign(SavedCandidates.find({_id: candidateID}).fetch()[0].candidateList),Session.get("newCandidates"));
+        }
     }
+
 });
 
 Template.createElection.onRendered(function() {
-    let voterRollTemplatesList = SavedRolls.find().fetch()
+    // Session.set("voterRollTemplates",SavedRolls.find().fetch());
 
-    $(".voterRollTemplates").empty();
-    $.each(candidates.list(), function (i, p) {
-        $('.voterRollTemplates').append($('<option></option>').val(p).html(p));
-    });
+    // $(".voterRollTemplates").empty();
+    // $.each(candidates.list(), function (i, p) {
+    //     $('.voterRollTemplates').append($('<option></option>').val(p).html(p));
+    // });
 });
 
 
@@ -531,6 +549,7 @@ function getElectionFromBlockchain(electionAddress, template) {
 
     election.isPartial(function (err, res) {
         TemplateVar.set(template, "isPartial", res);
+        console.log(res);
     });
 }
 
@@ -619,10 +638,6 @@ Template.findElection.helpers({
         if (voters.list().length > 0) {
             voters.list().forEach((key, i) => result[key] = votersCredit.list()[i]);
         }
-        // for (let i=0;i<result.length;i++){
-        //     // if result[i]
-        // }
-        console.log(result);
         if (Session.get("Address") in result) {
             Session.set("registeredForElection", true);
             try {
