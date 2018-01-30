@@ -1,4 +1,4 @@
-# [blockPoll](http://georgeosddev.github.com/markdown-edit)
+# blockPoll
 
 blockPoll is a pseudo-anonymous, online, blockchain-based voting tool, used to facilitate organizational-based proxy voting and polling mechanisms for a wide array of uses. 
 
@@ -34,7 +34,7 @@ The Proof of Work (PoW) consensus protocol used by the Ethereum network ensures 
 
 Because a blockchain requires that there exist a ledger containing the sequential time-stamped trial of transactions, and these transactions are stored in a sequential array of blocks containing reference to their predecessors, an audible trial of transactions is created which can be publicly viewed. This blockPoll leverages this, allowing voters to validate that their vote has been captured correctly, without revealing to other voters or candidate their identity. This also allows blockPoll to display in real-time (if chosen by the organization) to make public the progress of the election. The API provides a dashboard upon which the progress can be viewed, as well as providing visual metrics should the organization choose to make public the voting progress.
 
-##### Persistence of results
+#### Persistence of results
 
 Once created and deployed on the public chain, the contract cannot be destroyed. The data stored by the contact is forever accessible and allows users to see the outcome of an event in the past. This increases both its auditability and immutability as it prevents those with malicious intent to delete the contract in the hope of nullifying the vote.
 
@@ -52,10 +52,58 @@ Blockchain technology and smart contracts in general are still in the early adop
 
 #### Decentralized
 
-
+The decentralized nature of the blockchain provides blockpoll with advantages over and above those that exist already. Because all transactions occur with the smart contract and not with a centralized tallying authority, it reduces the burden on chief executives to carry out a seemingly mundane task of counting and verifying votes. The concern of how the voting procedure is run is hard-coded into the contract, and as such made publicly available to all concerning parties, This allows for proper control and supervision of the voting process and increases voter and candidate satisfaction in the fact that their votes are being accounted for correctly. Once finished, disputing the outcome of the election is prevented as there is no central issuing authority who can take responsibility for the outcome. Its decentralized nature ensures shared control between all the nodes on the network, and the consensus between these nodes aids in the auditability and transparency of the entire electorial procedure.  
 For more option, see [programming API](http://codemirror.net/doc/manuaal.html) of CodeMirror, and Hack [Markdown Edit](http://github.com/georgeosddev/markdown-edit)
 
-### Converter
+## Features
+
+* Ability for **administrative user** to upload a **CSV file** containg a list of voters and their associated voting power. 
+* Ability for **administrative user** to upload a **CSV file** containg a list of possible candidates.
+* Ability for **administrative user** to manualy insert a list of voters and their associated voting power.
+* Ability for **administrative user** to manualy insert a list of possible candidates.
+* Ability for **administrative user** to manualy insert a list of voters or candidates from a stored data base of past voters/candidates.
+* Ristrar assigns a **unique Id** - or more simply - their **public key** to each voter known only by the voter and the registrar, allowing for them to see that their vote has been captured correctly in a psuedo-anonomous way. 
+* Ability for **adminstrative user** to specify the block number on which they would like the election to begin. If the starting block number is less than the current block, the election will begin as sson as the contract has been deployed.
+* Ability for **adminstrative user** to specify the block number on which they would like the election to end.
+* Ability for **adminstrative user** to specify whether the voting mechanism is **partial** or **non-partial**.
+* The web API dynamically pulls the current gas price from ethgasstation **Put website here** to make it as cheap as possible for the user. This ensures that each transaction is executed with the currelty decided upon minimum amount of gass possible that will still allow the transaction to go through successfully. This provides a good balance between performance and cost. 
+* The **web API** provides a wrapper for the contract whereby external third party companies and applications can build around to display current electorcal progress and statistics in a more visually appealing way. This allows companies like CNN and the like to pull from information in the API and intergrate it into thier websites and applications in the manner they see fit. 
+
+## How to use
+blockPoll is inteded to be used for the creation, interaction and veiwing of a fully fledged electorial system on a decentralized blockchain. The way it works depends on its user at any given time. 
+
+### Admistrator
+An administrator is in charge of creating the voting contract and deploying it on the blockchain. The administrator also acts as a registrar in the sense that they are responsible for inserting both the voters and the voting candidates into the database. The administrator has knowledge of both the name of the voter and his/her private Id key. The administrator should be someone who is not envolved in the voting procedure and must not share publiclally the associated voter with their public key.
+
+#### Instructions
+1. The administrator must have access to a list of all voting candidates, as well as a list of voters and their public keys.
+2. Navigate to **put web adress here website** 
+3. Login to metaMask  -- **Put website in here**. 
+4. Select whether or not the election will be run as a **partial** or **non-partial** vote.
+5. Select the begin and end block number based on the current block number displayed. If the starting block selected is below the current block number, the election will begin the instant the contract has been created and deployed. Depending on how far in the future you wish to start the election, the time between blocks can be calculated here: **Put website here**.
+6. The registrar must then insert both the voters and candidates. This can be done in one of 3 ways:
+   * The registrar manually inputs each voter and candidate by typing them into the selected input fields. The registrar also has the option to delete each entry individually if needed.
+   * The registrar uploads 2 seperate CSV files containing the voters and voting candidates.
+   * Becasue the database stores the names of past input voters and candidates, given that the election has been run before with all or part of the same partiipants, the registrsr is able to select names from a drop-down field of past voters or candidtaes.
+
+### Voter
+Depending on the type of vote taking place (**partial** or **non-partial**), a voter has the ability to cast his/her vote. In a **non-partial** vote, the voter will only be able to cast his vote once, and regardless of how much weight they put behind their vote, the contract will ensure that the full voting power they have is allocated to the candidate. Under **partial** voting conditions, the voter is able to vote more than once but cannot vote for multiple candidates during a single transaction. In such an event, the voter must revote and assign as many voting credits as they wish to each candidate. They can continue to do this for as many candidates as they please until all of their voting credits have been assigned to candidates.
+
+#### Instructions
+
+1. Navigate to **put website here**. Here the voter is able to veiw the current status of the election.
+2. Input user credentials including assigned weight of vote (Depending on type of election).
+3. Click `vote`.
+4. Follow MetaMask **Put hyperlink here** promps.
+
+### Viewer
+Becasue the voting process is executed by, and stored on a public blockchain, both voters and candidates alike can veiw the current progress of the election. 
+
+#### instructions
+1. Go to **PUt URL here**.
+2. Search for the public adress of the contract through the interface.
+3. If neccessary, veiw the transactionakl history of the contract on the public blockchain.
+
 To Convert markdown to html, Markdown-Edit Use [Github's API](http://developer.github.com/v3/markdown/#render-a-markdown-document-in-raw-mode) as default.<br>
 For more infomation, See official Guide
 * [GitHub API v3](http://developer.github.com/v3/markdown/)
@@ -234,6 +282,8 @@ Source code can be found on [github](https://github.com/georgeOsdDev/markdown-ed
 Developed by [Takeharu.Oshida](http://about.me/takeharu.oshida)
 
     
+
+
 
 
 
