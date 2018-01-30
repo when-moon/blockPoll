@@ -17,7 +17,7 @@ Given a list of potential candidates, as well as the those who are eligble withi
 Why choose blockPoll over current proxy voting mechanisms?
 
 ### Current voting mechanisms
-In a coperate business context, proxy voting allows for a ballot to be cast by one person on behalf of a shareholder of a corporation. This allows for the vote to be conviniently cast without the shareholder having to attend a shareholders meeting. These shareholders recieve a ballot - either by mail, internet or, in some cases, over the phone - along with an information booklet called a proxy statement. This statement outlines the circumstances surrounding the vote including new borad eectives, merger or aquisition approval, stock compensation, inter-office policies etc. Additionally, the proxy statement asserts whether the vote is:
+In a coperate business context, proxy voting allows for a ballot to be cast by one person on behalf of a shareholder of a corporation. This allows for the vote to be conviniently cast without the shareholder having to attend a shareholders meeting. These shareholders recieve a ballot - either by mail, internet or, in some cases, over the phone - along with an information booklet called a proxy statement. This statement outlines the circumstances surrounding the vote including new borad eectives, merger or aquisition approval, stock compensation, inter-office policies etc. Additionally, the proxy statement asserts whether the vote  is:
 
 * **Non-Partial** -- The vote is carried out in a binery type manner, ie: YES, NO or - in some cases - ABSTAIN. In cirucumstances where a specific candidate or event is being voted for, the voter is only allowed to vote for one candidate. Here the voter is forced to assign the full wieght of their shareholding power behind thier vote meaning that they are only allowed to vote for one candididate (event) and they are only allowed to vote once. 
 * **Partial** -- Depending on the voting circumstances, the voter is able to assign all or only part of their voting power to a candidate (event). This means that the voter is able to vote more than once for multiple differnet cadidates (events), spliiting their voting power between candidates in however incremental portion they choose. The voter is able to do this until all of his/her weighting power has been assigned to thier chosen voting candidate(s). 
@@ -27,8 +27,28 @@ and - depending on the type of system used - the votes have been recorded and ta
 
 ### How does blockPoll imporove on these mechanisms?
 
+#### Immutibility
+The Proof of Work (PoW) consnsus protocol used by the Etherium network enusres that once all nodes have agreed on its state, no one node has the power to falsify the data or to censor changes. As such, once the contract has been deploed and the start block has been mined, no individual can alter the state of the contract and in such disrupt the validity of the vote. Any change to the contract would result in a disagreemment between the nodes. This gives both voters and voting candidates the peace of mind that the result of the vote has not been altered or tampered with during its life cycle. This relegates the voters and candidates from the need of a central tallying authority and removes the need to trust in these entities.
 
-For more option, see [programming API](http://codemirror.net/doc/manual.html) of CodeMirror, and Hack [Markdown Edit](http://github.com/georgeosddev/markdown-edit)
+#### Auditablity and Transparancy
+
+Becasue a blockchain requires that there exist a ledger containing the sequencial time-stamped trial of transactions, and these transactions are stored in a sequencial array of blocks containing reference to thier predescesors, an auditible trial of transactions is created which can be publically veiwed. This blockPoll leverages this, allowing voters to validiate that theier vote has been captured correctly, without reveliling to other voters or candidate thier identity. This also allows blockPoll to display in real-time (if chosen by the orginization) to make public the progress of the election. The API provides a dashboard upon which the progress can be veiwed, as well as providing visual metrics should the orginization choose to make public the voting progress.
+
+##### Persistance of results
+
+Once created and deployed on the public chain, the contract 
+
+#### Scalability
+
+
+#### Cost
+
+##### Future Proof
+
+#### Dectralized
+
+
+For more option, see [programming API](http://codemirror.net/doc/manuaal.html) of CodeMirror, and Hack [Markdown Edit](http://github.com/georgeosddev/markdown-edit)
 
 ### Converter
 To Convert markdown to html, Markdown-Edit Use [Github's API](http://developer.github.com/v3/markdown/#render-a-markdown-document-in-raw-mode) as default.<br>
