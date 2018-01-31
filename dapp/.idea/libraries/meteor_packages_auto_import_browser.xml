@@ -8,6 +8,9 @@
         <item url="file://$USER_HOME$/.meteor/packages/promise/0.10.1/web.browser/server.js" />
         <item url="file://$USER_HOME$/.meteor/packages/promise/0.10.1/web.browser/client.js" />
         <item url="file://$USER_HOME$/.meteor/packages/promise/0.10.1/web.browser/promise-tests.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/alexwine_bootstrap-4/4.0.0-beta.2/web.browser/dist/js/bootstrap.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/alexwine_bootstrap-4/4.0.0-beta.2/web.browser/dist/js/popper.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/alexwine_bootstrap-4/4.0.0-beta.2/web.browser/dist/css/bootstrap.css" />
         <item url="file://$USER_HOME$/.meteor/packages/mongo-id/1.0.6/web.browser/id.js" />
         <item url="file://$USER_HOME$/.meteor/packages/babel-runtime/1.1.1/web.browser/babel-runtime.js" />
         <item url="file://$USER_HOME$/.meteor/packages/boilerplate-generator/1.3.1/web.browser/template-web.cordova.js" />
@@ -97,6 +100,7 @@
         <item url="file://$USER_HOME$/.meteor/packages/modules-runtime/0.9.1/web.browser/client.js" />
         <item url="file://$USER_HOME$/.meteor/packages/id-map/1.0.9/web.browser/id-map.js" />
         <item url="file://$USER_HOME$/.meteor/packages/accounts-ui-unstyled/1.3.0/web.browser/login_buttons_dialogs.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/nahue_simple-line-icons/1.0.0/web.browser/packages/nahue:simple-line-icons.js" />
         <item url="file://$USER_HOME$/.meteor/packages/accounts-ui-unstyled/1.3.0/web.browser/login_buttons.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ejson/1.1.0/web.browser/ejson_tests.js" />
         <item url="file://$USER_HOME$/.meteor/packages/modules-runtime/0.9.1/web.browser/.npm/package/node_modules/install/install.js" />
@@ -105,6 +109,7 @@
         <item url="file://$USER_HOME$/.meteor/packages/accounts-ui-unstyled/1.3.0/web.browser/login_buttons_single.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ejson/1.1.0/web.browser/ejson.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ejson/1.1.0/web.browser/custom_models_for_tests.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/nahue_simple-line-icons/1.0.0/web.browser/packages/nahue:simple-line-icons/lib/css/simple-line-icons.css" />
         <item url="file://$USER_HOME$/.meteor/packages/accounts-ui-unstyled/1.3.0/web.browser/login_buttons_session.js" />
         <item url="file://$USER_HOME$/.meteor/packages/jquery/1.11.10/web.browser/jquery.js" />
         <item url="file://$USER_HOME$/.meteor/packages/jquery/1.11.10/web.browser/main.js" />
@@ -212,6 +217,9 @@
       <root url="file://$USER_HOME$/.meteor/packages/promise/0.10.1/web.browser/server.js" />
       <root url="file://$USER_HOME$/.meteor/packages/promise/0.10.1/web.browser/client.js" />
       <root url="file://$USER_HOME$/.meteor/packages/promise/0.10.1/web.browser/promise-tests.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/alexwine_bootstrap-4/4.0.0-beta.2/web.browser/dist/js/bootstrap.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/alexwine_bootstrap-4/4.0.0-beta.2/web.browser/dist/js/popper.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/alexwine_bootstrap-4/4.0.0-beta.2/web.browser/dist/css/bootstrap.css" />
       <root url="file://$USER_HOME$/.meteor/packages/mongo-id/1.0.6/web.browser/id.js" />
       <root url="file://$USER_HOME$/.meteor/packages/babel-runtime/1.1.1/web.browser/babel-runtime.js" />
       <root url="file://$USER_HOME$/.meteor/packages/boilerplate-generator/1.3.1/web.browser/template-web.cordova.js" />
@@ -301,6 +309,7 @@
       <root url="file://$USER_HOME$/.meteor/packages/modules-runtime/0.9.1/web.browser/client.js" />
       <root url="file://$USER_HOME$/.meteor/packages/id-map/1.0.9/web.browser/id-map.js" />
       <root url="file://$USER_HOME$/.meteor/packages/accounts-ui-unstyled/1.3.0/web.browser/login_buttons_dialogs.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/nahue_simple-line-icons/1.0.0/web.browser/packages/nahue:simple-line-icons.js" />
       <root url="file://$USER_HOME$/.meteor/packages/accounts-ui-unstyled/1.3.0/web.browser/login_buttons.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ejson/1.1.0/web.browser/ejson_tests.js" />
       <root url="file://$USER_HOME$/.meteor/packages/modules-runtime/0.9.1/web.browser/.npm/package/node_modules/install/install.js" />
@@ -309,6 +318,7 @@
       <root url="file://$USER_HOME$/.meteor/packages/accounts-ui-unstyled/1.3.0/web.browser/login_buttons_single.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ejson/1.1.0/web.browser/ejson.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ejson/1.1.0/web.browser/custom_models_for_tests.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/nahue_simple-line-icons/1.0.0/web.browser/packages/nahue:simple-line-icons/lib/css/simple-line-icons.css" />
       <root url="file://$USER_HOME$/.meteor/packages/accounts-ui-unstyled/1.3.0/web.browser/login_buttons_session.js" />
       <root url="file://$USER_HOME$/.meteor/packages/jquery/1.11.10/web.browser/jquery.js" />
       <root url="file://$USER_HOME$/.meteor/packages/jquery/1.11.10/web.browser/main.js" />

@@ -382,7 +382,7 @@ Template.WalletBallance.helpers({
 //event listners
 let Address;
 Template.findElection.events({
-    'submit form': function () {
+    'click .searchForElection': function () {
         let template = Template.instance();
         event.preventDefault();
         let electionAddress = event.target.address.value;
@@ -879,4 +879,825 @@ Meteor.startup(function () {
         beep: false,
         onClose: _.noop //
     });
+    /*!
+
+     =========================================================
+     * Paper Kit 2 - v2.0.0
+     =========================================================
+
+     * Product Page: http://www.creative-tim.com/product/paper-kit-2
+     * Copyright 2017 Creative Tim (http://www.creative-tim.com)
+     * Licensed under MIT (https://github.com/timcreative/paper-kit/blob/master/LICENSE.md)
+
+     =========================================================
+
+     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+     */
+
+    var searchVisible = 0;
+    var transparent = true;
+
+    var transparentDemo = true;
+    var fixedTop = false;
+
+    var navbar_initialized = false;
+
+    $(document).ready(function(){
+        window_width = $(window).width();
+
+        //  Activate the tooltips
+        $('[data-toggle="tooltip"]').tooltip();
+
+        //      Activate the switches with icons
+        if($('.switch').length != 0){
+            $('.switch')['bootstrapSwitch']();
+        }
+        //      Activate regular switches
+        if($("[data-toggle='switch']").length != 0){
+            $("[data-toggle='switch']").bootstrapSwitch();
+        }
+
+        if($(".tagsinput").length != 0){
+            $(".tagsinput").tagsInput();
+        }
+        if (window_width >= 768) {
+            big_image = $('.page-header[data-parallax="true"]');
+
+            if(big_image.length != 0){
+                $(window).on('scroll', pk.checkScrollForPresentationPage);
+            }
+        }
+
+        if($("#datetimepicker").length != 0){
+            $('#datetimepicker').datetimepicker({
+                icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove'
+                },
+                debug: true
+            });
+        };
+
+        // Navbar color change on scroll
+        if($('.navbar[color-on-scroll]').length != 0){
+            $(window).on('scroll', pk.checkScrollForTransparentNavbar)
+        }
+
+
+        $('.btn-tooltip').tooltip();
+        $('.label-tooltip').tooltip();
+
+        // Carousel
+        $('.carousel').carousel({
+            interval: 4000
+        });
+
+        $('.form-control').on("focus", function(){
+            $(this).parent('.input-group').addClass("input-group-focus");
+        }).on("blur", function(){
+            $(this).parent(".input-group").removeClass("input-group-focus");
+        });
+
+        // Init popovers
+        pk.initPopovers();
+
+        // Init Collapse Areas
+        pk.initCollapseArea();
+
+        // Init Sliders
+        pk.initSliders();
+
+    });
+
+
+    $(document).on('click', '.navbar-toggler', function(){
+        $toggle = $(this);
+        if(pk.misc.navbar_menu_visible == 1) {
+            $('html').removeClass('nav-open');
+            pk.misc.navbar_menu_visible = 0;
+            setTimeout(function(){
+                $toggle.removeClass('toggled');
+                $('#bodyClick').remove();
+            }, 550);
+        } else {
+            setTimeout(function(){
+                $toggle.addClass('toggled');
+            }, 580);
+
+            div = '<div id="bodyClick"></div>';
+            $(div).appendTo("body").click(function() {
+                $('html').removeClass('nav-open');
+                pk.misc.navbar_menu_visible = 0;
+                $('#bodyClick').remove();
+                setTimeout(function(){
+                    $toggle.removeClass('toggled');
+                }, 550);
+            });
+
+            $('html').addClass('nav-open');
+            pk.misc.navbar_menu_visible = 1;
+        }
+    });
+
+    pk = {
+        misc:{
+            navbar_menu_visible: 0
+        },
+
+        checkScrollForPresentationPage: debounce(function(){
+            oVal = ($(window).scrollTop() / 3);
+            big_image.css({
+                'transform':'translate3d(0,' + oVal +'px,0)',
+                '-webkit-transform':'translate3d(0,' + oVal +'px,0)',
+                '-ms-transform':'translate3d(0,' + oVal +'px,0)',
+                '-o-transform':'translate3d(0,' + oVal +'px,0)'
+            });
+        }, 4),
+
+        checkScrollForTransparentNavbar: debounce(function() {
+            if($(document).scrollTop() > $(".navbar").attr("color-on-scroll") ) {
+                if(transparent) {
+                    transparent = false;
+                    $('.navbar[color-on-scroll]').removeClass('navbar-transparent');
+                }
+            } else {
+                if( !transparent ) {
+                    transparent = true;
+                    $('.navbar[color-on-scroll]').addClass('navbar-transparent');
+                }
+            }
+        }, 17),
+
+        initPopovers: function(){
+            if($('[data-toggle="popover"]').length != 0){
+                $('body').append('<div class="popover-filter"></div>');
+
+                //    Activate Popovers
+                $('[data-toggle="popover"]').popover().on('show.bs.popover', function () {
+                    $('.popover-filter').click(function(){
+                        $(this).removeClass('in');
+                        $('[data-toggle="popover"]').popover('hide');
+                    });
+                    $('.popover-filter').addClass('in');
+                }).on('hide.bs.popover', function(){
+                    $('.popover-filter').removeClass('in');
+                });
+
+            }
+        },
+        initCollapseArea: function(){
+            $('[data-toggle="pk-collapse"]').each(function () {
+                var thisdiv = $(this).attr("data-target");
+                $(thisdiv).addClass("pk-collapse");
+            });
+
+            $('[data-toggle="pk-collapse"]').hover(function(){
+                    var thisdiv = $(this).attr("data-target");
+                    if(!$(this).hasClass('state-open')){
+                        $(this).addClass('state-hover');
+                        $(thisdiv).css({
+                            'height':'30px'
+                        });
+                    }
+
+                },
+                function(){
+                    var thisdiv = $(this).attr("data-target");
+                    $(this).removeClass('state-hover');
+
+                    if(!$(this).hasClass('state-open')){
+                        $(thisdiv).css({
+                            'height':'0px'
+                        });
+                    }
+                }).click(function(event){
+                event.preventDefault();
+
+                var thisdiv = $(this).attr("data-target");
+                var height = $(thisdiv).children('.panel-body').height();
+
+                if($(this).hasClass('state-open')){
+                    $(thisdiv).css({
+                        'height':'0px',
+                    });
+                    $(this).removeClass('state-open');
+                } else {
+                    $(thisdiv).css({
+                        'height':height + 30,
+                    });
+                    $(this).addClass('state-open');
+                }
+            });
+        },
+        initSliders: function(){
+            // Sliders for demo purpose in refine cards section
+            if($('#sliderRegular').length != 0 ){
+                var rangeSlider = document.getElementById('sliderRegular');
+                noUiSlider.create(rangeSlider, {
+                    start: [ 5000 ],
+                    range: {
+                        'min': [  2000 ],
+                        'max': [ 10000 ]
+                    }
+                });
+            }
+            if($('#sliderDouble').length != 0){
+                var slider = document.getElementById('sliderDouble');
+                noUiSlider.create(slider, {
+                    start: [20, 80],
+                    connect: true,
+                    range: {
+                        'min': 0,
+                        'max': 100
+                    }
+                });
+            }
+
+        },
+
+
+    }
+
+// Returns a function, that, as long as it continues to be invoked, will not
+// be triggered. The function will be called after it stops being called for
+// N milliseconds. If `immediate` is passed, trigger the function on the
+// leading edge, instead of the trailing.
+
+    function debounce(func, wait, immediate) {
+        var timeout;
+        return function() {
+            var context = this, args = arguments;
+            clearTimeout(timeout);
+            timeout = setTimeout(function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            }, wait);
+            if (immediate && !timeout) func.apply(context, args);
+        };
+    };
+//smooth scroll on click
+    var lastId,
+        topMenu = $("#top-menu"),
+        topMenuHeight = topMenu.outerHeight() + 15,
+        // All list items
+        menuItems = topMenu.find("a"),
+        // Anchors corresponding to menu items
+        scrollItems = menuItems.map(function () {
+            var item = $($(this).attr("href"));
+            if (item.length) {
+                return item;
+            }
+        });
+
+    menuItems.click(function (e) {
+        var href = $(this).attr("href"),
+            offsetTop = href === "#" ? 0 : $(href).offset().top - topMenuHeight + 1;
+        $('html, body').stop().animate({
+            scrollTop: offsetTop
+        }, 1000);
+        e.preventDefault();
+    });
+
+//change the active section on scroll and click
+    $(window).scroll(function () {
+        var fromTop = $(this).scrollTop() + topMenuHeight;
+        var cur = scrollItems.map(function () {
+            if ($(this).offset().top - 100 < fromTop)
+                return this;
+        });
+        cur = cur[cur.length - 1];
+        var id = cur && cur.length ? cur[0].id : "";
+
+        if (lastId !== id) {
+            lastId = id;
+            menuItems
+                .parent().removeClass("active animated fadeIn")
+                .end().filter("[href='#" + id + "']").parent().addClass("active animated fadeIn");
+        }
+    });
+
+//scroll back to top of page on click
+    $("a[href='#top']").click(function () {
+        $("html, body").animate({scrollTop: 0}, 1000);
+        return false;
+    });
+
+// Scroll to top button
+    $(document).ready(function () {
+        $("#back-top").hide();
+        $(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 500) {
+                    $('#back-top').removeClass("animated fadeOutDownBig");
+                    $('#back-top').addClass("animated fadeInUpBig");
+                    $('#back-top').show();
+                } else {
+                    $('#back-top').addClass("animated fadeOutDownBig");
+
+                }
+            });
+        });
+    });
+
+    $(function() {
+        $('.scroll-down').on('click', function(e) {
+            e.preventDefault();
+            $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top-100}, 800);
+        });
+    });
+
+    /**
+     * requestAnimationFrame
+     */
+    window.requestAnimationFrame = (function(){
+        return  window.requestAnimationFrame       ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame    ||
+            window.oRequestAnimationFrame      ||
+            window.msRequestAnimationFrame     ||
+            function (callback) {
+                window.setTimeout(callback, 1000 / 60);
+            };
+    })();
+
+
+    /**
+     * Vector
+     */
+    function Vector(x, y) {
+        this.x = x || 0;
+        this.y = y || 0;
+    }
+
+    Vector.add = function(a, b) {
+        return new Vector(a.x + b.x, a.y + b.y);
+    };
+
+    Vector.sub = function(a, b) {
+        return new Vector(a.x - b.x, a.y - b.y);
+    };
+
+    Vector.scale = function(v, s) {
+        return v.clone().scale(s);
+    };
+
+    Vector.random = function() {
+        return new Vector(
+            Math.random() * 2 - 1,
+            Math.random() * 2 - 1
+        );
+    };
+
+    Vector.prototype = {
+        set: function(x, y) {
+            if (typeof x === 'object') {
+                y = x.y;
+                x = x.x;
+            }
+            this.x = x || 0;
+            this.y = y || 0;
+            return this;
+        },
+
+        add: function(v) {
+            this.x += v.x;
+            this.y += v.y;
+            return this;
+        },
+
+        sub: function(v) {
+            this.x -= v.x;
+            this.y -= v.y;
+            return this;
+        },
+
+        scale: function(s) {
+            this.x *= s;
+            this.y *= s;
+            return this;
+        },
+
+        length: function() {
+            return Math.sqrt(this.x * this.x + this.y * this.y);
+        },
+
+        lengthSq: function() {
+            return this.x * this.x + this.y * this.y;
+        },
+
+        normalize: function() {
+            var m = Math.sqrt(this.x * this.x + this.y * this.y);
+            if (m) {
+                this.x /= m;
+                this.y /= m;
+            }
+            return this;
+        },
+
+        angle: function() {
+            return Math.atan2(this.y, this.x);
+        },
+
+        angleTo: function(v) {
+            var dx = v.x - this.x,
+                dy = v.y - this.y;
+            return Math.atan2(dy, dx);
+        },
+
+        distanceTo: function(v) {
+            var dx = v.x - this.x,
+                dy = v.y - this.y;
+            return Math.sqrt(dx * dx + dy * dy);
+        },
+
+        distanceToSq: function(v) {
+            var dx = v.x - this.x,
+                dy = v.y - this.y;
+            return dx * dx + dy * dy;
+        },
+
+        lerp: function(v, t) {
+            this.x += (v.x - this.x) * t;
+            this.y += (v.y - this.y) * t;
+            return this;
+        },
+
+        clone: function() {
+            return new Vector(this.x, this.y);
+        },
+
+        toString: function() {
+            return '(x:' + this.x + ', y:' + this.y + ')';
+        }
+    };
+
+
+    /**
+     * GravityPoint
+     */
+    function GravityPoint(x, y, radius, targets) {
+        Vector.call(this, x, y);
+        this.radius = radius;
+        this.currentRadius = radius * 0.5;
+
+        this._targets = {
+            particles: targets.particles || [],
+            gravities: targets.gravities || []
+        };
+        this._speed = new Vector();
+    }
+
+    GravityPoint.RADIUS_LIMIT = 65;
+    GravityPoint.interferenceToPoint = true;
+
+    GravityPoint.prototype = (function(o) {
+        var s = new Vector(0, 0), p;
+        for (p in o) s[p] = o[p];
+        return s;
+    })({
+        gravity:       0.05,
+        isMouseOver:   false,
+        dragging:      false,
+        destroyed:     false,
+        _easeRadius:   0,
+        _dragDistance: null,
+        _collapsing:   false,
+
+        hitTest: function(p) {
+            return this.distanceTo(p) < this.radius;
+        },
+
+        startDrag: function(dragStartPoint) {
+            this._dragDistance = Vector.sub(dragStartPoint, this);
+            this.dragging = true;
+        },
+
+        drag: function(dragToPoint) {
+            this.x = dragToPoint.x - this._dragDistance.x;
+            this.y = dragToPoint.y - this._dragDistance.y;
+        },
+
+        endDrag: function() {
+            this._dragDistance = null;
+            this.dragging = false;
+        },
+
+        addSpeed: function(d) {
+            this._speed = this._speed.add(d);
+        },
+
+        collapse: function(e) {
+            this.currentRadius *= 1.75;
+            this._collapsing = true;
+        },
+
+        render: function(ctx) {
+            if (this.destroyed) return;
+
+            var particles = this._targets.particles,
+                i, len;
+
+            for (i = 0, len = particles.length; i < len; i++) {
+                particles[i].addSpeed(Vector.sub(this, particles[i]).normalize().scale(this.gravity));
+            }
+
+            this._easeRadius = (this._easeRadius + (this.radius - this.currentRadius) * 0.07) * 0.95;
+            this.currentRadius += this._easeRadius;
+            if (this.currentRadius < 0) this.currentRadius = 0;
+
+            if (this._collapsing) {
+                this.radius *= 0.75;
+                if (this.currentRadius < 1) this.destroyed = true;
+                this._draw(ctx);
+                return;
+            }
+
+            var gravities = this._targets.gravities,
+                g, absorp,
+                area = this.radius * this.radius * Math.PI, garea;
+
+            for (i = 0, len = gravities.length; i < len; i++) {
+                g = gravities[i];
+
+                if (g === this || g.destroyed) continue;
+
+                if (
+                    (this.currentRadius >= g.radius || this.dragging) &&
+                    this.distanceTo(g) < (this.currentRadius + g.radius) * 0.85
+                ) {
+                    g.destroyed = true;
+                    this.gravity += g.gravity;
+
+                    absorp = Vector.sub(g, this).scale(g.radius / this.radius * 0.5);
+                    this.addSpeed(absorp);
+
+                    garea = g.radius * g.radius * Math.PI;
+                    this.currentRadius = Math.sqrt((area + garea * 3) / Math.PI);
+                    this.radius = Math.sqrt((area + garea) / Math.PI);
+                }
+
+                g.addSpeed(Vector.sub(this, g).normalize().scale(this.gravity));
+            }
+
+            if (GravityPoint.interferenceToPoint && !this.dragging)
+                this.add(this._speed);
+
+            this._speed = new Vector();
+
+            if (this.currentRadius > GravityPoint.RADIUS_LIMIT) this.collapse();
+
+            this._draw(ctx);
+        },
+
+        _draw: function(ctx) {
+            var grd, r;
+
+            ctx.save();
+
+            grd = ctx.createRadialGradient(this.x, this.y, this.radius, this.x, this.y, this.radius * 5);
+            grd.addColorStop(0, 'rgba(0, 0, 0, 0.1)');
+            grd.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius * 5, 0, Math.PI * 2, false);
+            ctx.fillStyle = grd;
+            ctx.fill();
+
+            r = Math.random() * this.currentRadius * 0.7 + this.currentRadius * 0.3;
+            grd = ctx.createRadialGradient(this.x, this.y, r, this.x, this.y, this.currentRadius);
+            grd.addColorStop(0, 'rgba(0, 0, 0, 1)');
+            grd.addColorStop(1, Math.random() < 0.2 ? 'rgba(255, 196, 0, 0.15)' : 'rgba(103, 181, 191, 0.75)');
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.currentRadius, 0, Math.PI * 2, false);
+            ctx.fillStyle = grd;
+            ctx.fill();
+            ctx.restore();
+        }
+    });
+
+
+    /**
+     * Particle
+     */
+    function Particle(x, y, radius) {
+        Vector.call(this, x, y);
+        this.radius = radius;
+
+        this._latest = new Vector();
+        this._speed  = new Vector();
+    }
+
+    Particle.prototype = (function(o) {
+        var s = new Vector(0, 0), p;
+        for (p in o) s[p] = o[p];
+        return s;
+    })({
+        addSpeed: function(d) {
+            this._speed.add(d);
+        },
+
+        update: function() {
+            if (this._speed.length() > 12) this._speed.normalize().scale(12);
+
+            this._latest.set(this);
+            this.add(this._speed);
+        }
+    });
+// Initialize
+
+    (function() {
+
+        // Configs
+
+        var BACKGROUND_COLOR      = 'rgba(60,160,160, 0.1)',
+            PARTICLE_RADIUS       = 1,
+            G_POINT_RADIUS        = 15,
+            G_POINT_RADIUS_LIMITS = 60;
+
+
+        // Vars
+
+        var canvas, context,
+            bufferCvs, bufferCtx,
+            screenWidth, screenHeight,
+            mouse = new Vector(),
+            gravities = [],
+            particles = [],
+            grad,
+            gui, control;
+
+
+        // Event Listeners
+
+        function resize(e) {
+            screenWidth  = canvas.width  = window.innerWidth;
+            screenHeight = canvas.height = window.innerHeight;
+            bufferCvs.width  = screenWidth;
+            bufferCvs.height = screenHeight;
+            context   = canvas.getContext('2d');
+            bufferCtx = bufferCvs.getContext('2d');
+
+            var cx = canvas.width * 0.5,
+                cy = canvas.height * 0.5;
+
+            grad = context.createRadialGradient(cx, cy, 0, cx, cy, Math.sqrt(cx * cx + cy * cy));
+            grad.addColorStop(0, 'rgba(0, 0, 0, 0)');
+            grad.addColorStop(1, 'rgba(0, 0, 0, 0.35)');
+        }
+
+        function mouseMove(e) {
+            mouse.set(e.clientX, e.clientY);
+
+            var i, g, hit = false;
+            for (i = gravities.length - 1; i >= 0; i--) {
+                g = gravities[i];
+                if ((!hit && g.hitTest(mouse)) || g.dragging)
+                    g.isMouseOver = hit = true;
+                else
+                    g.isMouseOver = false;
+            }
+
+            canvas.style.cursor = hit ? 'pointer' : 'default';
+        }
+
+        function mouseDown(e) {
+            for (var i = gravities.length - 1; i >= 0; i--) {
+                if (gravities[i].isMouseOver) {
+                    gravities[i].startDrag(mouse);
+                    return;
+                }
+            }
+            gravities.push(new GravityPoint(e.clientX, e.clientY, G_POINT_RADIUS, {
+                particles: particles,
+                gravities: gravities
+            }));
+        }
+
+        function mouseUp(e) {
+            for (var i = 0, len = gravities.length; i < len; i++) {
+                if (gravities[i].dragging) {
+                    gravities[i].endDrag();
+                    break;
+                }
+            }
+        }
+
+        function doubleClick(e) {
+            for (var i = gravities.length - 1; i >= 0; i--) {
+                if (gravities[i].isMouseOver) {
+                    gravities[i].collapse();
+                    break;
+                }
+            }
+        }
+
+
+        // Functions
+
+        function addParticle(num) {
+            var i, p;
+            for (i = 0; i < num; i++) {
+                p = new Particle(
+                    Math.floor(Math.random() * screenWidth - PARTICLE_RADIUS * 2) + 1 + PARTICLE_RADIUS,
+                    Math.floor(Math.random() * screenHeight - PARTICLE_RADIUS * 2) + 1 + PARTICLE_RADIUS,
+                    PARTICLE_RADIUS
+                );
+                p.addSpeed(Vector.random());
+                particles.push(p);
+            }
+        }
+
+        function removeParticle(num) {
+            if (particles.length < num) num = particles.length;
+            for (var i = 0; i < num; i++) {
+                particles.pop();
+            }
+        }
+
+
+        // GUI Control
+
+        control = {
+            particleNum: 100
+        };
+
+
+        // Init
+
+        canvas  = document.getElementById('c');
+        bufferCvs = document.createElement('canvas');
+
+        window.addEventListener('resize', resize, false);
+        resize(null);
+
+        addParticle(control.particleNum);
+
+        canvas.addEventListener('mousemove', mouseMove, false);
+        canvas.addEventListener('mousedown', mouseDown, false);
+        canvas.addEventListener('mouseup', mouseUp, false);
+        canvas.addEventListener('dblclick', doubleClick, false);
+
+
+        // Start Update
+
+        var loop = function() {
+            var i, len, g, p;
+
+            context.save();
+            context.fillStyle = BACKGROUND_COLOR;
+            context.fillRect(0, 0, screenWidth, screenHeight);
+            context.fillStyle = grad;
+            context.fillRect(0, 0, screenWidth, screenHeight);
+            context.restore();
+
+            for (i = 0, len = gravities.length; i < len; i++) {
+                g = gravities[i];
+                if (g.dragging) g.drag(mouse);
+                g.render(context);
+                if (g.destroyed) {
+                    gravities.splice(i, 1);
+                    len--;
+                    i--;
+                }
+            }
+
+            bufferCtx.save();
+            bufferCtx.globalCompositeOperation = 'destination-out';
+            bufferCtx.globalAlpha = 0.35;
+            bufferCtx.fillRect(0, 0, screenWidth, screenHeight);
+            bufferCtx.restore();
+
+            len = particles.length;
+            bufferCtx.save();
+            bufferCtx.fillStyle = bufferCtx.strokeStyle = '#fff';
+            bufferCtx.lineCap = bufferCtx.lineJoin = 'round';
+            bufferCtx.lineWidth = PARTICLE_RADIUS * 2;
+            bufferCtx.beginPath();
+            for (i = 0; i < len; i++) {
+                p = particles[i];
+                p.update();
+                bufferCtx.moveTo(p.x, p.y);
+                bufferCtx.lineTo(p._latest.x, p._latest.y);
+            }
+            bufferCtx.stroke();
+            bufferCtx.beginPath();
+            for (i = 0; i < len; i++) {
+                p = particles[i];
+                bufferCtx.moveTo(p.x, p.y);
+                bufferCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2, false);
+            }
+            bufferCtx.fill();
+            bufferCtx.restore();
+
+            context.drawImage(bufferCvs, 0, 0);
+            setTimeout(requestAnimationFrame(loop),3000);
+        };
+        loop();
+    })();
 });

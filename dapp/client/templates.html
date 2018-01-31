@@ -1,0 +1,303 @@
+<template name="findElection">
+    <div class="text-center">
+        <h2 id="find" class="title">Find elections on Ethereum</h2>
+        <h5 class="description">
+            Search for a currently running election. To do this, you
+            require the address of the election smart contract. This will
+            be publicised by the election administrator.
+        </h5>
+    </div>
+
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Election Address" name="address">
+        <span class="input-group-btn">
+    <button type="button" class="searchForElection btn btn-info btn-default hvr-growfast">Search</button>
+   </span>
+    </div>
+
+
+    <h2>
+        <!--note that tripple spacebar syntax is used to feed in colour styling from JS-->
+        Election Status: {{{electionStatus}}}
+    </h2>
+
+    {{#if resultsFetched}}
+        {{#if electionOver}}
+            The winner of the election was <strong> {{currentLeader}} </strong> with
+            <strong>{{currentLeaderVotes}}</strong> votes.
+            <button type="button" class="btn btn-info btn-lg button-box hvr-growfast saveElection">Save election
+                results
+            </button>
+
+        {{/if}}
+        <h3>Election Information</h3>
+        <ul>
+            <li>
+                Number of votes: {{TemplateVar.get "numberOfVotes"}}
+            </li>
+            <li>
+                Number of Candidates: {{TemplateVar.get "numberOfCandidates"}}
+            </li>
+            <li>
+                Starting Block: {{TemplateVar.get "startingBlock"}}
+            </li>
+            <li>
+                Ending Block: {{TemplateVar.get "endingBlock"}}
+            </li>
+            <li>
+                Is Partial: {{TemplateVar.get "isPartial"}}
+            </li>
+        </ul>
+
+        <h3>Candidates:</h3>
+        {{#if preElection}}
+            <table>
+                <tbody>
+                <tr>
+                    <th>Candidate</th>
+                    <th>Votes</th>
+                </tr>
+                {{#each objectToPairs candidateMap}}
+                    <tr>
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+
+            <table>
+                <tbody>
+                <tr>
+                    <th>Position</th>
+                    <th>Candidate</th>
+                    <th>Votes</th>
+                </tr>
+                {{#each objectToPairs finalResults}}
+                    <tr>
+                        <td>{{math.sum key 1}}</td>
+                        <td>{{value.[0]}}</td>
+                        <td>{{value.[1]}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        {{/if}}
+        <h3> Voters: </h3>
+        <table>
+            <tbody>
+            <tr>
+                <th>Voter Address</th>
+                <th>Credits</th>
+            </tr>
+            {{#each objectToPairs voterMap}}
+                <tr>
+                    <td>{{key}}</td>
+                    <td>{{value}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    {{/if}}
+</template>
+
+<template name="WalletBallance">
+    <div class="text-center">
+        <h2 id="about" class="title">Your Account Info</h2>
+        <h5 class="description">Your Current web3 client. This is related to your Metamask, Geth or Status client.</h5>
+    </div>
+    <h5 class="description">
+        <ul>
+            <li>Your Address: {{Address}}</li>
+            <li>Your Ether Ballance: {{walletBallance}}</li>
+            <li>Connected Network: {{connectedNetwork}}</li>
+            <li>Current BlockNumber: {{blockNumber}}</li>
+        </ul>
+    </h5>
+
+    <br>
+    <h5 class="description">
+        {{#if currentUser}}
+            you are logged! You can view your saved DB entries now.
+        {{else}}
+            you are not logged in. You dont have access to any saved DB entries. If you'd like, you can register to save
+            voter rolls and election candidates. You will be able to do all other core functions, including viewing
+            sample
+            candidate and voter roll lists from the database.
+        {{/if}}
+    </h5>
+</template>
+
+<template name="vote">
+    <div class="text-center">
+        <h2 id="vote" class="title">Vote in a current election</h2>
+        <h5 class="description">
+            Search for an election above. If you are elegable to vote, you can do so here.
+        </h5>
+    </div>
+    {{#if resultsFetched}}
+        <h1>Vote in Election</h1>
+        {{#if electionOver}}
+            <strong>This election has finished. You cant vote in it.</strong>
+        {{else}}
+            {{#if registeredForElection}}
+                <strong>You are registered to vote for this election.</strong>
+                <br>
+                <strong>You have {{numberOfVotingCredits}} voting credits on your account.</strong>
+                <br>
+                You can place a vote below:
+                <br>
+                <form>
+                    Pick candidate: <select class="candidates" name="candidate">
+                </select>
+                    <br>
+                    Pick number of credits: <input type="number" name="credits" min="1" max="{{numberOfVotingCredits}}">
+                    <br>
+                    <input type="submit" value="vote">
+                </form>
+                <br>
+            {{else}}
+                You are not registered to vote for this election.
+            {{/if}}
+        {{/if}}
+    {{/if}}
+</template>
+
+<template name="createElection">
+
+    <h2 id="create" class="title">Create new Election</h2>
+    <h5 class="description">
+        Generate a new election and post it to the Ethereum blockchain. You will need to define when the election should
+        start and end, the list of candidates and the voter roll.
+    </h5>
+
+    
+    <div class="form-check">
+        <label class="form-check-label">
+            <input class="form-check-input" type="checkbox" value="">
+            Unchecked
+            <span class="form-check-sign"></span>
+        </label>
+    </div>
+
+
+
+    <div class="form-check">
+        <label class="form-check-label">
+            <input class="form-check-input" id="partial" name="partial" type="checkbox" value="">
+            Partial Election
+            <span class="form-check-sign"></span>
+        </label>
+    </div>
+
+    <br>
+    Starting Block: <input type="number" id="startingBlock" name="startingBlock" value="{{blockNumber}}"
+                           min="{{blockNumber}}">
+    <br>
+    Ending Block: <input type="number" id="endingBlock" name="EndingBlock" value="{{blockNumber}}"
+                         min="{{blockNumber}}">
+    <br>
+
+    You can upload a CSV of your candidates or voter roll, if you have this information in a database.<br>
+    To see how to format this data, click here.
+    {{> upload}}
+
+
+    <h2>Candidates:</h2>
+
+    {{#if currentUser}}
+        You are logged in so you can load your saved past candidates. You can also view sample candidate lists.
+    {{else}}
+        You are not logged in so you cant access previous election candidates. You can however view the sample candidate
+        lists.
+    {{/if}}
+
+    <select name="candidatesTemplates" id="candidatesTemplates">
+        <option selected="selected">Candidate Template</option>
+        {{#each template in savedCandidates}}
+            <option value="{{template._id}}">{{template.name}}</option>
+        {{/each}}
+    </select>
+    <table>
+        <tr>
+            <th>Candidate</th>
+            <th></th>
+        </tr>
+        {{#each candidate in newCandidates}}
+            <tr>
+                <td>{{candidate}}</td>
+                <td>
+                    <button type="button" id="{{candidate}}" class="removeCandidate"><i class="fa fa-trash"
+                                                                                        aria-hidden="true"></i></button>
+                </td>
+            </tr>
+        {{/each}}
+    </table>
+    <p>Add new Candidates:
+        <input type="text" name="candidateName" placeholder="candidate Name" id="candidateName">
+        <button type="button" class="addCandidate" value="Add Candidate"><i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+    </p>
+
+    <p>
+        Optionally, you can choose to save your candidate list to the database. This enables you to re-use your
+        candidates for future elections.
+    </p>
+    <input type="text" id="savedCandidatesName" name="savedCandidatesName" placeholder="Candidate List name">
+    <button type="button" id="saveCandidateList" class="saveCandidateList">Save Candidates</button>
+
+    <h2>Voter Roll:</h2>
+
+    {{#if currentUser}}
+        You are logged in so you can view your past voter roll lists as well as sample lists.
+    {{else}}
+        You are not logged in so you dont have access to past voter roll lists. You can however view sample voter roll
+        lists.
+    {{/if}}
+    <select name="voterRollTemplates" id="voterRollTemplates">
+        <option selected="selected">Voter Roll Template</option>
+        {{#each template in voteRollTemplates}}
+            <option value="{{template._id}}">{{template.name}}</option>
+        {{/each}}
+    </select>
+
+    <br>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Weight</th>
+            <th></th>
+        </tr>
+        {{#each objectToPairs rollMap}}
+            <tr>
+                <td>{{value.[1]}}</td>
+                <td>{{key}}</td>
+                <td>{{value.[0]}}</td>
+                <td>
+                    <button type="button" name="{{key}}" id="{{key}}" class="removeVoter"><i class="fa fa-trash"
+                                                                                             aria-hidden="true"></i>
+                    </button>
+                </td>
+            </tr>
+        {{/each}}
+    </table>
+    <p>Add new voter:
+        <br>
+        <input type="text" name="voterName" placeholder="Voter Name" class="voterName">
+        <input type="text" name="voterAddress" placeholder="Voter Address" class="voterAddress">
+        <input type="number" name="voterWeight" placeholder="voter Weight" class="voterWeight" min="0" max="999999">
+        <button type="button" id="{{voters}}" class="addVoter"><i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+        <br>
+    <p>
+        Optionally, you can choose to save your voter roll to a database. This enables you to re-use your voter roll for
+        later elections.
+    </p>
+    <input type="text" id="saveVoterRollName" name="savedVoterRollName" placeholder="Voter Roll name">
+    <button type="button" id="saveVoterRoll" class="saveVoterRol">Save Roll</button>
+    </p>
+    <br>
+    <button type="button" class="createElection">Create Election</button>
+</template>

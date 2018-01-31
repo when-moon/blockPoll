@@ -1,272 +1,514 @@
 <head>
-    <title>BlockPoll</title>
-    <h1>Ethereum Voting System(EVS)</h1>
-    <h3>blockPoll is a pseudo-anonymous, online, blockchain-based
-        voting tool, used to facilitate organizational-based proxy
-        voting and polling mechanisms for a wide array of uses.</h3>
+    <script src="assets/js/pace.min.js"></script>
+    <link href="assets/css/pace-loader.css" rel="stylesheet"/>
+    <meta charset="utf-8"/>
+    <link rel="icon" type="image/png" href="assets/img/favicon.ico">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+    <title>blockPoll</title>
+    <!--Responsive scaling-->
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
+
+    <!-- Bootstrap -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="assets/css/paper-kit.css" rel="stylesheet"/>
+    <link href="assets/css/demo.css" rel="stylesheet"/>
+
+    <!-- overide CSS -->
+    <link href="assets/css/overide.css" rel="stylesheet"/>
+    <link href="assets/css/paper-kit-overide.css" rel="stylesheet"/>
+
+    <!--     Fonts and icons     -->
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="assets/css/nucleo-icons.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css"
+          rel="stylesheet">
+
+
+    <!-- Other -->
+    <link href="assets/css/animate.css" rel="stylesheet"/>
+    <link href="assets/css/timeline.css" rel="stylesheet"/>
+    <link href="assets/css/hover.css" rel="stylesheet"/>
+
 </head>
 
 <body>
-{{> sAlert}}
-{{> WalletBallance}}
-{{> findElection}}
-{{> vote}}
-{{> createElection}}
+
+
+<nav class="navbar navbar-toggleable-md fixed-top navbar-transparent" color-on-scroll="500">
+    <div class="container animated fadeInDown">
+        <div class="navbar-translate">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                    data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-bar"></span>
+                <span class="navbar-toggler-bar"></span>
+                <span class="navbar-toggler-bar"></span>
+            </button>
+            <a class="navbar-brand hvr-growfast" href="#top">BlockPoll</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav" id="top-menu">
+                <li class="nav-item text-center my-lg-auto hvr-growfast">
+                    <a href="#about" class="nav-link"><i
+                            class="icon-question nc-navlinks"></i> About</a>
+                </li>
+                <li class="nav-item text-center my-lg-auto hvr-growfast">
+                    <a href="#find" class="nav-link"><i
+                            class="icon-magnifier nc-navlinks"></i> Find</a>
+                </li>
+                <li class="nav-item text-center my-lg-auto hvr-growfast">
+                    <a href="#vote" class="nav-link"><i
+                            class="icon-people nc-navlinks"></i> Vote</a>
+                </li>
+                <li class="nav-item text-center my-lg-auto hvr-growfast">
+                    <a href="#create" class="nav-link"><i
+                            class="icon-note nc-navlinks"></i>
+                        <nobr>Create</nobr>
+                    </a>
+                </li>
+                <li class="nav-item text-center my-lg-auto hvr-growfast">
+                    <a href="#contact" class="nav-link nc-navlinks"><i
+                            class="icon-bubble"></i> Contact</a>
+                </li>
+                <li class="nav-item text-center my-lg-auto hvr-growfast">
+                    <a href="#contribute" class="nav-link"><i
+                            class="icon-social-github nc-navlinks"></i> Contribute</a>
+                </li>
+                <li class="nav-item text-center my-lg-auto hvr-growfast">
+                    {{> loginButtons}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="wrapper">
+
+    <div class="page-header clickThrough section-dark">
+        <!--partical canvas background-->
+        <!--<canvas class="heading-canvas hidden-sm-down" id="c"></canvas>-->
+        <div class="filter"></div>
+        <div class="content-center">
+            <div class="container" style="margin-bottom: 3.5em">
+                <div class="title-brand">
+                    <h1 class="presentation-title wow bounceIn">BLOCKPOLL</h1>
+                    <!--<div class="fog-low">-->
+                    <!--<img src="assets/img/fog-low.png" alt="">-->
+                    <!--</div>-->
+                    <!--<div class="fog-low right">-->
+                    <!--<img src="assets/img/fog-low.png" alt="">-->
+                    <!--</div>-->
+                </div>
+
+                <h2 style="margin: 0" class="presentation-subtitle text-center wow fadeIn">Immutable Elections on the Blockchain</h2>
+            </div>
+        </div>
+        <!--animated clouds-->
+        <!--<div class="moving-clouds hidden-sm-down" style="background-image: url('assets/img/clouds.png'); ">-->
+
+        <!--</div>-->
+    </div>
+    <a href="#about" class="scroll-down hidden-sm-down" address="true"> </a>
+
+    <div class="main">
+        <!--What is blockpoll-->
+        <div class="section section-gray">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-md-10 offset-md-1 wow fadeIn" data-wow-offset="20">
+                        <h2 id="about" class="title">blockPoll Mission Statement</h2>
+                        blockPoll is a pseudo-anonymous, online, blockchain-based voting tool, used to facilitate
+                        organizational-based proxy voting and polling mechanisms for a wide array of uses.
+
+                        <h5 class="description text-justify">
+
+                        </h5>
+                        <br>
+                        <a href="#" class="btn btn-default button-box">Read The White paper</a>
+                        <button type="button" class="btn btn-info btn-lg button-box hvr-growfast" data-toggle="modal"
+                                data-target="#mvpModal">
+                            Try the MVP Demo
+                        </button>
+                        <a href="#" class="btn btn-default button-box">View Source on Github </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Key points-->
+        <div class="section">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-md-10 offset-md-1 wow fadeIn">
+                        <h2 class="title">Technology Key Points</h2>
+                        <!--Row 1-->
+                        <div class="row text-center">
+                            <div class="col-md-3 wow fadeInUp" data-wow-delay="0.0s"
+                                 data-wow-offset="20">
+                                <div class="info">
+                                    <div class="icon icon-danger">
+                                        <i class="icon-directions"></i>
+                                    </div>
+                                    <div class="description">
+                                        <h4 class="info-title">Decentralised</h4>
+                                        <p class="description">Each certificate is stored as a smart contract. This adds
+                                            a fundamental level of security, differentiating our storage method from any
+                                            currently in existence.
+                                        </p>
+                                        <a href="#pkp" class="btn btn-link btn-info">Learn more</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 wow fadeInUp" data-wow-delay="0.2s"
+                                 data-wow-offset="20">
+                                <div class="info">
+                                    <div class="icon icon-primary">
+                                        <i class="nc-icon nc-tie-bow"></i>
+                                    </div>
+                                    <div class="description">
+                                        <h4 class="info-title">Smart Contracts</h4>
+                                        <p>Each certificate is stored as a smart contract. This adds a fundamental level
+                                            of security, differentiating our storage method from any currently in
+                                            existence.
+                                        </p>
+                                        <a href="#pkp" class="btn btn-link btn-info">Learn more</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 wow fadeInUp" data-wow-delay="0.4s"
+                                 data-wow-offset="20">
+                                <div class="info">
+                                    <div class="icon icon-warning">
+                                        <i class="icon-anchor"></i>
+                                    </div>
+                                    <div class="description">
+                                        <h4 class="info-title">Immutable</h4>
+                                        <p>
+                                            The immutable nature of blockchains means that information stored on them
+                                            can
+                                            never be changed. As a result, all certificates produced through our
+                                            platform
+                                            will exist, unchanged, forever.
+
+                                        </p>
+                                        <a href="#pkp" class="btn btn-link btn-info">Learn more</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 wow fadeInUp" data-wow-delay="0.6s"
+                                 data-wow-offset="20">
+                                <div class="info">
+                                    <div class="icon icon-success">
+                                        <i class="icon-share"></i>
+                                    </div>
+                                    <div class="description">
+                                        <h4 class="info-title">Public</h4>
+                                        <p>
+                                            We believe that public information should be exactly that; public. Everyone
+                                            has equal access to certificate information.
+
+                                        </p>
+                                        <a href="#pkp" class="btn btn-link btn-info">Learn more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="wow fadeIn">
+                        <!--row 2-->
+                        <div class="row text-center">
+                            <div class="col-md-3 wow fadeInUp" data-wow-delay="0.0s"
+                                 data-wow-offset="20">
+                                <div class="info">
+                                    <div class="icon icon-facebook">
+                                        <i class="icon-equalizer"></i>
+                                    </div>
+                                    <div class="description">
+                                        <h4 class="info-title">Issuer Managed</h4>
+                                        <p class="description">
+                                            Asymmetric cryptography means that only the issuing institution can modify
+                                            certificates created under their name.
+                                        </p>
+                                        <a href="#pkp" class="btn btn-link btn-info">Learn more</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 wow fadeInUp" data-wow-delay="0.2s"
+                                 data-wow-offset="20">
+                                <div class="info">
+                                    <div class="icon icon-reddit">
+                                        <i class="nc-icon nc-touch-id"></i>
+                                    </div>
+                                    <div class="description">
+                                        <h4 class="info-title">Verifiable</h4>
+                                        <p>
+                                            Certificates can be verified by validating who the signatory is. This means
+                                            that no one can ever pretend to be another issuer as each signature is
+                                            unique.
+
+                                        </p>
+                                        <a href="#pkp" class="btn btn-link btn-info">Learn more</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 wow fadeInUp" data-wow-delay="0.4s"
+                                 data-wow-offset="20">
+                                <div class="info">
+                                    <div class="icon icon-success">
+                                        <i class="nc-icon nc-support-17"></i>
+                                    </div>
+                                    <div class="description">
+                                        <h4 class="info-title">User Friendly
+                                        </h4>
+                                        <p>
+                                            Designed from the ground up to be as easy to use for both issuers and
+                                            recipients
+                                            alike. You don’t even need to interact with our system to have your
+                                            information stored on it.
+
+                                        </p>
+                                        <a href="#pkp" class="btn btn-link btn-info">Learn more</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 wow fadeInUp" data-wow-delay="0.6s"
+                                 data-wow-offset="20">
+                                <div class="info">
+                                    <div class="icon icon-sucess">
+                                        <i class="nc-icon nc-favourite-28"></i>
+                                    </div>
+                                    <div class="description">
+                                        <h4 class="info-title">Opensource</h4>
+                                        <p>We embrace the open source mentality of the blockchain. All smart contracts
+                                            and source code will remain open and publically verifiable.
+                                        </p>
+                                        <a href="#pkp" class="btn btn-link btn-info">Learn more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Find Elections-->
+        <div class="section section-gray">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2 wow fadeIn" data-wow-offset="20">
+                        {{> findElection}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Find Elections-->
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2 wow fadeIn" data-wow-offset="20">
+                        {{> vote}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Find Elections-->
+        <div class="section section-gray">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2 wow fadeIn" data-wow-offset="20">
+                        {{> createElection}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Share this page-->
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2 text-center wow fadeIn" data-wow-offset="20">
+                        <h2 id="contact" class="title">Join the blockPoll Community
+                        </h2>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col wow fadeInUp" data-wow-delay="0.0s">
+                        <button id="Slack" class="btn btn-slack button-box"><i class="fa fa-slack"></i> Slack
+                        </button>
+                        <button id="Slack" class="btn btn-gitter button-box"><i class="nc-icon nc-chart-bar-32"></i>
+                            Gitter
+                        </button>
+                        <button id="twitter" class="btn btn-twitter button-box"><i class="fa fa-twitter"></i>
+                            Twitter
+                        </button>
+                        <button id="Reddit" class="btn btn-reddit button-box"><i class="fa fa-reddit-alien"></i>
+                            Reddit
+                        </button>
+                        <button id="facebooklink" class="btn btn-telegram button-box"><i
+                                class="fa fa-telegram"></i> Telegram
+                        </button>
+                        <button id="facebooklink" class="btn btn-facebook button-box"><i
+                                class="fa fa-facebook-square"></i> Facebook
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!--End of Main-->
+    <a id="back-top" href="#top"><i class="fa fa-chevron-up hidden-sm-down"></i></a>
+</div>
+
+
+<footer class="footer footer-black footer-big">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 text-center col-sm-3 col-xs-12">
+                <h4>The Pango Project</h4>
+                <div class="social-area">
+                    <a class="btn btn-just-icon btn-round btn-facebook">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                    </a>
+                    <a class="btn btn-just-icon btn-round btn-twitter">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                    </a>
+                    <a class="btn btn-just-icon btn-round btn-google">
+                        <i class="fa fa-google-plus" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-9 offset-md-1 col-sm-9 col-xs-12">
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        <div class="links">
+                            <ul class="uppercase-links stacked-links">
+                                <li>
+                                    <a href="#paper-kit">
+                                        About
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#paper-kit">
+                                        Why
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#paper-kit">
+                                        Who
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#paper-kit">
+                                        White Paper
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#paper-kit">
+                                        Ico
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        <div class="links">
+                            <ul class="uppercase-links stacked-links">
+                                <li>
+                                    <a href="#paper-kit">
+                                        Team
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#paper-kit">
+                                        Contact Us
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#paper-kit">
+                                        About Us
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        <div class="links">
+                            <ul class="uppercase-links stacked-links">
+                                <li>
+                                    <a href="#paper-kit">
+                                        Portfolio
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#paper-kit">
+                                        How it works
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#paper-kit">
+                                        Testimonials
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-6 text-center">
+                        <div class="links">
+                            <ul class="stacked-links text-center">
+                                <li>
+                                    <h4>Powered By</h4>
+                                </li>
+                                <li>
+                                    <br>
+                                    <a href="https://www.ethereum.org/" target="_blank"><img
+                                            src="assets/img/ETHEREUM-ICON_Blank.png"
+                                            style="height: 75px; width: auto" class="my-auto"></a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="copyright">
+                    <div class="pull-left">
+                        ©
+                        2017
+                        Pango Project
+                    </div>
+                    <div class="links pull-right">
+                        <ul>
+                            <li>
+                                <a href="#paper-kit">
+                                    ICO terms
+                                </a>
+                            </li>
+                            |
+                            <li>
+                                <a href="#paper-kit">
+                                    Terms
+                                </a>
+                            </li>
+                            |
+                            <li>
+                                <a href="#paper-kit">
+                                    Privacy
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</footer>
 </body>
 
-<template name="findElection">
-    <h1>Find election on chain</h1>
-    <p>Search for a currently running election. To do this, you
-        require the address of the election smart contract. This will
-        be publicised by the election administrator.</p>
-    <form>
-        <input type="text" name="address">
-        <input type="submit" value="Search">
-    </form>
-    <h2>
-        <!--note that tripple spacebar syntax is used to feed in colour styling from JS-->
-        Election Status: {{{electionStatus}}}
-    </h2>
 
-    {{#if resultsFetched}}
-        {{#if electionOver}}
-            The winner of the election was <strong> {{currentLeader}} </strong> with
-            <strong>{{currentLeaderVotes}}</strong> votes.
-            <button class="saveElection">Save election results</button>
-
-        {{/if}}
-        <h3>Election Information</h3>
-        <ul>
-            <li>
-                Number of votes: {{TemplateVar.get "numberOfVotes"}}
-            </li>
-            <li>
-                Number of Candidates: {{TemplateVar.get "numberOfCandidates"}}
-            </li>
-            <li>
-                Starting Block: {{TemplateVar.get "startingBlock"}}
-            </li>
-            <li>
-                Ending Block: {{TemplateVar.get "endingBlock"}}
-            </li>
-            <li>
-                Is Partial: {{TemplateVar.get "isPartial"}}
-            </li>
-        </ul>
-
-        <h3>Candidates:</h3>
-        {{#if preElection}}
-            <table>
-                <tbody>
-                <tr>
-                    <th>Candidate</th>
-                    <th>Votes</th>
-                </tr>
-                {{#each objectToPairs candidateMap}}
-                    <tr>
-                        <td>{{key}}</td>
-                        <td>{{value}}</td>
-                    </tr>
-                {{/each}}
-                </tbody>
-            </table>
-        {{else}}
-
-            <table>
-                <tbody>
-                <tr>
-                    <th>Position</th>
-                    <th>Candidate</th>
-                    <th>Votes</th>
-                </tr>
-                {{#each objectToPairs finalResults}}
-                    <tr>
-                        <td>{{math.sum key 1}}</td>
-                        <td>{{value.[0]}}</td>
-                        <td>{{value.[1]}}</td>
-                    </tr>
-                {{/each}}
-                </tbody>
-            </table>
-        {{/if}}
-        <h3> Voters: </h3>
-        <table>
-            <tbody>
-            <tr>
-                <th>Voter Address</th>
-                <th>Credits</th>
-            </tr>
-            {{#each objectToPairs voterMap}}
-                <tr>
-                    <td>{{key}}</td>
-                    <td>{{value}}</td>
-                </tr>
-            {{/each}}
-            </tbody>
-        </table>
-    {{/if}}
-</template>
-
-<template name="WalletBallance">
-    <h1>Your Account Info</h1>
-    <p>Your Current web3 client. This is related to your Metamask, Geth or Status client.</p>
-    <ul>
-        <li>Your Address: {{Address}}</li>
-        <li>Your Ether Ballance: {{walletBallance}}</li>
-        <li>Connected Network: {{connectedNetwork}}</li>
-        <li>Current BlockNumber: {{blockNumber}}</li>
-    </ul>
-    {{> loginButtons}}
-    <br>
-    {{#if currentUser}}
-        you are logged! You can view your saved DB entries now.
-    {{else}}
-        you are not logged in. You dont have access to any saved DB entries. If you'd like, you can register to save
-        voter rolls and election candidates. You will be able to do all other core functions, including viewing sample
-        candidate and voter roll lists from the database.
-    {{/if}}
-
-</template>
-
-<template name="vote">
-    {{#if resultsFetched}}
-        <h1>Vote in Election</h1>
-        {{#if electionOver}}
-            <strong>This election has finished. You cant vote in it.</strong>
-        {{else}}
-            {{#if registeredForElection}}
-                <strong>You are registered to vote for this election.</strong>
-                <br>
-                <strong>You have {{numberOfVotingCredits}} voting credits on your account.</strong>
-                <br>
-                You can place a vote below:
-                <br>
-                <form>
-                    Pick candidate: <select class="candidates" name="candidate">
-                </select>
-                    <br>
-                    Pick number of credits: <input type="number" name="credits" min="1" max="{{numberOfVotingCredits}}">
-                    <br>
-                    <input type="submit" value="vote">
-                </form>
-                <br>
-            {{else}}
-                You are not registered to vote for this election.
-            {{/if}}
-        {{/if}}
-    {{/if}}
-</template>
-
-<template name="createElection">
-    <h1>Create a new Election</h1>
-    Partial Election: <input type="checkbox" id="partial" name="partial">
-    <br>
-    Starting Block: <input type="number" id="startingBlock" name="startingBlock" value="{{blockNumber}}"
-                           min="{{blockNumber}}">
-    <br>
-    Ending Block: <input type="number" id="endingBlock" name="EndingBlock" value="{{blockNumber}}"
-                         min="{{blockNumber}}">
-    <br>
-
-    You can upload a CSV of your candidates or voter roll, if you have this information in a database.<br>
-    To see how to format this data, click here.
-    {{> upload}}
-
-
-    <h2>Candidates:</h2>
-
-    {{#if currentUser}}
-        You are logged in so you can load your saved past candidates. You can also view sample candidate lists.
-    {{else}}
-        You are not logged in so you cant access previous election candidates. You can however view the sample candidate
-        lists.
-    {{/if}}
-
-    <select name="candidatesTemplates" id="candidatesTemplates">
-        <option selected="selected">Candidate Template</option>
-        {{#each template in savedCandidates}}
-            <option value="{{template._id}}">{{template.name}}</option>
-        {{/each}}
-    </select>
-    <table>
-        <tr>
-            <th>Candidate</th>
-            <th></th>
-        </tr>
-        {{#each candidate in newCandidates}}
-            <tr>
-                <td>{{candidate}}</td>
-                <td>
-                    <button type="button" id="{{candidate}}" class="removeCandidate"><i class="fa fa-trash"
-                                                                                        aria-hidden="true"></i></button>
-                </td>
-            </tr>
-        {{/each}}
-    </table>
-    <p>Add new Candidates:
-        <input type="text" name="candidateName" placeholder="candidate Name" id="candidateName">
-        <button type="button" class="addCandidate" value="Add Candidate"><i class="fa fa-plus" aria-hidden="true"></i>
-        </button>
-    </p>
-
-    <p>
-        Optionally, you can choose to save your candidate list to the database. This enables you to re-use your
-        candidates for future elections.
-    </p>
-    <input type="text" id="savedCandidatesName" name="savedCandidatesName" placeholder="Candidate List name">
-    <button type="button" id="saveCandidateList" class="saveCandidateList">Save Candidates</button>
-
-    <h2>Voter Roll:</h2>
-
-    {{#if currentUser}}
-        You are logged in so you can view your past voter roll lists as well as sample lists.
-    {{else}}
-        You are not logged in so you dont have access to past voter roll lists. You can however view sample voter roll
-        lists.
-    {{/if}}
-    <select name="voterRollTemplates" id="voterRollTemplates">
-        <option selected="selected">Voter Roll Template</option>
-        {{#each template in voteRollTemplates}}
-            <option value="{{template._id}}">{{template.name}}</option>
-        {{/each}}
-    </select>
-
-    <br>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Weight</th>
-            <th></th>
-        </tr>
-        {{#each objectToPairs rollMap}}
-            <tr>
-                <td>{{value.[1]}}</td>
-                <td>{{key}}</td>
-                <td>{{value.[0]}}</td>
-                <td>
-                    <button type="button" name="{{key}}" id="{{key}}" class="removeVoter"><i class="fa fa-trash"
-                                                                                             aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-        {{/each}}
-    </table>
-    <p>Add new voter:
-        <br>
-        <input type="text" name="voterName" placeholder="Voter Name" class="voterName">
-        <input type="text" name="voterAddress" placeholder="Voter Address" class="voterAddress">
-        <input type="number" name="voterWeight" placeholder="voter Weight" class="voterWeight" min="0" max="999999">
-        <button type="button" id="{{voters}}" class="addVoter"><i class="fa fa-plus" aria-hidden="true"></i>
-        </button>
-        <br>
-    <p>
-        Optionally, you can choose to save your voter roll to a database. This enables you to re-use your voter roll for
-        later elections.
-    </p>
-    <input type="text" id="saveVoterRollName" name="savedVoterRollName" placeholder="Voter Roll name">
-    <button type="button" id="saveVoterRoll" class="saveVoterRol">Save Roll</button>
-    </p>
-    <br>
-    <button type="button" class="createElection">Create Election</button>
-</template>
