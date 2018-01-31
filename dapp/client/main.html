@@ -116,6 +116,16 @@
         <li>Connected Network: {{connectedNetwork}}</li>
         <li>Current BlockNumber: {{blockNumber}}</li>
     </ul>
+    {{> loginButtons}}
+    <br>
+    {{#if currentUser}}
+        you are logged! You can view your saved DB entries now.
+    {{else}}
+        you are not logged in. You dont have access to any saved DB entries. If you'd like, you can register to save
+        voter rolls and election candidates. You will be able to do all other core functions, including viewing sample
+        candidate and voter roll lists from the database.
+    {{/if}}
+
 </template>
 
 <template name="vote">
@@ -165,7 +175,13 @@
 
     <h2>Candidates:</h2>
 
-    Load candidates from previously saved election:
+    {{#if currentUser}}
+        You are logged in so you can load your saved past candidates. You can also view sample candidate lists.
+    {{else}}
+        You are not logged in so you cant access previous election candidates. You can however view the sample candidate
+        lists.
+    {{/if}}
+
     <select name="candidatesTemplates" id="candidatesTemplates">
         <option selected="selected">Candidate Template</option>
         {{#each template in savedCandidates}}
@@ -201,13 +217,20 @@
     <button type="button" id="saveCandidateList" class="saveCandidateList">Save Candidates</button>
 
     <h2>Voter Roll:</h2>
-    Load from existing voter roll:
+
+    {{#if currentUser}}
+        You are logged in so you can view your past voter roll lists as well as sample lists.
+    {{else}}
+        You are not logged in so you dont have access to past voter roll lists. You can however view sample voter roll
+        lists.
+    {{/if}}
     <select name="voterRollTemplates" id="voterRollTemplates">
         <option selected="selected">Voter Roll Template</option>
         {{#each template in voteRollTemplates}}
             <option value="{{template._id}}">{{template.name}}</option>
         {{/each}}
     </select>
+
     <br>
     <table>
         <tr>

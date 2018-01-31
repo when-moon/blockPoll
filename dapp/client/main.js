@@ -254,10 +254,10 @@ Template.createElection.helpers({
         return Session.get("voterRoll");
     },
     voteRollTemplates: function () {
-        return SavedRolls.find().fetch();
+        return SavedRolls.find({$or: [{createdBy: Meteor.userId()}, {createdBy: {$exists: false}}]}).fetch();
     },
     savedCandidates: function () {
-        return SavedCandidates.find().fetch();
+        return SavedCandidates.find({$or: [{createdBy: Meteor.userId()}, {createdBy: {$exists: false}}]}).fetch();
     }
 });
 
@@ -389,7 +389,7 @@ Template.findElection.events({
         Session.set("electionAddress", electionAddress);
         getElectionFromBlockchain(electionAddress, template);
     },
-    'click .saveElection': function() {
+    'click .saveElection': function () {
         console.log("save election");
         //This method of exporting the CSV is a hack as it is built up from scratch. The standard meteor CSV export
         // lib documents are down so finding out how to do it that was was not possible so a JS solution was used.
@@ -398,19 +398,19 @@ Template.findElection.events({
         let positions = [];
         let candidates = [];
         let votes = [];
-        for (let i =0;i<Session.get("finalResults").length;i++){
+        for (let i = 0; i < Session.get("finalResults").length; i++) {
             positions.push(i);
             candidates.push(Session.get("finalResults")[i][0]);
             votes.push(Session.get("finalResults")[i][1]);
         }
 
         const rows = [["position", "Candidate", "Votes"]];
-        for (let i =0;i<Session.get("finalResults").length;i++){
-            rows.push([positions[i]+1,candidates[i],votes[i]]);
+        for (let i = 0; i < Session.get("finalResults").length; i++) {
+            rows.push([positions[i] + 1, candidates[i], votes[i]]);
         }
 
         let csvContent = "data:text/csv;charset=utf-8,";
-        rows.forEach(function(rowArray){
+        rows.forEach(function (rowArray) {
             let row = rowArray.join(",");
             csvContent += row + "\r\n";
         });
@@ -534,7 +534,8 @@ Template.createElection.events({
         SavedRolls.insert(
             {
                 name: $('#saveVoterRollName')[0].value,
-                voterRoll: Session.get("voterRoll")
+                createdBy: Meteor.userId(),
+                voterRoll: Session.get("voterRoll"),
             }
         );
     },
@@ -548,14 +549,19 @@ Template.createElection.events({
         SavedCandidates.insert(
             {
                 name: $('#savedCandidatesName')[0].value,
-                candidateList: Session.get("newCandidates")
+                createdBy: Meteor.userId(),
+                candidateList: Session.get("newCandidates"),
             }
         )
     },
     'change #candidatesTemplates': function (event) {
         candidateID = event.target.value;
         if (candidateID != "Candidate Template") {
-            Session.set("newCandidates", Object.assign(SavedCandidates.find({_id: candidateID}).fetch()[0].candidateList), Session.get("newCandidates"));
+            Session.set("newCandidates",
+                Object.assign(
+                    SavedCandidates.find({_id: candidateID}).fetch()[0].candidateList),
+                Session.get("newCandidates")
+            );
         }
     }
 });
@@ -818,38 +824,40 @@ Template.upload.helpers({
 
 
 Template.upload.events({
-    'change [name="uploadCSV"]' ( event, template ) {
-        template.uploading.set( true );
+    'change [name="uploadCSV"]' (event, template) {
+        template.uploading.set(true);
 
-        Papa.parse( event.target.files[0], {
+        Papa.parse(event.target.files[0], {
             header: true,
-            complete( results, file ) {
+            complete(results, file) {
                 sAlert.success('Upload success');
-                Session.set("resultData",results.data);
-                if($("#csvUpload")[0].value=="Candidate List"){
+                Session.set("resultData", results.data);
+                if ($("#csvUpload")[0].value == "Candidate List") {
                     //merge the existing list with the csv list
                     let existingCandidates = Session.get("newCandidates");
-                    let csvCandidates = results.data.map(a => a.candidates).filter(function(n){ return n !== "" });
+                    let csvCandidates = results.data.map(a => a.candidates).filter(function (n) {
+                        return n !== ""
+                    });
                     let mergedCandidates = csvCandidates.concat(existingCandidates);
                     sAlert.info('Candidate List selected and imported');
-                    Session.set("newCandidates",mergedCandidates);
+                    Session.set("newCandidates", mergedCandidates);
                     template.uploading.set(false);
                     return;
                 }
-                if($("#csvUpload")[0].value=="Voter Roll"){
+                if ($("#csvUpload")[0].value == "Voter Roll") {
 
                     template.uploading.set(false);
-                    Session.set("temp",results.data);
+                    Session.set("temp", results.data);
                     let csvData = {};
 
                     //loop through the csv data, add to object, then write the session variable
-                    for (let i =0;i<results.data.length;i++){
-                        if(results.data[i].address!=""){
-                            csvData[results.data[i].address]=[results.data[i].weight,results.data[i].name];
+                    for (let i = 0; i < results.data.length; i++) {
+                        if (results.data[i].address != "") {
+                            csvData[results.data[i].address] = [results.data[i].weight, results.data[i].name];
                         }
                     }
                     sAlert.info('Voter Roll Selected and imported');
-                    Session.set("voterRoll",csvData);
+                    Session.set("voterRoll", csvData);
                     return;
                 }
                 template.uploading.set(false);
