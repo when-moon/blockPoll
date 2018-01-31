@@ -21,6 +21,7 @@
 6. [Suggested use cases](#Suggested-use-cases)
 7. [Current limitations and future considerations](#Current-limitations-and-future-considerations)
 8. [Designers](#Designers)
+9. [Technologies used](#Technologies-used)
 
 ## What is it <a name="What-is-it"></a>
 
@@ -214,7 +215,7 @@ If run successfully, you should see 28 passing tests.
 Currently, **blockPoll** has been built as a proof of concept **(PoC)** and is still just a Minimum Viable Product **(MVP)**. It is currently running on the Ropstan testnet network and still subject iteration and rapid prototyping. Because of this, there are inherent problems associated with **blockPoll** in its current form: 
 * The most obvious problem is that **blockPoll** is pseudo-anonymous. For mass adoption and use in large-scale sensitive type voting schemes (such as national or provincial elections) **blockPoll** would need to be entirely anonymous. In theory, to run **blockPoll** on the main network, this would include the implementation of some sort of [Zero Knowledge Proof (ZKP)](https://en.wikipedia.org/wiki/Non-interactive_zero-knowledge_proof). A [zk-SNARK](https://blog.ethereum.org/2016/12/05/zksnarks-in-a-nutshell/) would provide the anonymity necessary in creating such an application, but does not change how the voting mechanism works. 
 
-  Another consideration was to have **blockPoll** run on a private chain, such as [Quorum](https://www.jpmorgan.com/global/Quorum) instead. [Quorum](https://www.jpmorgan.com/global/Quorum) preserves anonymity between private transactions between a permissioned group of participants. By specifying who is privy to the transaction, [Quorum's](https://www.jpmorgan.com/global/Quorum)’s `privatefor` function provides the mechanism necessary to secure the needed anonymity. As such, an Azure instance was instantiated and 7 [Quorum](https://www.jpmorgan.com/global/Quorum) nodes were set up to run **blockPoll** on.After successfully running **blockPoll** on [Quorum's](https://www.jpmorgan.com/global/Quorum) private network, however, thought was given as to how we had initially intended **blockPoll** to run. Over and above the fact that now each voting event could be done in complete anonymity, another advantage was that because [Quorum](https://www.jpmorgan.com/global/Quorum) is free. This means that deploying the contract, instantiating any votes becomes free for both voters and organization. This increases **blockPoll's** marketability, and makes the system more appealing in the eyes of organizations who do not want to spend money to use  a free open source tool. Additionally, because you are able to control contract managing parameters such the block time etc, the entire solution becomes more scalable. Transaction times are instantaneous and there is no fear of attackers flooding the network. 
+  Another consideration was to have **blockPoll** run on a private chain, such as [Quorum](https://www.jpmorgan.com/global/Quorum) instead. Quorum preserves anonymity between private transactions between a permissioned group of participants. By specifying who is privy to the transaction, Quorum’s `privatefor` function provides the mechanism necessary to secure the needed anonymity. As such, a [Microsoft Azure](https://azure.microsoft.com/en-us/overview/what-is-azure/) instance was instantiated and 7 Quorum nodes were set up to run **blockPoll** on.After successfully running **blockPoll** on Quorum's private network, however, thought was given as to how we had initially intended **blockPoll** to run. Over and above the fact that now each voting event could be done in complete anonymity, another advantage was that because Quorum is free. This means that deploying the contract, instantiating any votes becomes free for both voters and organization. This increases **blockPoll's** marketability, and makes the system more appealing in the eyes of organizations who do not want to spend money to use  a free open source tool. Additionally, because you are able to control contract managing parameters such the block time etc, the entire solution becomes more scalable. Transaction times are instantaneous and there is no fear of attackers flooding the network. 
   
   However, after taking this into consideration it became apparent that it came with a host of disadvantages as well. Because it is a private chain, voters have no way of knowing that their vote had been captured correctly. Transparency and auditability was a key design decision and a fundamental building block in realising use cases for **blockPoll** before building began. Running **blockPoll** on such a network destroys that transparency and forces voters to trust that their votes were captured correctly. **blockPoll** was designed to provide an alternate mechanism for voting whereby no trust was required. As such, it was decided that **blockPoll** would remain on a public chain until a ZKP could be introduced. However, if used correctly, this  pseudo-anonymity will almost always preserve the identity of each voter and who that voter votes for.
   
@@ -233,3 +234,41 @@ That being said however, if the institution or registrar sends each voter their 
 <p align="center">
    <img src="https://i.imgur.com/TG9sgAm.png" height="100">
 </p>
+
+## Technologies used <a name="Technologies-used"></a>
+
+
+* [solidity 0.4.17](https://solidity.readthedocs.io/en/develop/)
+* [web3 JavaScript](https://github.com/ethereum/wiki/wiki/JavaScript-API)
+* [Digital Ocean](https://www.digitalocean.com/)
+* [Truffle](http://truffleframework.com/)
+* [Ganache](http://truffleframework.com/ganache/)
+* [Remix - Solidity IDE](https://remix.ethereum.org/#optimize=false&version=soljson-v0.4.19+commit.c4cbbb05.js)
+* [Quorum](https://www.jpmorgan.com/global/Quorum)
+* [Microsoft Azure](https://azure.microsoft.com/en-us/overview/what-is-azure/)
+* [Meteor](https://www.meteor.com/)
+  * accounts-password
+  * accounts-ui
+  * alexwine:bootstrap-4
+  * autopublish
+  * blaze-html-templates
+  * ecmascript
+  * es5-shim
+  * ethereum:web3
+  * fortawesome:fontawesome
+  * frozeman:template-var
+  * harrison:papa-parse
+  * insecure
+  * juliancwirko:s-alert
+  * juliancwirko:s-alert-slide
+  * manuel:reactivearray
+  * meteor-base
+  * mobile-experience
+  * mongo
+  * nahue:simple-line-icons
+  * reactive-var
+  * session
+  * shell-server
+  * standard-minifier-css
+  * standard-minifier-js
+  * tracker
