@@ -258,6 +258,9 @@ Template.createElection.helpers({
     },
     savedCandidates: function () {
         return SavedCandidates.find({$or: [{createdBy: Meteor.userId()}, {createdBy: {$exists: false}}]}).fetch();
+    },
+    blockNumber: function () {
+        return Session.get("blockNumber");
     }
 });
 
@@ -390,7 +393,6 @@ Template.findElection.events({
         getElectionFromBlockchain(electionAddress, template);
     },
     'click .saveElection': function () {
-        console.log("save election");
         //This method of exporting the CSV is a hack as it is built up from scratch. The standard meteor CSV export
         // lib documents are down so finding out how to do it that was was not possible so a JS solution was used.
         //A better implementation for this would use https://atmospherejs.com/harrison/papa-parse
@@ -408,7 +410,7 @@ Template.findElection.events({
         for (let i = 0; i < Session.get("finalResults").length; i++) {
             rows.push([positions[i] + 1, candidates[i], votes[i]]);
         }
-
+        sAlert.success("CSV has been generated");
         let csvContent = "data:text/csv;charset=utf-8,";
         rows.forEach(function (rowArray) {
             let row = rowArray.join(",");
@@ -521,12 +523,12 @@ Template.createElection.events({
 
         createElection().then((resolve, err) => {
             if (resolve) {
-                console.log("it resolved!");
-                console.log(resolve.address);
-                console.log(resolve.txHash);
+                sAlert.success('Election Published to blockchain');
+                sAlert.info('Election Address is: ' + resolve.address);
+                sAlert.info('Election tx Hash is: ' + resolve.txHash);
             }
             if (err) {
-                console.log(err);
+                sAlert.error('Somthing went wrong creating the election');
             }
         });
     },
@@ -538,11 +540,13 @@ Template.createElection.events({
                 voterRoll: Session.get("voterRoll"),
             }
         );
+        sAlert.info('Voter Roll list saved to database');
     },
     'change #voterRollTemplates': function (event) {
         templateID = event.target.value;
         if (templateID != "Voter Roll Template") {
             Session.set("voterRoll", Object.assign(SavedRolls.find({_id: templateID}).fetch()[0].voterRoll), Session.get("voterRoll"));
+            sAlert.info('Voter Roll template Loaded');
         }
     },
     'click .saveCandidateList': function () {
@@ -553,6 +557,7 @@ Template.createElection.events({
                 candidateList: Session.get("newCandidates"),
             }
         )
+        sAlert.info('Candidate list saved to database');
     },
     'change #candidatesTemplates': function (event) {
         candidateID = event.target.value;
@@ -562,6 +567,7 @@ Template.createElection.events({
                     SavedCandidates.find({_id: candidateID}).fetch()[0].candidateList),
                 Session.get("newCandidates")
             );
+            sAlert.info('Candidate template Loaded');
         }
     }
 });
@@ -591,29 +597,32 @@ function createElection() {
                     gas: "4000000"
                 },
                 function (e, contract) {
+                    sAlert.success('Election Published to blockchain');
+                    sAlert.info('Election Address is: ' + contract.address);
+                    sAlert.info('Election tx Hash is: ' + contract.txHash);
+
                     try {
                         if (typeof contract.address !== "undefined") {
                             try {
                                 resolve({address: contract.address, txHash: contract.transactionHash});
-                                console.log(contract.address);
                             }
                             catch (err) {
                                 error(err);
                             }
                         }
                     } catch (e2) {
-                        console.log("It looks like you cancelled the transaction!");
+                        sAlert.error('It looks like you cancelled the transaction!');
                         error("Error");
                     }
                     if (e) {
-                        console.log("Oh-No! The election could not to be mined.");
+                        sAlert.error('Oh-No! The election could not to be mined.');
                         error("Error");
                     }
                 }
             );
         }
         catch (err) {
-            console.log("Failed to create the certificate.");
+            sAlert.error("Failed to create the certificate.");
             error(err);
         }
     });
@@ -624,7 +633,8 @@ function getContract(certificateAddress) {
         return web3.eth.contract(ABI_ARRAY).at(certificateAddress);
     }
     catch (err) {
-        console.log("error failed")
+        sAlert.error("Somthing went wrong getting the contract");
+        console.log(err)
     }
     return null;
 }
@@ -636,8 +646,14 @@ let votersCredit = new ReactiveArray();
 function voteInElection(candidate, credits) {
     let election = getContract(Session.get("electionAddress"));
     election.vote(candidate, credits, function (err, res) {
-        console.log(res);
-        console.log(err);
+        if (!err) {
+            sAlert.success("Vote Sucessfully posted to chain!");
+            sAlert.info("Tx address: " + res);
+        }
+        else {
+            sAlert.error("Somthing went wrong with your vote")
+            console.log(err);
+        }
     })
 }
 
@@ -696,14 +712,16 @@ function getElectionFromBlockchain(electionAddress, template) {
 //Functions
 function checkWeb3Status() {
     if (!web3.isConnected()) {
-        console.log("no web3")
+        console.log("no web3");
+        sAlert.error("You don't have a web3 client");
     } else {
         let network;
         web3.version.getNetwork((error, result) => {
             network = getNetwork(result);
             Session.set("connectedNetwork", network);
             if (network !== "Ropsten" && network !== "Unknown") {
-                console.log("wrong network")
+                console.log("wrong network");
+                sAlert.error("You are not connected to Ropsten or a local network");
             } else { // Check whether account is locked
                 web3.eth.getAccounts(function (err, res) {
                     if (!err) {
@@ -711,6 +729,7 @@ function checkWeb3Status() {
                         if (Address == undefined) {
                             if (!Session.get("accountLocked")) {
                                 console.log("account locked");
+                                sAlert.error("Your Web3 client is locked! please unlock it!");
                                 Session.set("accountLocked", true);
                                 Session.set("Address", "0x");
                                 Session.set("walletBallance", 0);
@@ -866,7 +885,7 @@ Template.upload.events({
         });
     }
 });
-
+// All JS below is open sourced for the themeing and display of the main page
 Meteor.startup(function () {
     sAlert.config({
         effect: 'slide',
@@ -879,20 +898,6 @@ Meteor.startup(function () {
         beep: false,
         onClose: _.noop //
     });
-    /*!
-
-     =========================================================
-     * Paper Kit 2 - v2.0.0
-     =========================================================
-
-     * Product Page: http://www.creative-tim.com/product/paper-kit-2
-     * Copyright 2017 Creative Tim (http://www.creative-tim.com)
-     * Licensed under MIT (https://github.com/timcreative/paper-kit/blob/master/LICENSE.md)
-
-     =========================================================
-
-     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-     */
 
     var searchVisible = 0;
     var transparent = true;
@@ -902,33 +907,33 @@ Meteor.startup(function () {
 
     var navbar_initialized = false;
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         window_width = $(window).width();
 
         //  Activate the tooltips
         $('[data-toggle="tooltip"]').tooltip();
 
         //      Activate the switches with icons
-        if($('.switch').length != 0){
+        if ($('.switch').length != 0) {
             $('.switch')['bootstrapSwitch']();
         }
         //      Activate regular switches
-        if($("[data-toggle='switch']").length != 0){
+        if ($("[data-toggle='switch']").length != 0) {
             $("[data-toggle='switch']").bootstrapSwitch();
         }
 
-        if($(".tagsinput").length != 0){
+        if ($(".tagsinput").length != 0) {
             $(".tagsinput").tagsInput();
         }
         if (window_width >= 768) {
             big_image = $('.page-header[data-parallax="true"]');
 
-            if(big_image.length != 0){
+            if (big_image.length != 0) {
                 $(window).on('scroll', pk.checkScrollForPresentationPage);
             }
         }
 
-        if($("#datetimepicker").length != 0){
+        if ($("#datetimepicker").length != 0) {
             $('#datetimepicker').datetimepicker({
                 icons: {
                     time: "fa fa-clock-o",
@@ -946,7 +951,7 @@ Meteor.startup(function () {
         };
 
         // Navbar color change on scroll
-        if($('.navbar[color-on-scroll]').length != 0){
+        if ($('.navbar[color-on-scroll]').length != 0) {
             $(window).on('scroll', pk.checkScrollForTransparentNavbar)
         }
 
@@ -959,9 +964,9 @@ Meteor.startup(function () {
             interval: 4000
         });
 
-        $('.form-control').on("focus", function(){
+        $('.form-control').on("focus", function () {
             $(this).parent('.input-group').addClass("input-group-focus");
-        }).on("blur", function(){
+        }).on("blur", function () {
             $(this).parent(".input-group").removeClass("input-group-focus");
         });
 
@@ -977,26 +982,26 @@ Meteor.startup(function () {
     });
 
 
-    $(document).on('click', '.navbar-toggler', function(){
+    $(document).on('click', '.navbar-toggler', function () {
         $toggle = $(this);
-        if(pk.misc.navbar_menu_visible == 1) {
+        if (pk.misc.navbar_menu_visible == 1) {
             $('html').removeClass('nav-open');
             pk.misc.navbar_menu_visible = 0;
-            setTimeout(function(){
+            setTimeout(function () {
                 $toggle.removeClass('toggled');
                 $('#bodyClick').remove();
             }, 550);
         } else {
-            setTimeout(function(){
+            setTimeout(function () {
                 $toggle.addClass('toggled');
             }, 580);
 
             div = '<div id="bodyClick"></div>';
-            $(div).appendTo("body").click(function() {
+            $(div).appendTo("body").click(function () {
                 $('html').removeClass('nav-open');
                 pk.misc.navbar_menu_visible = 0;
                 $('#bodyClick').remove();
-                setTimeout(function(){
+                setTimeout(function () {
                     $toggle.removeClass('toggled');
                 }, 550);
             });
@@ -1007,108 +1012,105 @@ Meteor.startup(function () {
     });
 
     pk = {
-        misc:{
+        misc: {
             navbar_menu_visible: 0
         },
 
-        checkScrollForPresentationPage: debounce(function(){
+        checkScrollForPresentationPage: debounce(function () {
             oVal = ($(window).scrollTop() / 3);
             big_image.css({
-                'transform':'translate3d(0,' + oVal +'px,0)',
-                '-webkit-transform':'translate3d(0,' + oVal +'px,0)',
-                '-ms-transform':'translate3d(0,' + oVal +'px,0)',
-                '-o-transform':'translate3d(0,' + oVal +'px,0)'
+                'transform': 'translate3d(0,' + oVal + 'px,0)',
+                '-webkit-transform': 'translate3d(0,' + oVal + 'px,0)',
+                '-ms-transform': 'translate3d(0,' + oVal + 'px,0)',
+                '-o-transform': 'translate3d(0,' + oVal + 'px,0)'
             });
         }, 4),
 
-        checkScrollForTransparentNavbar: debounce(function() {
-            if($(document).scrollTop() > $(".navbar").attr("color-on-scroll") ) {
-                if(transparent) {
+        checkScrollForTransparentNavbar: debounce(function () {
+            if ($(document).scrollTop() > $(".navbar").attr("color-on-scroll")) {
+                if (transparent) {
                     transparent = false;
                     $('.navbar[color-on-scroll]').removeClass('navbar-transparent');
                 }
             } else {
-                if( !transparent ) {
+                if (!transparent) {
                     transparent = true;
                     $('.navbar[color-on-scroll]').addClass('navbar-transparent');
                 }
             }
         }, 17),
 
-        initPopovers: function(){
-            if($('[data-toggle="popover"]').length != 0){
+        initPopovers: function () {
+            if ($('[data-toggle="popover"]').length != 0) {
                 $('body').append('<div class="popover-filter"></div>');
-
                 //    Activate Popovers
                 $('[data-toggle="popover"]').popover().on('show.bs.popover', function () {
-                    $('.popover-filter').click(function(){
+                    $('.popover-filter').click(function () {
                         $(this).removeClass('in');
                         $('[data-toggle="popover"]').popover('hide');
                     });
                     $('.popover-filter').addClass('in');
-                }).on('hide.bs.popover', function(){
+                }).on('hide.bs.popover', function () {
                     $('.popover-filter').removeClass('in');
                 });
-
             }
         },
-        initCollapseArea: function(){
+        initCollapseArea: function () {
             $('[data-toggle="pk-collapse"]').each(function () {
                 var thisdiv = $(this).attr("data-target");
                 $(thisdiv).addClass("pk-collapse");
             });
 
-            $('[data-toggle="pk-collapse"]').hover(function(){
+            $('[data-toggle="pk-collapse"]').hover(function () {
                     var thisdiv = $(this).attr("data-target");
-                    if(!$(this).hasClass('state-open')){
+                    if (!$(this).hasClass('state-open')) {
                         $(this).addClass('state-hover');
                         $(thisdiv).css({
-                            'height':'30px'
+                            'height': '30px'
                         });
                     }
-
                 },
-                function(){
+                function () {
                     var thisdiv = $(this).attr("data-target");
                     $(this).removeClass('state-hover');
 
-                    if(!$(this).hasClass('state-open')){
+                    if (!$(this).hasClass('state-open')) {
                         $(thisdiv).css({
-                            'height':'0px'
+                            'height': '0px'
                         });
                     }
-                }).click(function(event){
+                }).click(function (event) {
                 event.preventDefault();
 
                 var thisdiv = $(this).attr("data-target");
                 var height = $(thisdiv).children('.panel-body').height();
 
-                if($(this).hasClass('state-open')){
+                if ($(this).hasClass('state-open')) {
                     $(thisdiv).css({
-                        'height':'0px',
+                        'height': '0px',
                     });
                     $(this).removeClass('state-open');
                 } else {
                     $(thisdiv).css({
-                        'height':height + 30,
+                        'height': height + 30,
                     });
                     $(this).addClass('state-open');
                 }
             });
         },
-        initSliders: function(){
+        initSliders: function () {
             // Sliders for demo purpose in refine cards section
-            if($('#sliderRegular').length != 0 ){
+            if ($('#sliderRegular').length != 0) {
                 var rangeSlider = document.getElementById('sliderRegular');
                 noUiSlider.create(rangeSlider, {
-                    start: [ 5000 ],
+                    start: [5000],
                     range: {
-                        'min': [  2000 ],
-                        'max': [ 10000 ]
+                        'min': [2000],
+                        'max': [10000]
                     }
                 });
             }
-            if($('#sliderDouble').length != 0){
+            if ($('#sliderDouble').length != 0) {
                 var slider = document.getElementById('sliderDouble');
                 noUiSlider.create(slider, {
                     start: [20, 80],
@@ -1119,30 +1121,22 @@ Meteor.startup(function () {
                     }
                 });
             }
-
         },
-
-
     }
-
-// Returns a function, that, as long as it continues to be invoked, will not
-// be triggered. The function will be called after it stops being called for
-// N milliseconds. If `immediate` is passed, trigger the function on the
-// leading edge, instead of the trailing.
 
     function debounce(func, wait, immediate) {
         var timeout;
-        return function() {
+        return function () {
             var context = this, args = arguments;
             clearTimeout(timeout);
-            timeout = setTimeout(function() {
+            timeout = setTimeout(function () {
                 timeout = null;
                 if (!immediate) func.apply(context, args);
             }, wait);
             if (immediate && !timeout) func.apply(context, args);
         };
     };
-//smooth scroll on click
+    //smooth scroll on click
     var lastId,
         topMenu = $("#top-menu"),
         topMenuHeight = topMenu.outerHeight() + 15,
@@ -1165,7 +1159,7 @@ Meteor.startup(function () {
         e.preventDefault();
     });
 
-//change the active section on scroll and click
+    //change the active section on scroll and click
     $(window).scroll(function () {
         var fromTop = $(this).scrollTop() + topMenuHeight;
         var cur = scrollItems.map(function () {
@@ -1183,13 +1177,13 @@ Meteor.startup(function () {
         }
     });
 
-//scroll back to top of page on click
+    //scroll back to top of page on click
     $("a[href='#top']").click(function () {
         $("html, body").animate({scrollTop: 0}, 1000);
         return false;
     });
 
-// Scroll to top button
+    // Scroll to top button
     $(document).ready(function () {
         $("#back-top").hide();
         $(function () {
@@ -1206,49 +1200,45 @@ Meteor.startup(function () {
         });
     });
 
-    $(function() {
-        $('.scroll-down').on('click', function(e) {
+    $(function () {
+        $('.scroll-down').on('click', function (e) {
             e.preventDefault();
-            $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top-100}, 800);
+            $('html, body').animate({scrollTop: $($(this).attr('href')).offset().top - 100}, 800);
         });
     });
 
     /**
      * requestAnimationFrame
      */
-    window.requestAnimationFrame = (function(){
-        return  window.requestAnimationFrame       ||
+    window.requestAnimationFrame = (function () {
+        return window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame    ||
-            window.oRequestAnimationFrame      ||
-            window.msRequestAnimationFrame     ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
             function (callback) {
                 window.setTimeout(callback, 1000 / 60);
             };
     })();
 
-
-    /**
-     * Vector
-     */
     function Vector(x, y) {
         this.x = x || 0;
         this.y = y || 0;
     }
 
-    Vector.add = function(a, b) {
+    Vector.add = function (a, b) {
         return new Vector(a.x + b.x, a.y + b.y);
     };
 
-    Vector.sub = function(a, b) {
+    Vector.sub = function (a, b) {
         return new Vector(a.x - b.x, a.y - b.y);
     };
 
-    Vector.scale = function(v, s) {
+    Vector.scale = function (v, s) {
         return v.clone().scale(s);
     };
 
-    Vector.random = function() {
+    Vector.random = function () {
         return new Vector(
             Math.random() * 2 - 1,
             Math.random() * 2 - 1
@@ -1256,7 +1246,7 @@ Meteor.startup(function () {
     };
 
     Vector.prototype = {
-        set: function(x, y) {
+        set: function (x, y) {
             if (typeof x === 'object') {
                 y = x.y;
                 x = x.x;
@@ -1266,33 +1256,33 @@ Meteor.startup(function () {
             return this;
         },
 
-        add: function(v) {
+        add: function (v) {
             this.x += v.x;
             this.y += v.y;
             return this;
         },
 
-        sub: function(v) {
+        sub: function (v) {
             this.x -= v.x;
             this.y -= v.y;
             return this;
         },
 
-        scale: function(s) {
+        scale: function (s) {
             this.x *= s;
             this.y *= s;
             return this;
         },
 
-        length: function() {
+        length: function () {
             return Math.sqrt(this.x * this.x + this.y * this.y);
         },
 
-        lengthSq: function() {
+        lengthSq: function () {
             return this.x * this.x + this.y * this.y;
         },
 
-        normalize: function() {
+        normalize: function () {
             var m = Math.sqrt(this.x * this.x + this.y * this.y);
             if (m) {
                 this.x /= m;
@@ -1301,47 +1291,43 @@ Meteor.startup(function () {
             return this;
         },
 
-        angle: function() {
+        angle: function () {
             return Math.atan2(this.y, this.x);
         },
 
-        angleTo: function(v) {
+        angleTo: function (v) {
             var dx = v.x - this.x,
                 dy = v.y - this.y;
             return Math.atan2(dy, dx);
         },
 
-        distanceTo: function(v) {
+        distanceTo: function (v) {
             var dx = v.x - this.x,
                 dy = v.y - this.y;
             return Math.sqrt(dx * dx + dy * dy);
         },
 
-        distanceToSq: function(v) {
+        distanceToSq: function (v) {
             var dx = v.x - this.x,
                 dy = v.y - this.y;
             return dx * dx + dy * dy;
         },
 
-        lerp: function(v, t) {
+        lerp: function (v, t) {
             this.x += (v.x - this.x) * t;
             this.y += (v.y - this.y) * t;
             return this;
         },
 
-        clone: function() {
+        clone: function () {
             return new Vector(this.x, this.y);
         },
 
-        toString: function() {
+        toString: function () {
             return '(x:' + this.x + ', y:' + this.y + ')';
         }
     };
 
-
-    /**
-     * GravityPoint
-     */
     function GravityPoint(x, y, radius, targets) {
         Vector.call(this, x, y);
         this.radius = radius;
@@ -1357,48 +1343,48 @@ Meteor.startup(function () {
     GravityPoint.RADIUS_LIMIT = 65;
     GravityPoint.interferenceToPoint = true;
 
-    GravityPoint.prototype = (function(o) {
+    GravityPoint.prototype = (function (o) {
         var s = new Vector(0, 0), p;
         for (p in o) s[p] = o[p];
         return s;
     })({
-        gravity:       0.05,
-        isMouseOver:   false,
-        dragging:      false,
-        destroyed:     false,
-        _easeRadius:   0,
+        gravity: 0.05,
+        isMouseOver: false,
+        dragging: false,
+        destroyed: false,
+        _easeRadius: 0,
         _dragDistance: null,
-        _collapsing:   false,
+        _collapsing: false,
 
-        hitTest: function(p) {
+        hitTest: function (p) {
             return this.distanceTo(p) < this.radius;
         },
 
-        startDrag: function(dragStartPoint) {
+        startDrag: function (dragStartPoint) {
             this._dragDistance = Vector.sub(dragStartPoint, this);
             this.dragging = true;
         },
 
-        drag: function(dragToPoint) {
+        drag: function (dragToPoint) {
             this.x = dragToPoint.x - this._dragDistance.x;
             this.y = dragToPoint.y - this._dragDistance.y;
         },
 
-        endDrag: function() {
+        endDrag: function () {
             this._dragDistance = null;
             this.dragging = false;
         },
 
-        addSpeed: function(d) {
+        addSpeed: function (d) {
             this._speed = this._speed.add(d);
         },
 
-        collapse: function(e) {
+        collapse: function (e) {
             this.currentRadius *= 1.75;
             this._collapsing = true;
         },
 
-        render: function(ctx) {
+        render: function (ctx) {
             if (this.destroyed) return;
 
             var particles = this._targets.particles,
@@ -1448,15 +1434,13 @@ Meteor.startup(function () {
 
             if (GravityPoint.interferenceToPoint && !this.dragging)
                 this.add(this._speed);
-
             this._speed = new Vector();
-
             if (this.currentRadius > GravityPoint.RADIUS_LIMIT) this.collapse();
 
             this._draw(ctx);
         },
 
-        _draw: function(ctx) {
+        _draw: function (ctx) {
             var grd, r;
 
             ctx.save();
@@ -1481,28 +1465,23 @@ Meteor.startup(function () {
         }
     });
 
-
-    /**
-     * Particle
-     */
     function Particle(x, y, radius) {
         Vector.call(this, x, y);
         this.radius = radius;
 
         this._latest = new Vector();
-        this._speed  = new Vector();
+        this._speed = new Vector();
     }
 
-    Particle.prototype = (function(o) {
+    Particle.prototype = (function (o) {
         var s = new Vector(0, 0), p;
         for (p in o) s[p] = o[p];
         return s;
     })({
-        addSpeed: function(d) {
+        addSpeed: function (d) {
             this._speed.add(d);
         },
-
-        update: function() {
+        update: function () {
             if (this._speed.length() > 12) this._speed.normalize().scale(12);
 
             this._latest.set(this);
@@ -1511,16 +1490,14 @@ Meteor.startup(function () {
     });
 // Initialize
 
-    (function() {
+    (function () {
 
         // Configs
 
-        var BACKGROUND_COLOR      = 'rgba(60,160,160, 0.1)',
-            PARTICLE_RADIUS       = 1,
-            G_POINT_RADIUS        = 15,
+        var BACKGROUND_COLOR = 'rgba(60,160,160, 0.1)',
+            PARTICLE_RADIUS = 1,
+            G_POINT_RADIUS = 15,
             G_POINT_RADIUS_LIMITS = 60;
-
-
         // Vars
 
         var canvas, context,
@@ -1531,16 +1508,14 @@ Meteor.startup(function () {
             particles = [],
             grad,
             gui, control;
-
-
         // Event Listeners
 
         function resize(e) {
-            screenWidth  = canvas.width  = window.innerWidth;
+            screenWidth = canvas.width = window.innerWidth;
             screenHeight = canvas.height = window.innerHeight;
-            bufferCvs.width  = screenWidth;
+            bufferCvs.width = screenWidth;
             bufferCvs.height = screenHeight;
-            context   = canvas.getContext('2d');
+            context = canvas.getContext('2d');
             bufferCtx = bufferCvs.getContext('2d');
 
             var cx = canvas.width * 0.5,
@@ -1597,7 +1572,6 @@ Meteor.startup(function () {
             }
         }
 
-
         // Functions
 
         function addParticle(num) {
@@ -1620,17 +1594,14 @@ Meteor.startup(function () {
             }
         }
 
-
         // GUI Control
 
         control = {
             particleNum: 100
         };
-
-
         // Init
 
-        canvas  = document.getElementById('c');
+        canvas = document.getElementById('c');
         bufferCvs = document.createElement('canvas');
 
         window.addEventListener('resize', resize, false);
@@ -1642,11 +1613,9 @@ Meteor.startup(function () {
         canvas.addEventListener('mousedown', mouseDown, false);
         canvas.addEventListener('mouseup', mouseUp, false);
         canvas.addEventListener('dblclick', doubleClick, false);
-
-
         // Start Update
 
-        var loop = function() {
+        var loop = function () {
             var i, len, g, p;
 
             context.save();
@@ -1696,9 +1665,8 @@ Meteor.startup(function () {
             bufferCtx.restore();
 
             context.drawImage(bufferCvs, 0, 0);
-            setTimeout(requestAnimationFrame(loop),3000);
+            setTimeout(requestAnimationFrame(loop), 3000);
         };
         loop();
     })();
-
 });

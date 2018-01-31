@@ -1,13 +1,31 @@
 <template name="upload">
-    <h4>Upload a CSV</h4>
-
-        <select name="csvUpload" id="csvUpload">
-            <option selected="selected">Select Destination</option>
-            <option>Candidate List</option>
-            <option>Voter Roll</option>
-        </select>
+    <h4>
+        Upload a CSV
+        <button class="pull-right btn btn-just-icon btn-border btn-tumblr" data-toggle="modal"
+                data-target="#uploadCSVModal">
+            <i class="fa fa-question" aria-hidden="true"></i>
+        </button>
+    </h4>
+    Upload a CSV of your candidates or voter roll.
+    <br>
+    <div class="row">
+        <div class="col-xl-8 col-md-12">
+            <div class="input-group">
+                <select class="form-control" name="csvUpload" id="csvUpload">
+                    <option selected="selected">Select Destination</option>
+                    <option>Candidate List</option>
+                    <option>Voter Roll</option>
+                </select>
+                <label class="btn btn-info">
+                    Select File<input type="file" name="uploadCSV" style="display: none;">
+                </label>
+            </div>
+        </div>
+    </div>
     {{#unless uploading}}
-        <input type="file" name="uploadCSV">
+
+
+
     {{else}}
         <p><i class="fa fa-spin fa-refresh"></i> Uploading files...</p>
     {{/unless}}
