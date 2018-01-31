@@ -388,6 +388,39 @@ Template.findElection.events({
         let electionAddress = event.target.address.value;
         Session.set("electionAddress", electionAddress);
         getElectionFromBlockchain(electionAddress, template);
+    },
+    'click .saveElection': function() {
+        console.log("save election");
+        //This method of exporting the CSV is a hack as it is built up from scratch. The standard meteor CSV export
+        // lib documents are down so finding out how to do it that was was not possible so a JS solution was used.
+        //A better implementation for this would use https://atmospherejs.com/harrison/papa-parse
+        //Rather than building up the CSV in O(n) time and space complexity.
+        let positions = [];
+        let candidates = [];
+        let votes = [];
+        for (let i =0;i<Session.get("finalResults").length;i++){
+            positions.push(i);
+            candidates.push(Session.get("finalResults")[i][0]);
+            votes.push(Session.get("finalResults")[i][1]);
+        }
+
+        const rows = [["position", "Candidate", "Votes"]];
+        for (let i =0;i<Session.get("finalResults").length;i++){
+            rows.push([positions[i]+1,candidates[i],votes[i]]);
+        }
+
+        let csvContent = "data:text/csv;charset=utf-8,";
+        rows.forEach(function(rowArray){
+            let row = rowArray.join(",");
+            csvContent += row + "\r\n";
+        });
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "ElectionResults.csv");
+        document.body.appendChild(link); // Required for FF
+
+        link.click();
     }
 });
 
@@ -512,7 +545,6 @@ Template.createElection.events({
         }
     },
     'click .saveCandidateList': function () {
-        console.log($('#savedCandidatesName')[0].value);
         SavedCandidates.insert(
             {
                 name: $('#savedCandidatesName')[0].value,
@@ -568,7 +600,7 @@ function createElection() {
                         error("Error");
                     }
                     if (e) {
-                        console.log("Oh-No! The certificate could not to be mined.");
+                        console.log("Oh-No! The election could not to be mined.");
                         error("Error");
                     }
                 }
@@ -771,4 +803,72 @@ Template.registerHelper('math', function () {
 
 Template.createElection.onRendered(function () {
     Session.set("electionOver", false);
+});
+
+//CSV uploading
+Template.upload.onCreated(() => {
+    Template.instance().uploading = new ReactiveVar(false);
+});
+
+Template.upload.helpers({
+    uploading() {
+        return Template.instance().uploading.get();
+    }
+});
+
+
+Template.upload.events({
+    'change [name="uploadCSV"]' ( event, template ) {
+        template.uploading.set( true );
+
+        Papa.parse( event.target.files[0], {
+            header: true,
+            complete( results, file ) {
+                sAlert.success('Upload success');
+                Session.set("resultData",results.data);
+                if($("#csvUpload")[0].value=="Candidate List"){
+                    //merge the existing list with the csv list
+                    let existingCandidates = Session.get("newCandidates");
+                    let csvCandidates = results.data.map(a => a.candidates).filter(function(n){ return n !== "" });
+                    let mergedCandidates = csvCandidates.concat(existingCandidates);
+                    sAlert.info('Candidate List selected and imported');
+                    Session.set("newCandidates",mergedCandidates);
+                    template.uploading.set(false);
+                    return;
+                }
+                if($("#csvUpload")[0].value=="Voter Roll"){
+
+                    template.uploading.set(false);
+                    Session.set("temp",results.data);
+                    let csvData = {};
+
+                    //loop through the csv data, add to object, then write the session variable
+                    for (let i =0;i<results.data.length;i++){
+                        if(results.data[i].address!=""){
+                            csvData[results.data[i].address]=[results.data[i].weight,results.data[i].name];
+                        }
+                    }
+                    sAlert.info('Voter Roll Selected and imported');
+                    Session.set("voterRoll",csvData);
+                    return;
+                }
+                template.uploading.set(false);
+                sAlert.error('No destination selected for CSV');
+            }
+        });
+    }
+});
+
+Meteor.startup(function () {
+    sAlert.config({
+        effect: 'slide',
+        position: 'top-right',
+        timeout: 7000,
+        html: false,
+        onRouteClose: true,
+        stack: true,
+        offset: 0, // in px - will be added to first alert (bottom or top - depends of the position in config)
+        beep: false,
+        onClose: _.noop //
+    });
 });

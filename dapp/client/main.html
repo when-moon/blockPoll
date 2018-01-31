@@ -7,6 +7,7 @@
 </head>
 
 <body>
+{{> sAlert}}
 {{> WalletBallance}}
 {{> findElection}}
 {{> vote}}
@@ -31,6 +32,8 @@
         {{#if electionOver}}
             The winner of the election was <strong> {{currentLeader}} </strong> with
             <strong>{{currentLeaderVotes}}</strong> votes.
+            <button class="saveElection">Save election results</button>
+
         {{/if}}
         <h3>Election Information</h3>
         <ul>
@@ -154,9 +157,15 @@
     Ending Block: <input type="number" id="endingBlock" name="EndingBlock" value="{{blockNumber}}"
                          min="{{blockNumber}}">
     <br>
-    <h2>Candidates:</h2>
-    Load candidates from previously saved election:
 
+    You can upload a CSV of your candidates or voter roll, if you have this information in a database.<br>
+    To see how to format this data, click here.
+    {{> upload}}
+
+
+    <h2>Candidates:</h2>
+
+    Load candidates from previously saved election:
     <select name="candidatesTemplates" id="candidatesTemplates">
         <option selected="selected">Candidate Template</option>
         {{#each template in savedCandidates}}
