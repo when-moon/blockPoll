@@ -1,7 +1,7 @@
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 25%;
+    width: 100%;
 }
 
 td, th {
@@ -12,4 +12,9 @@ td, th {
 
 tr:nth-child(even) {
     background-color: #dddddd;
+}
+
+body {
+    width: 600px;
+    word-wrap: break-word;
 }

@@ -1,5 +1,5 @@
-SavedRolls= new Mongo.Collection('savedRolls');
-SavedCandidates= new Mongo.Collection('savedCandidates');
+SavedRolls = new Mongo.Collection('savedRolls');
+SavedCandidates = new Mongo.Collection('savedCandidates');
 
 const ABI_ARRAY = [
     {
@@ -208,10 +208,11 @@ const ABI_ARRAY = [
     }
 ];
 
-const BYTE_CODE = "6060604052341561000f57600080fd5b604051610ae1380380610ae183398101604052808051820191906020018051820191906020018051820191906020018051906020019091908051906020019091908051906020019091905050600080875111801561006e575085518751145b151561007957600080fd5b6000855111151561008957600080fd5b866002908051906020019061009f929190610243565b5084600590805190602001906100b69291906102cd565b50600280549050600381905550600090505b86518110156101505785818151811015156100df57fe5b906020019060200201516001600089848151811015156100fb57fe5b9060200190602002015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000208190555080806001019150506100c8565b600580549050600681905550600090505b84518110156101ce577fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff60046000878481518110151561019d57fe5b9060200190602002015160001916600019168152602001908152602001600020819055508080600101915050610161565b826008819055508160098190555083600760006101000a81548160ff02191690831515021790555033600a60006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050505050505050610388565b8280548282559060005260206000209081019282156102bc579160200282015b828111156102bb5782518260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555091602001919060010190610263565b5b5090506102c99190610320565b5090565b82805482825590600052602060002090810192821561030f579160200282015b8281111561030e5782518290600019169055916020019190600101906102ed565b5b50905061031c9190610363565b5090565b61036091905b8082111561035c57600081816101000a81549073ffffffffffffffffffffffffffffffffffffffff021916905550600101610326565b5090565b90565b61038591905b80821115610381576000816000905550600101610369565b5090565b90565b61074a806103976000396000f3006060604052600436106100af576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631a0478d5146100b457806333be940d146100ef57806339418071146101045780637b1f337d146101515780638c279f9f1461017a5780639bcc3361146101a75780639c84bb27146101d05780639ef1204c146101f9578063b09b2d4514610229578063d91c98d314610268578063da58c7d914610291575b600080fd5b34156100bf57600080fd5b6100d96004808035600019169060200190919050506102f4565b6040518082815260200191505060405180910390f35b34156100fa57600080fd5b61010261030c565b005b341561010f57600080fd5b61013b600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610381565b6040518082815260200191505060405180910390f35b341561015c57600080fd5b610164610399565b6040518082815260200191505060405180910390f35b341561018557600080fd5b61018d61039f565b604051808215151515815260200191505060405180910390f35b34156101b257600080fd5b6101ba6103b2565b6040518082815260200191505060405180910390f35b34156101db57600080fd5b6101e36103b8565b6040518082815260200191505060405180910390f35b341561020457600080fd5b6102276004808035600019169060200190919080359060200190919050506103be565b005b341561023457600080fd5b61024a60048080359060200190919050506106b5565b60405180826000191660001916815260200191505060405180910390f35b341561027357600080fd5b61027b6106d9565b6040518082815260200191505060405180910390f35b341561029c57600080fd5b6102b260048080359060200190919050506106df565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60046020528060005260406000206000915090505481565b600a60009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561036857600080fd5b3073ffffffffffffffffffffffffffffffffffffffff16ff5b60016020528060005260406000206000915090505481565b60095481565b600760009054906101000a900460ff1681565b60035481565b60065481565b6000600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205413151561040c57600080fd5b600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054811315151561045a57600080fd5b7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6004600084600019166000191681526020019081526020016000205414806104be5750600060046000846000191660001916815260200190815260200160002054135b15156104c957600080fd5b7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff60046000846000191660001916815260200190815260200160002054141561052e576000600460008460001916600019168152602001908152602001600020819055505b600760009054906101000a900460ff16151561058757600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205490505b8060046000846000191660001916815260200190815260200160002060008282540192505081905550600081600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054031415610663577fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055506106b1565b80600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825403925050819055505b5050565b6005818154811015156106c457fe5b90600052602060002090016000915090505481565b60085481565b6002818154811015156106ee57fe5b90600052602060002090016000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a72305820b76da6b2c9d6deff7a6eebe6c86db0881f72d6704fc998d900a2e5fe681a6bde0029";
+const BYTE_CODE = "0x6060604052341561000f57600080fd5b604051610ae1380380610ae183398101604052808051820191906020018051820191906020018051820191906020018051906020019091908051906020019091908051906020019091905050600080875111801561006e575085518751145b151561007957600080fd5b6000855111151561008957600080fd5b866002908051906020019061009f929190610243565b5084600590805190602001906100b69291906102cd565b50600280549050600381905550600090505b86518110156101505785818151811015156100df57fe5b906020019060200201516001600089848151811015156100fb57fe5b9060200190602002015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000208190555080806001019150506100c8565b600580549050600681905550600090505b84518110156101ce577fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff60046000878481518110151561019d57fe5b9060200190602002015160001916600019168152602001908152602001600020819055508080600101915050610161565b826008819055508160098190555083600760006101000a81548160ff02191690831515021790555033600a60006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050505050505050610388565b8280548282559060005260206000209081019282156102bc579160200282015b828111156102bb5782518260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555091602001919060010190610263565b5b5090506102c99190610320565b5090565b82805482825590600052602060002090810192821561030f579160200282015b8281111561030e5782518290600019169055916020019190600101906102ed565b5b50905061031c9190610363565b5090565b61036091905b8082111561035c57600081816101000a81549073ffffffffffffffffffffffffffffffffffffffff021916905550600101610326565b5090565b90565b61038591905b80821115610381576000816000905550600101610369565b5090565b90565b61074a806103976000396000f3006060604052600436106100af576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631a0478d5146100b457806333be940d146100ef57806339418071146101045780637b1f337d146101515780638c279f9f1461017a5780639bcc3361146101a75780639c84bb27146101d05780639ef1204c146101f9578063b09b2d4514610229578063d91c98d314610268578063da58c7d914610291575b600080fd5b34156100bf57600080fd5b6100d96004808035600019169060200190919050506102f4565b6040518082815260200191505060405180910390f35b34156100fa57600080fd5b61010261030c565b005b341561010f57600080fd5b61013b600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610381565b6040518082815260200191505060405180910390f35b341561015c57600080fd5b610164610399565b6040518082815260200191505060405180910390f35b341561018557600080fd5b61018d61039f565b604051808215151515815260200191505060405180910390f35b34156101b257600080fd5b6101ba6103b2565b6040518082815260200191505060405180910390f35b34156101db57600080fd5b6101e36103b8565b6040518082815260200191505060405180910390f35b341561020457600080fd5b6102276004808035600019169060200190919080359060200190919050506103be565b005b341561023457600080fd5b61024a60048080359060200190919050506106b5565b60405180826000191660001916815260200191505060405180910390f35b341561027357600080fd5b61027b6106d9565b6040518082815260200191505060405180910390f35b341561029c57600080fd5b6102b260048080359060200190919050506106df565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60046020528060005260406000206000915090505481565b600a60009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561036857600080fd5b3073ffffffffffffffffffffffffffffffffffffffff16ff5b60016020528060005260406000206000915090505481565b60095481565b600760009054906101000a900460ff1681565b60035481565b60065481565b6000600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205413151561040c57600080fd5b600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054811315151561045a57600080fd5b7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6004600084600019166000191681526020019081526020016000205414806104be5750600060046000846000191660001916815260200190815260200160002054135b15156104c957600080fd5b7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff60046000846000191660001916815260200190815260200160002054141561052e576000600460008460001916600019168152602001908152602001600020819055505b600760009054906101000a900460ff16151561058757600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205490505b8060046000846000191660001916815260200190815260200160002060008282540192505081905550600081600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054031415610663577fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055506106b1565b80600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825403925050819055505b5050565b6005818154811015156106c457fe5b90600052602060002090016000915090505481565b60085481565b6002818154811015156106ee57fe5b90600052602060002090016000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a72305820b76da6b2c9d6deff7a6eebe6c86db0881f72d6704fc998d900a2e5fe681a6bde0029";
 
 Meteor.setInterval(checkWeb3Status, 1000);
 
+//event Helpers
 Template.WalletBallance.helpers({
     walletBallance: function () {
         return Session.get("walletBallance");
@@ -236,18 +237,6 @@ Template.WalletBallance.helpers({
     }
 });
 
-Template.vote.helpers({
-    registeredForElection: function () {
-        return Session.get("registeredForElection");
-    },
-    numberOfVotingCredits: function () {
-        return Session.get("numberOfVotingCredits");
-    },
-    canVote: function () {
-        return Session.get("canVote");
-    }
-});
-
 Template.createElection.helpers({
     newCandidates: function () {
         return Session.get("newCandidates");
@@ -259,19 +248,138 @@ Template.createElection.helpers({
             //Object.assign is used to merge. this is needed in the case that the user selects a template then tries to add
             //their own additions to it. both lists must persist. more over, in the case that the user adds voters to the list
             //then selects a template. both should remain in both cases.
-            Session.set("voterRoll", Object.assign(result,Session.get("voterRoll")));
+            Session.set("voterRoll", Object.assign(result, Session.get("voterRoll")));
 
         }
         return Session.get("voterRoll");
     },
-    voteRollTemplates: function(){
+    voteRollTemplates: function () {
         return SavedRolls.find().fetch();
     },
-    savedCandidates: function(){
+    savedCandidates: function () {
         return SavedCandidates.find().fetch();
     }
 });
 
+Template.findElection.helpers({
+    candidateMap: function () {
+        var result = {};
+        if (candidates.list().length > 0) {
+            candidates.list().forEach((key, i) => result[key] = candidatesCredit.list()[i]);
+        }
+        $(".candidates").empty();
+        $.each(candidates.list(), function (i, p) {
+            $('.candidates').append($('<option></option>').val(p).html(p));
+        });
+        Session.set("candidateMap", result);
+        return result;
+    },
+
+    voterMap: function () {
+        var result = {};
+        if (voters.list().length > 0) {
+            voters.list().forEach((key, i) => result[key] = votersCredit.list()[i]);
+        }
+        if (Session.get("Address") in result) {
+            Session.set("registeredForElection", true);
+            try {
+                Session.set("numberOfVotingCredits", result[Session.get("Address")].c);
+                if (result[Session.get("Address")].c > 0) {
+                    Session.set("canVote", true);
+                } else {
+                    Session.set("canVote", false);
+                }
+            }
+            catch (err) {
+                //throw away the error
+            }
+        }
+        else {
+            Session.set("registeredForElection", false);
+            Session.set("numberOfVotingCredits", 0);
+        }
+        return result;
+    },
+    electionStatus: function () {
+        template = Template.instance();
+        if (TemplateVar.get(template, "startingBlock") == undefined) {
+            Session.set("resultsFetched", false);
+            Session.set("preElection", false);
+            return "<font color='gray'>Nothing to show...</font>";
+        }
+        if (Session.get("blockNumber") < TemplateVar.get(template, "startingBlock")) {
+            Session.set("electionOver", false);
+            Session.set("resultsFetched", true);
+            Session.set("preElection", true);
+            return "<font color='red'> Election has not started yet</font>";
+        }
+        if (Session.get("blockNumber") >= TemplateVar.get(template, "endingBlock")) {
+            Session.set("preElection", false);
+            Session.set("electionOver", true);
+            Session.set("resultsFetched", true);
+            getOrderedResults();
+            return "<font color='green'> Election has Ended</font>";
+        }
+        if (Session.get("blockNumber") >= TemplateVar.get(template, "startingBlock") && Session.get("blockNumber") < TemplateVar.get(template, "endingBlock")) {
+            Session.set("electionOver", false);
+            Session.set("resultsFetched", true);
+            Session.set("preElection", false);
+            getOrderedResults();
+            return "<font color='blue'> Election is currently Running</font>";
+        }
+        Session.set("resultsFetched", false);
+        Session.set("preElection", false);
+
+        return "<font color='gray'>Nothing to show...</font>";
+    },
+    electionOver: function () {
+        return Session.get("electionOver");
+    },
+    finalResults: function () {
+        return Session.get("finalResults");
+    },
+    resultsFetched: function () {
+        return Session.get("resultsFetched");
+    },
+    preElection: function () {
+        return Session.get("preElection");
+    },
+    currentLeader: function () {
+        return Session.get("currentLeader");
+    },
+    currentLeaderVotes: function () {
+        return Session.get("currentLeaderVotes");
+    }
+});
+
+Template.vote.helpers({
+    registeredForElection: function () {
+        return Session.get("registeredForElection");
+    },
+    numberOfVotingCredits: function () {
+        return Session.get("numberOfVotingCredits");
+    },
+    canVote: function () {
+        return Session.get("canVote");
+    },
+    resultsFetched: function () {
+        return Session.get("resultsFetched");
+    },
+    electionOver: function () {
+        return Session.get("electionOver");
+    },
+});
+
+Template.WalletBallance.helpers({
+    walletAddressWidget: function () {
+        return Session.get("Address");
+    },
+    walletBallanceWidget: function () {
+        return Session.get("walletBallance");
+    }
+});
+
+//event listners
 let Address;
 Template.findElection.events({
     'submit form': function () {
@@ -291,6 +399,7 @@ Template.vote.events({
         voteInElection(candidate, numberOfCredits);
     }
 });
+
 let newCandidates = [];
 let newVoters = [];
 let newVotersWeights = [];
@@ -299,7 +408,7 @@ let voterRoll = {};
 Template.createElection.events({
     'click .addCandidate': function (e) {
         let newCandidateName = $('#candidateName')[0].value;
-        if(($.inArray(newCandidateName,newCandidates))===-1){
+        if (($.inArray(newCandidateName, newCandidates)) === -1) {
             newCandidates.push(newCandidateName);
             Session.set("newCandidates", Object.assign(newCandidates, Session.get("newCandidates")));
         }
@@ -320,7 +429,7 @@ Template.createElection.events({
 
         delete voterRoll[idToRemove];
 
-        Session.set("voterRoll",voterRoll);
+        Session.set("voterRoll", voterRoll);
 
         newVotersWeights.splice(newVoters.indexOf(idToRemove), 1);
         newVotersNames.splice(newVoters.indexOf(idToRemove), 1);
@@ -333,62 +442,103 @@ Template.createElection.events({
     'click .addVoter': function () {
 
         let address = $('.voterAddress')[0].value;
-        if(($.inArray(address,newVoters))===-1){
-        newVoters.push(address);
-        Session.set("newVoters", newVoters);
+        if (($.inArray(address, newVoters)) === -1) {
+            newVoters.push(address);
+            Session.set("newVoters", newVoters);
 
-        let weight = $('.voterWeight')[0].value;
-        newVotersWeights.push(weight);
-        Session.set("newVoterWeights", newVotersWeights);
+            let weight = $('.voterWeight')[0].value;
+            newVotersWeights.push(weight);
+            Session.set("newVoterWeights", newVotersWeights);
 
-        let name = $('.voterName')[0].value;
-        newVotersNames.push(name);
-        Session.set("newVotersNames", newVotersNames);
+            let name = $('.voterName')[0].value;
+            newVotersNames.push(name);
+            Session.set("newVotersNames", newVotersNames);
         }
     },
-    'click .createElection': function(){
+    'click .createElection': function () {
         //basic user input sanitisation. do all logical checks to minimise gas usage on user side
-        if(Session.get("newCandidates")===undefined){
+        if (Session.get("newCandidates") === undefined) {
             alert("No candidates specified");
             return;
         }
 
-        if(Session.get("newVoters")===undefined){
+        if (Object.keys(Session.get("voterRoll")) === undefined) {
             alert("No voters specified");
             return;
         }
 
-        if($("#startingBlock")[0].value===""){
+        if ($("#startingBlock")[0].value === "") {
             alert("Starting block not specified");
             return;
         }
 
-        if($("#endingBlock")[0].value===""){
+        if ($("#endingBlock")[0].value === "") {
             alert("Ending block not specified");
             return;
         }
 
-        if($("#startingBlock")[0].value>$("#endingBlock")[0].value){
+        if ($("#startingBlock")[0].value > $("#endingBlock")[0].value) {
             alert("Starting block cant be bigger than ending block");
             return;
         }
-        if(Session.get("blockNumber")>$("#endingBlock")[0].value){
+        if (Session.get("blockNumber") > $("#endingBlock")[0].value) {
             alert("Ending block cant be smaller than current block number. Election will never start");
             return;
         }
 
+        createElection().then((resolve, err) => {
+            if (resolve) {
+                console.log("it resolved!");
+                console.log(resolve.address);
+                console.log(resolve.txHash);
+            }
+            if (err) {
+                console.log(err);
+            }
+        });
+    },
+    'click .saveVoterRol': function () {
+        SavedRolls.insert(
+            {
+                name: $('#saveVoterRollName')[0].value,
+                voterRoll: Session.get("voterRoll")
+            }
+        );
+    },
+    'change #voterRollTemplates': function (event) {
+        templateID = event.target.value;
+        if (templateID != "Voter Roll Template") {
+            Session.set("voterRoll", Object.assign(SavedRolls.find({_id: templateID}).fetch()[0].voterRoll), Session.get("voterRoll"));
+        }
+    },
+    'click .saveCandidateList': function () {
+        console.log($('#savedCandidatesName')[0].value);
+        SavedCandidates.insert(
+            {
+                name: $('#savedCandidatesName')[0].value,
+                candidateList: Session.get("newCandidates")
+            }
+        )
+    },
+    'change #candidatesTemplates': function (event) {
+        candidateID = event.target.value;
+        if (candidateID != "Candidate Template") {
+            Session.set("newCandidates", Object.assign(SavedCandidates.find({_id: candidateID}).fetch()[0].candidateList), Session.get("newCandidates"));
+        }
+    }
+});
+
+function createElection() {
+    return new Promise((resolve, error) => {
         //extract all the weights from the voterRoll map. These are the inputed weights. need to use the voterRoll rather
         //then the other session variable as this accounts for voters added through the use of a template; no voter is left behind :)
-        var VoterWeights = $.map(Session.get("voterRoll"),function(v){
+        var VoterWeights = $.map(Session.get("voterRoll"), function (v) {
             return v[0];
         });
-
         var VoterWeightsInts = VoterWeights.map(function (x) { //cast voter weights to ints for contract call
             return parseInt(x, 10);
         });
-
-        console.log(VoterWeightsInts);
-
+        try {
             let election = web3.eth.contract(ABI_ARRAY);
             let contractInstance = election.new(
                 Object.keys(Session.get("voterRoll")),
@@ -404,81 +554,32 @@ Template.createElection.events({
                 },
                 function (e, contract) {
                     try {
-                        console.log("trying");
-                        //must be contract.address as when function is called initially, it returns a null and later return another contract.
-                        // if (typeof contract.address !== "undefined") {
-                        //     try {
-                        //         // Request that the server adds the new certificate to the DB on its side
-                        //         Meteor.call('insertCertificate', contract.address);
-                        //         resolve({address: contract.address, txHash: contract.transactionHash});
-                        //     }
-                        //     catch (err) {
-                        //         sAlert.error("Failed to add the certificate to the DB.");
-                        //         error(err);
-                        //     }
-                        // }
+                        if (typeof contract.address !== "undefined") {
+                            try {
+                                resolve({address: contract.address, txHash: contract.transactionHash});
+                                console.log(contract.address);
+                            }
+                            catch (err) {
+                                error(err);
+                            }
+                        }
                     } catch (e2) {
-                        //The user cancels the transaction in their web3 client
-                        // $("#reminderToWaitForMining").modal("hide");
                         console.log("It looks like you cancelled the transaction!");
                         error("Error");
                     }
                     if (e) {
-                        //Something is thrown while trying to mine the certificate
-                        // $("#reminderToWaitForMining").modal("hide");
                         console.log("Oh-No! The certificate could not to be mined.");
                         error("Error");
                     }
                 }
             );
-        // }
-        // catch (err) {
-        //     console.log("Failed to create the certificate.");
-        //     error(err);
-        // }
-    },
-    'click .saveVoterRol': function(){
-        console.log($('#saveVoterRollName')[0].value);
-        SavedRolls.insert(
-            {
-                name: $('#saveVoterRollName')[0].value,
-                voterRoll: Session.get("voterRoll")
-            }
-        );
-    },
-    'change #voterRollTemplates': function (event) {
-        templateID=event.target.value;
-        if(templateID!="Voter Roll Template"){
-            Session.set("voterRoll",Object.assign(SavedRolls.find({_id : templateID}).fetch()[0].voterRoll),Session.get("voterRoll"));
         }
-    },
-    'click .saveCandidateList': function (){
-        console.log($('#savedCandidatesName')[0].value);
-        SavedCandidates.insert(
-            {
-                name: $('#savedCandidatesName')[0].value,
-                candidateList: Session.get("newCandidates")
-            }
-        )
-    },
-    'change #candidatesTemplates':function(event){
-        candidateID=event.target.value;
-        if(candidateID!="Candidate Template"){
-            Session.set("newCandidates",Object.assign(SavedCandidates.find({_id: candidateID}).fetch()[0].candidateList),Session.get("newCandidates"));
+        catch (err) {
+            console.log("Failed to create the certificate.");
+            error(err);
         }
-    }
-
-});
-
-Template.createElection.onRendered(function() {
-    // Session.set("voterRollTemplates",SavedRolls.find().fetch());
-
-    // $(".voterRollTemplates").empty();
-    // $.each(candidates.list(), function (i, p) {
-    //     $('.voterRollTemplates').append($('<option></option>').val(p).html(p));
-    // });
-});
-
+    });
+}
 
 function getContract(certificateAddress) {
     try {
@@ -498,6 +599,7 @@ function voteInElection(candidate, credits) {
     let election = getContract(Session.get("electionAddress"));
     election.vote(candidate, credits, function (err, res) {
         console.log(res);
+        console.log(err);
     })
 }
 
@@ -518,9 +620,10 @@ function getElectionFromBlockchain(electionAddress, template) {
                     //Hack to fix how javascript views large numbers for uint underflow from smart contract call
                     //if this is not here, when an int of value -1 is returned from the contract, this res underflows.
                     //I'm sure there is a better way to fix this but casting the uint to int returns 1 not -1 so for now
-                    //this hack is acceptable as users will be limited to the max credit they can give a voter
-                    if(res>1000000){
-                        res=-1;
+                    //this hack is acceptable as users will be limited to the max credit they can give a voter so this
+                    //will result in false reporting
+                    if (res > 1000000) {
+                        res = -1;
                     }
                     votersCredit.push(res);
                 });
@@ -532,7 +635,7 @@ function getElectionFromBlockchain(electionAddress, template) {
         TemplateVar.set(template, "numberOfCandidates", res);
         for (let i = 0; i < res; i++) {
             election.votingCandidates.call(i, function (err, res) {
-                candidates.push((web3.toAscii(res).replace(/\W/g, '')));
+                candidates.push((web3.toAscii(res).replace(/[^ -~]+/g, "")));
                 election.candidates.call(res, function (err, res) {
                     candidatesCredit.push(res);
                 });
@@ -549,10 +652,10 @@ function getElectionFromBlockchain(electionAddress, template) {
 
     election.isPartial(function (err, res) {
         TemplateVar.set(template, "isPartial", res);
-        console.log(res);
     });
 }
 
+//Functions
 function checkWeb3Status() {
     if (!web3.isConnected()) {
         console.log("no web3")
@@ -610,6 +713,36 @@ function getNetwork(networkId) {
     }
 }
 
+function getOrderedResults() {
+
+    var result = {};
+    if (candidates.list().length > 0) {
+        candidates.list().forEach((key, i) => result[key] = candidatesCredit.list()[i]);
+    }
+    $(".candidates").empty();
+    $.each(candidates.list(), function (i, p) {
+        $('.candidates').append($('<option></option>').val(p).html(p));
+    });
+    Session.set("candidateMap", result);
+
+
+    let finalCandidates = Session.get("candidateMap");
+    let sortedResults = [];
+    for (var candidate in finalCandidates) {
+        //I know this is a hack to maintain the sign on the integer. for now its fine
+        let score = finalCandidates[candidate]["c"][0] * finalCandidates[candidate]["s"];
+        sortedResults.push([candidate, score]);
+    }
+
+    sortedResults.sort(function (a, b) {
+        return b[1] - a[1];
+    });
+    Session.set("finalResults", sortedResults);
+    Session.set("currentLeader", sortedResults[0][0]);
+    Session.set("currentLeaderVotes", sortedResults[0][1]);
+}
+
+//template helpers
 Template.registerHelper("objectToPairs", function (object) {
     return _.map(object, function (value, key) {
         return {
@@ -619,68 +752,23 @@ Template.registerHelper("objectToPairs", function (object) {
     });
 });
 
-Template.findElection.helpers({
-    candidateMap: function () {
-        var result = {};
-        if (candidates.list().length > 0) {
-            candidates.list().forEach((key, i) => result[key] = candidatesCredit.list()[i]);
-        }
-        $(".candidates").empty();
-        $.each(candidates.list(), function (i, p) {
-            $('.candidates').append($('<option></option>').val(p).html(p));
-        });
-
-        return result;
-    },
-
-    voterMap: function () {
-        var result = {};
-        if (voters.list().length > 0) {
-            voters.list().forEach((key, i) => result[key] = votersCredit.list()[i]);
-        }
-        if (Session.get("Address") in result) {
-            Session.set("registeredForElection", true);
-            try {
-                Session.set("numberOfVotingCredits", result[Session.get("Address")].c);
-                if (result[Session.get("Address")].c > 0) {
-                    Session.set("canVote", true);
-                } else {
-                    Session.set("canVote", false);
-                }
-            }
-            catch (err) {
-                //throw away the error
-            }
-        }
-        else {
-            Session.set("registeredForElection", false);
-            Session.set("numberOfVotingCredits", 0);
-        }
-        return result;
-    },
-    electionStatus: function () {
-        template = Template.instance();
-        if (TemplateVar.get(template, "startingBlock") == undefined) {
-            return "";
-        }
-        if (Session.get("blockNumber") < TemplateVar.get(template, "startingBlock")) {
-            return "Election has not started yet";
-        }
-        if (Session.get("blockNumber") > TemplateVar.get(template, "endingBlock")) {
-            return "Election has Ended";
-        }
-        if (Session.get("blockNumber") > TemplateVar.get(template, "startingBlock") && Session.get("blockNumber") < TemplateVar.get(template, "endingBlock")) {
-            return "Election is currently Running"
-        }
-        return "";
+Template.registerHelper('math', function () {
+    return {
+        mul (a, b) {
+            return a * b;
+        },
+        div (a, b) {
+            return b ? a / b : 0;
+        },
+        sum (a, b) {
+            return a + b;
+        },
+        sub (a, b) {
+            return a - b;
+        },
     }
 });
 
-Template.WalletBallance.helpers({
-    walletAddressWidget: function () {
-        return Session.get("Address");
-    },
-    walletBallanceWidget: function () {
-        return Session.get("walletBallance");
-    }
+Template.createElection.onRendered(function () {
+    Session.set("electionOver", false);
 });
