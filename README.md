@@ -154,6 +154,26 @@ Or download from [here]( https://github.com/when-moon/blockPoll.git)
 cd dapp
 meteor
 ```
+## Suggested use-cases
+
+* Proxy Voting 
+  * Partial
+  * non-Partial
+* Statutory Voting
+* Dupicate Proxy (If set up correctly)
+* Board member elections
+* Inter-office policies
+* Tender Proposals
+* Grant proposals
+* University SRC elections
+* Provinsial or National elections (After implimentation of full system)
+* Orginization defined Motions
+* Orginization defined ballot questions
+* Absenee balloting 
+* Approval voting 
+* Caridnal or ranked voting (If set up correctly)
+* Referendums
+* Disapproval voting 
 
 ## Current limitations and future considerations  <a name="Current-limitations-and-future-considerations"></a>
 Currently, **blockPoll** has been built as a proof of concept **(PoC)** and is still just a Minimum Viable Product **(MVP)**. It is currently running on the Ropstan testnet network and still subject iteration and rapid prototyping. Because of this, there are inherent problems associated with **blockPoll** in its current form: 
