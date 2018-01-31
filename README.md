@@ -1,5 +1,8 @@
 # [blockPoll](https://github.com/when-moon/blockPoll.git)
 
+<p align="center">
+   <img src="https://i.imgur.com/w2gttpf.png" width="300" height="300">
+</p>
 
 **blockPoll** is a pseudo-anonymous, online, blockchain-based voting tool, used to facilitate organizational-based proxy voting and polling mechanisms for a wide array of uses.
 
@@ -95,7 +98,7 @@ This allows for proper control and supervision of the voting process and increas
 * The **web API** provides a wrapper for the contract whereby external third party companies and applications can build around to display current electoral progress and statistics in a more visually appealing way. This allows companies like **CNN** and the like to pull from information in the API and integrate it into their websites and applications in the manner they see fit. 
 
 ## How to use <a name="How-to-use"></a>
-**blockPoll** is intended to be used for the creation, interaction and viewing of a fully fledged electoral system on a decentralized blockchain. The way it works depends on its user at any given time. 
+**blockPoll** is intended to be used for the creation, interaction and viewing of a fully fledged electoral system on a decentralized blockchain. The way in which **blockPoll** is used depends on the type of user, as well as thier level of administration. 
 
 ### Administrator <a name="Administrator"></a>	
 An administrator is in charge of creating the voting contract and deploying it on the blockchain. The administrator also acts as a registrar in the sense that they are responsible for inserting both the candidates, voters and the voters weighting credits into the database. The administrator has knowledge of both the name of the voter and his/her private ID key. The administrator should be someone who is not involved in the voting procedure and must not share publicly the associated voter with their public key. This is a slight flaw as it allows for a tampering.
@@ -221,3 +224,11 @@ Currently, **blockPoll** has been built as a proof of concept **(PoC)** and is s
    2. The registrar can create a number of ethereum addresses for the voters. From here each address can be sent to a voter along with their recovery seed and portion of ether allocated to each account. By recovering the wallet, each voter will be able to vote without needing to communicate back their public keys to the registrar.
 That being said however, if the institution or registrar sends each voter their own public key, there is no way in which voters are able to link a public key to a specific voter. In this implementation, the administrator would pre-generate and distribute public-private key pairs to the voters. This distribution could be done by sending the voter a recovery seed via email, ensuring that each voter has a new and unique public key to vote with. Because the voter himself has not generated the address, there is no way to link him with his public key unless he or the registrar shares the key with another voter, or if he conducts a transaction of any type with that key. For best use, we suggest that each vote be conducted in this way.
 * In future it would be ideal for a monitoring dashboard to be built around the API that can display and monitor the state of an election. This would add to the user experience and increase its marketability.
+
+## Designers
+
+**blockPoll** is a calaborative project by team **_WhenMoon?_**.
+
+<p align="center">
+   <img src="https://i.imgur.com/TG9sgAm.png" height="100">
+</p>
