@@ -1,5 +1,8 @@
 # [blockPoll](https://github.com/when-moon/blockPoll.git)
 
+<p align="center">
+   <img src="https://i.imgur.com/w2gttpf.png" width="300" height="300">
+</p>
 
 **blockPoll** is a pseudo-anonymous, online, blockchain-based voting tool, used to facilitate organizational-based proxy voting and polling mechanisms for a wide array of uses.
 
@@ -17,10 +20,11 @@
    4. [Running on your local machine](#Running-on-your-local-machine)
 6. [Suggested use cases](#Suggested-use-cases)
 7. [Current limitations and future considerations](#Current-limitations-and-future-considerations)
+8. [Designers](#Designers)
 
 ## What is it <a name="What-is-it"></a>
 
-By leveraging the power of the Ethereum blockchain, coupled with an easy to use web API, **blockPoll** provides a mechanism whereby both corporate and non-corporate organisations can conduct voting or poll-like events in a decentralised manner. During the voting process, all participants (voters and candidates) are able to see in real-time the progress results of the undertaken vote without anyone other than the registrar(s) being able to see which voter voted for which candidate. 
+By leveraging the power of the Ethereum blockchain, coupled with an easy to use web API, **blockPoll** provides a mechanism whereby both corporate and non-corporate organisations can conduct voting or poll-like events in a decentralised manner. During the voting process, all participants (voters and candidates) are able to see in real-time the progress results of the undertaken vote without anyone other than the registrar(s) being able to see which voter chose which candidate. 
 
 The final tallied outcome of the vote is also publicly accessible to all members, with the same level of anonymity discussed above. The creator of the vote is able to specify the type of proxy voting procedure (partial, non-partial) as well as user specified input arguments decided upon during contract creation.
 .
@@ -67,7 +71,7 @@ Once created and deployed on the public chain, the contract cannot be destroyed.
 
 Other than the small transaction fee associated with deploying the contract to the network, as well as the almost negligible fee for each voter, the absence of a centralized server alleviates the financial weight of running a proxy (or any other) vote on **blockPoll**. **blockPoll** is free to use and open source, and exists therefore only to provide a user friendly blockchain based voting mechanism for the benefit of its own organization. Its open source nature means that any security faults found through testing on the test-net can be resolved timeously to provide a fail-proof robust solution for its users. 
 
-Keeping **blockPoll** opensource and free to use is key in ensuring a growing and sustainable user base. This also provides it with a competetive edge over other online based proxy voting tools. As the network evolves, transaction fees and gas prices will decrease, allowing **blockPoll** to continue to work without large financial burden to its users. 
+Keeping **blockPoll** open source and free to use is key in ensuring a growing and sustainable user base. This also provides it with a competetive edge over other online based proxy voting tools. As the network evolves, transaction fees and gas prices will decrease, allowing **blockPoll** to continue to work without large financial burden to its users. 
 
 #### Future Proof
 
@@ -95,7 +99,7 @@ This allows for proper control and supervision of the voting process and increas
 * The **web API** provides a wrapper for the contract whereby external third party companies and applications can build around to display current electoral progress and statistics in a more visually appealing way. This allows companies like **CNN** and the like to pull from information in the API and integrate it into their websites and applications in the manner they see fit. 
 
 ## How to use <a name="How-to-use"></a>
-**blockPoll** is intended to be used for the creation, interaction and viewing of a fully fledged electoral system on a decentralized blockchain. The way it works depends on its user at any given time. 
+**blockPoll** is intended to be used for the creation, interaction and viewing of a fully fledged electoral system on a decentralized blockchain. The way in which **blockPoll** is used depends on the type of user, as well as thier level of administration. 
 
 ### Administrator <a name="Administrator"></a>	
 An administrator is in charge of creating the voting contract and deploying it on the blockchain. The administrator also acts as a registrar in the sense that they are responsible for inserting both the candidates, voters and the voters weighting credits into the database. The administrator has knowledge of both the name of the voter and his/her private ID key. The administrator should be someone who is not involved in the voting procedure and must not share publicly the associated voter with their public key. This is a slight flaw as it allows for a tampering.
@@ -168,6 +172,7 @@ npm install
 # Run meteor
 meteor
 ```
+![Meteor tut](https://i.imgur.com/JG1tKnJ.gif)
 If you wish to run the tests:
 Open and run Ganache, and then in terminal:
 ```bash
@@ -220,3 +225,11 @@ Currently, **blockPoll** has been built as a proof of concept **(PoC)** and is s
    2. The registrar can create a number of ethereum addresses for the voters. From here each address can be sent to a voter along with their recovery seed and portion of ether allocated to each account. By recovering the wallet, each voter will be able to vote without needing to communicate back their public keys to the registrar.
 That being said however, if the institution or registrar sends each voter their own public key, there is no way in which voters are able to link a public key to a specific voter. In this implementation, the administrator would pre-generate and distribute public-private key pairs to the voters. This distribution could be done by sending the voter a recovery seed via email, ensuring that each voter has a new and unique public key to vote with. Because the voter himself has not generated the address, there is no way to link him with his public key unless he or the registrar shares the key with another voter, or if he conducts a transaction of any type with that key. For best use, we suggest that each vote be conducted in this way.
 * In future it would be ideal for a monitoring dashboard to be built around the API that can display and monitor the state of an election. This would add to the user experience and increase its marketability.
+
+## Designers <a name="Designers"></a>
+
+**blockPoll** is a calaborative project by team **_WhenMoon?_**.
+
+<p align="center">
+   <img src="https://i.imgur.com/TG9sgAm.png" height="100">
+</p>
