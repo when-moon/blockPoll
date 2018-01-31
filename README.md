@@ -20,7 +20,7 @@
 
 ## What is it <a name="What-is-it"></a>
 
-By leveraging the power of the Ethereum blockchain, coupled with an easy to use web API, **blockPoll** provides a mechanism whereby both corporate and non-corporate organisations can conduct voting or poll-like events in a decentralised manner. During the voting process, all participants (voters and candidates) are able to see in real-time the progress results of the undertaken vote without anyone other than the registrar(s) being able to see which voter voted for which candidate. 
+By leveraging the power of the Ethereum blockchain, coupled with an easy to use web API, **blockPoll** provides a mechanism whereby both corporate and non-corporate organisations can conduct voting or poll-like events in a decentralised manner. During the voting process, all participants (voters and candidates) are able to see in real-time the progress results of the undertaken vote without anyone other than the registrar(s) being able to see which voter chose which candidate. 
 
 The final tallied outcome of the vote is also publicly accessible to all members, with the same level of anonymity discussed above. The creator of the vote is able to specify the type of proxy voting procedure (partial, non-partial) as well as user specified input arguments decided upon during contract creation.
 .
@@ -67,7 +67,7 @@ Once created and deployed on the public chain, the contract cannot be destroyed.
 
 Other than the small transaction fee associated with deploying the contract to the network, as well as the almost negligible fee for each voter, the absence of a centralized server alleviates the financial weight of running a proxy (or any other) vote on **blockPoll**. **blockPoll** is free to use and open source, and exists therefore only to provide a user friendly blockchain based voting mechanism for the benefit of its own organization. Its open source nature means that any security faults found through testing on the test-net can be resolved timeously to provide a fail-proof robust solution for its users. 
 
-Keeping **blockPoll** opensource and free to use is key in ensuring a growing and sustainable user base. This also provides it with a competetive edge over other online based proxy voting tools. As the network evolves, transaction fees and gas prices will decrease, allowing **blockPoll** to continue to work without large financial burden to its users. 
+Keeping **blockPoll** open source and free to use is key in ensuring a growing and sustainable user base. This also provides it with a competetive edge over other online based proxy voting tools. As the network evolves, transaction fees and gas prices will decrease, allowing **blockPoll** to continue to work without large financial burden to its users. 
 
 #### Future Proof
 
