@@ -385,7 +385,7 @@ Template.findElection.events({
     'click .searchForElection': function () {
         let template = Template.instance();
         event.preventDefault();
-        let electionAddress = event.target.address.value;
+        let electionAddress = $("#electionAddress")[0].value;
         Session.set("electionAddress", electionAddress);
         getElectionFromBlockchain(electionAddress, template);
     },
@@ -425,10 +425,9 @@ Template.findElection.events({
 });
 
 Template.vote.events({
-    'submit form': function () {
-        event.preventDefault();
-        let candidate = event.target.candidate.value;
-        let numberOfCredits = event.target.credits.value;
+    'click .voteInElection ': function () {
+        let candidate = $("#voteCandidates").find('option:selected').text();
+        let numberOfCredits = $("#voteCredits")[0].value;
         voteInElection(candidate, numberOfCredits);
     }
 });
@@ -510,10 +509,11 @@ Template.createElection.events({
             return;
         }
 
-        if ($("#startingBlock")[0].value > $("#endingBlock")[0].value) {
-            alert("Starting block cant be bigger than ending block");
-            return;
-        }
+        // if ($("#startingBlock")[0].value >= $("#endingBlock")[0].value) {
+        //     alert("Starting block cant be bigger than ending block");
+        //     return;
+        // }
+
         if (Session.get("blockNumber") > $("#endingBlock")[0].value) {
             alert("Ending block cant be smaller than current block number. Election will never start");
             return;
@@ -870,7 +870,7 @@ Template.upload.events({
 Meteor.startup(function () {
     sAlert.config({
         effect: 'slide',
-        position: 'top-right',
+        position: 'bottom-right',
         timeout: 7000,
         html: false,
         onRouteClose: true,

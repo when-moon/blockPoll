@@ -9,55 +9,94 @@
     </div>
 
     <div class="input-group">
-        <input type="text" class="form-control" placeholder="Election Address" name="address">
+        <input type="text" class="form-control" id="electionAddress" placeholder="Election Address" name="address">
         <span class="input-group-btn">
     <button type="button" class="searchForElection btn btn-info btn-default hvr-growfast">Search</button>
    </span>
     </div>
 
+    <h5 class="description">
+        <h4>
+            <!--note that tripple spacebar syntax is used to feed in colour styling from JS-->
+            Election Status: {{{electionStatus}}}
+        </h4>
 
-    <h2>
-        <!--note that tripple spacebar syntax is used to feed in colour styling from JS-->
-        Election Status: {{{electionStatus}}}
-    </h2>
+        {{#if resultsFetched}}
+            {{#if electionOver}}
+                The winner of the election was <strong> {{currentLeader}} </strong> with
+                <strong>{{currentLeaderVotes}}</strong> votes.
+                <button type="button" class="btn btn-info btn-lg button-box hvr-growfast saveElection">Save election
+                    results
+                </button>
 
-    {{#if resultsFetched}}
-        {{#if electionOver}}
-            The winner of the election was <strong> {{currentLeader}} </strong> with
-            <strong>{{currentLeaderVotes}}</strong> votes.
-            <button type="button" class="btn btn-info btn-lg button-box hvr-growfast saveElection">Save election
-                results
-            </button>
+            {{/if}}
+            <h4>Election Information</h4>
 
-        {{/if}}
-        <h3>Election Information</h3>
-        <ul>
-            <li>
-                Number of votes: {{TemplateVar.get "numberOfVotes"}}
-            </li>
-            <li>
-                Number of Candidates: {{TemplateVar.get "numberOfCandidates"}}
-            </li>
-            <li>
-                Starting Block: {{TemplateVar.get "startingBlock"}}
-            </li>
-            <li>
-                Ending Block: {{TemplateVar.get "endingBlock"}}
-            </li>
-            <li>
-                Is Partial: {{TemplateVar.get "isPartial"}}
-            </li>
-        </ul>
+            <table class="table">
+                <tr>
+                    <td>Number of votes</td>
+                    <td>{{TemplateVar.get "numberOfVotes"}}</td>
+                </tr>
+                <tr>
+                    <td>Number of Candidates</td>
+                    <td>{{TemplateVar.get "numberOfCandidates"}}</td>
+                </tr>
+                <tr>
+                    <td>Starting Block</td>
+                    <td>{{TemplateVar.get "startingBlock"}}</td>
+                </tr>
+                <tr>
+                    <td>Ending Block</td>
+                    <td>{{TemplateVar.get "endingBlock"}}</td>
+                </tr>
+                <tr>
+                    <td>Is Partial</td>
+                    <td>{{TemplateVar.get "isPartial"}}</td>
+                </tr>
+            </table>
+            <h4>Candidates:</h4>
+            {{#if preElection}}
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Candidate</th>
+                        <th>Votes</th>
+                    </tr>
+                    {{#each objectToPairs candidateMap}}
+                        <tr>
+                            <td>{{key}}</td>
+                            <td>{{value}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            {{else}}
 
-        <h3>Candidates:</h3>
-        {{#if preElection}}
-            <table>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Position</th>
+                        <th>Candidate</th>
+                        <th>Votes</th>
+                    </tr>
+                    {{#each objectToPairs finalResults}}
+                        <tr>
+                            <td>{{math.sum key 1}}</td>
+                            <td>{{value.[0]}}</td>
+                            <td>{{value.[1]}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            {{/if}}
+            <h4> Voters</h4>
+            <table class="table">
                 <tbody>
                 <tr>
-                    <th>Candidate</th>
-                    <th>Votes</th>
+                    <th>Voter Address</th>
+                    <th>Credits</th>
                 </tr>
-                {{#each objectToPairs candidateMap}}
+                {{#each objectToPairs voterMap}}
                     <tr>
                         <td>{{key}}</td>
                         <td>{{value}}</td>
@@ -65,41 +104,8 @@
                 {{/each}}
                 </tbody>
             </table>
-        {{else}}
-
-            <table>
-                <tbody>
-                <tr>
-                    <th>Position</th>
-                    <th>Candidate</th>
-                    <th>Votes</th>
-                </tr>
-                {{#each objectToPairs finalResults}}
-                    <tr>
-                        <td>{{math.sum key 1}}</td>
-                        <td>{{value.[0]}}</td>
-                        <td>{{value.[1]}}</td>
-                    </tr>
-                {{/each}}
-                </tbody>
-            </table>
         {{/if}}
-        <h3> Voters: </h3>
-        <table>
-            <tbody>
-            <tr>
-                <th>Voter Address</th>
-                <th>Credits</th>
-            </tr>
-            {{#each objectToPairs voterMap}}
-                <tr>
-                    <td>{{key}}</td>
-                    <td>{{value}}</td>
-                </tr>
-            {{/each}}
-            </tbody>
-        </table>
-    {{/if}}
+    </h5>
 </template>
 
 <template name="WalletBallance">
@@ -133,35 +139,36 @@
     <div class="text-center">
         <h2 id="vote" class="title">Vote in a current election</h2>
         <h5 class="description">
-            Search for an election above. If you are elegable to vote, you can do so here.
         </h5>
     </div>
-    {{#if resultsFetched}}
-        <h1>Vote in Election</h1>
-        {{#if electionOver}}
-            <strong>This election has finished. You cant vote in it.</strong>
-        {{else}}
-            {{#if registeredForElection}}
-                <strong>You are registered to vote for this election.</strong>
-                <br>
-                <strong>You have {{numberOfVotingCredits}} voting credits on your account.</strong>
-                <br>
-                You can place a vote below:
-                <br>
-                <form>
-                    Pick candidate: <select class="candidates" name="candidate">
-                </select>
-                    <br>
-                    Pick number of credits: <input type="number" name="credits" min="1" max="{{numberOfVotingCredits}}">
-                    <br>
-                    <input type="submit" value="vote">
-                </form>
+    <h5 class="description">
+        {{#if resultsFetched}}
+            {{#if electionOver}}
+                <h4 class="text-center">This election has finished. You cant vote in it.</h4>
                 <br>
             {{else}}
-                You are not registered to vote for this election.
+                {{#if registeredForElection}}
+                    <h4 class="text-center">You are registered to vote for this election.</h4>
+                    <br>
+                    <strong>You have {{numberOfVotingCredits}} voting credits on your account.</strong>
+                    <br>
+                    Pick candidate: <select class="candidates" id="voteCandidates" name="candidate">
+                </select>
+                    <br>
+                    Pick number of credits: <input type="number" id="voteCredits" name="credits" min="1"
+                                                   max="{{numberOfVotingCredits}}">
+                    <br>
+                    <button type="button" class="voteInElection btn btn-info btn-default hvr-growfast">Vote</button>
+                    <br>
+                {{else}}
+                    <h4 class="text-center"> You are not registered to vote for this election.</h4>
+                {{/if}}
             {{/if}}
+        {{else}}
+            <h4 class="text-center"> Search for an election above. If you are elegable to vote, you can do so
+                here. </h4>
         {{/if}}
-    {{/if}}
+    </h5>
 </template>
 
 <template name="createElection">
@@ -171,7 +178,7 @@
         Generate a new election and post it to the Ethereum blockchain. You will need to define when the election should
         start and end, the list of candidates and the voter roll.
 
-        <h3>Election Information</h3>
+        <h4>Election Information</h4>
         <div class="form-check">
             <label class="form-check-label">
                 <input class="form-check-input" id="partial" name="partial" type="checkbox" value="">
@@ -192,7 +199,7 @@
         {{> upload}}
 
 
-        <h3>Candidates:</h3>
+        <h4>Candidates</h4>
 
         {{#if currentUser}}
             You are logged in so you can load your saved past candidates. You can also view sample candidate lists.
@@ -238,7 +245,7 @@
         <input type="text" id="savedCandidatesName" name="savedCandidatesName" placeholder="Candidate List name">
         <button type="button" id="saveCandidateList" class="saveCandidateList">Save Candidates</button>
 
-        <h3>Voter Roll:</h3>
+        <h4>Voter Roll:</h4>
 
         {{#if currentUser}}
             You are logged in so you can view your past voter roll lists as well as sample lists.
