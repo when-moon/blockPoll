@@ -168,6 +168,7 @@ npm install
 # Run meteor
 meteor
 ```
+![Meteor tut](https://i.imgur.com/JG1tKnJ.gif)
 If you wish to run the tests:
 Open and run Ganache, and then in terminal:
 ```bash
