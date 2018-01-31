@@ -228,7 +228,7 @@ That being said however, if the institution or registrar sends each voter their 
 
 ## Designers <a name="Designers"></a>
 
-**blockPoll** is a calaborative project by team **_WhenMoon?_**.
+**blockPoll** is a calaborative project by team **_WhenMoon?_**
 
 <p align="center">
    <img src="https://i.imgur.com/TG9sgAm.png" height="100">
