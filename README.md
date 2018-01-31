@@ -141,20 +141,41 @@ If you wish to run **blockPoll** on your local machine for testing purposes you 
 * npm
 * meteor
 * nodeJS
+* [Truffle](http://truffleframework.com/)
+* [Ganach](http://truffleframework.com/ganache/)
 
 #### Installation instructions
 
 In a terminal:
 
 ```bash
+# Clone the Repo
 git clone https://github.com/when-moon/blockPoll.git
 ```
 
 Or download from [here]( https://github.com/when-moon/blockPoll.git)
 ```bash
+# cd into correct folders
+cd blockPoll
 cd dapp
+
+# Run meteor
 meteor
 ```
+If you wish to run the tests:
+Open and run Ganache, and then in terminal:
+```bash
+cd blockPoll
+
+# install dependencies
+npm install
+
+# compile and run tests
+truffle compile && truffle test
+```
+
+If run successfully, you should see 28 passing tests.
+
 ## Suggested use cases  <a name="Suggested-use-cases"></a>
 
 * Proxy Voting 
