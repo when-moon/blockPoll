@@ -90,6 +90,7 @@ This allows for proper control and supervision of the voting process and increas
 * Ability for **administrative user** to specify the block number on which they would like the election to begin. If the starting block number is less than the current block, the election will begin as soon as the contract has been deployed.
 * Ability for **administrative user** to specify the block number on which they would like the election to end.
 * Ability for **administrative user** to specify whether the voting mechanism is **partial** or **non-partial**.
+* Upon completion of election, both voters and candidates are able to download a CSV file containing all candidates, where each candidate placed during the election and the total amount of votes each voter tallied. 
 * The Dapp dynamically pulls the current gas price from [ETH Gas Station](https://ethgasstation.info/) to make it as cheap as possible for the user. This ensures that each transaction is executed with the currently decided upon minimum amount of gas possible that will still allow the transaction to go through successfully in a reasonable amount of time. This provides a good balance between performance and cost. 
 * The **web API** provides a wrapper for the contract whereby external third party companies and applications can build around to display current electoral progress and statistics in a more visually appealing way. This allows companies like **CNN** and the like to pull from information in the API and integrate it into their websites and applications in the manner they see fit. 
 
@@ -98,6 +99,8 @@ This allows for proper control and supervision of the voting process and increas
 
 ### Administrator <a name="Administrator"></a>	
 An administrator is in charge of creating the voting contract and deploying it on the blockchain. The administrator also acts as a registrar in the sense that they are responsible for inserting both the candidates, voters and the voters weighting credits into the database. The administrator has knowledge of both the name of the voter and his/her private ID key. The administrator should be someone who is not involved in the voting procedure and must not share publicly the associated voter with their public key. This is a slight flaw as it allows for a tampering.
+
+After the vote has been completed, any person (voter of candidate) can download a CSV file containing the list of cadidates that were being voted for in the election, where each candidate placed in relation to each other candidate, and the total number of votes each candidate recieved during the election.
 
 #### Instructions
 1. The administrator must have access to a list of all voting candidates, as well as a list of voters and their public keys.
@@ -175,6 +178,8 @@ truffle compile && truffle test
 ```
 
 If run successfully, you should see 28 passing tests.
+![Tests Passing](https://i.imgur.com/pTlaeSc.giff)
+
 
 ## Suggested use cases  <a name="Suggested-use-cases"></a>
 
