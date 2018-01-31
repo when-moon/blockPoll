@@ -86,7 +86,7 @@ This allows for proper control and supervision of the voting process and increas
 * Ability for **administrative user** to manually insert a list of voters and their associated voting power.
 * Ability for **administrative user** to manually insert a list of possible candidates.
 * Ability for **administrative user** to manually insert a list of voters or candidates from a stored database of past voters/candidates.
-* Ristrar assigns a **unique Id** - or more simply - their **public key** to each voter known only by the voter and the registrar, allowing for them to see that their vote has been captured correctly in a pseudo-anonymous way. 
+* Registrar assigns a **unique Id** - or more simply - their **public key** to each voter known only by the voter and the registrar, allowing for them to see that their vote has been captured correctly in a pseudo-anonymous way. 
 * Ability for **administrative user** to specify the block number on which they would like the election to begin. If the starting block number is less than the current block, the election will begin as soon as the contract has been deployed.
 * Ability for **administrative user** to specify the block number on which they would like the election to end.
 * Ability for **administrative user** to specify whether the voting mechanism is **partial** or **non-partial**.
@@ -141,11 +141,11 @@ Because the voting process is executed by, and stored on a public blockchain, bo
 If you wish to run **blockPoll** on your local machine for testing purposes you may do the following:
 
 #### Prerequisites
-* npm
-* meteor
-* nodeJS
+* [npm](https://www.npmjs.com/)
+* [meteor](https://www.meteor.com/)
+* [nodeJS](https://nodejs.org/en/)
 * [Truffle](http://truffleframework.com/)
-* [Ganach](http://truffleframework.com/ganache/)
+* [Ganache](http://truffleframework.com/ganache/)
 
 #### Installation instructions
 
@@ -161,6 +161,9 @@ Or download from [here]( https://github.com/when-moon/blockPoll.git)
 # cd into correct folders
 cd blockPoll
 cd dapp
+
+# Install dependencies
+npm install
 
 # Run meteor
 meteor
@@ -178,7 +181,7 @@ truffle compile && truffle test
 ```
 
 If run successfully, you should see 28 passing tests.
-![Tests Passing](https://i.imgur.com/pTlaeSc.giff)
+![Tests Passing](https://i.imgur.com/onLubY9.gif)
 
 
 ## Suggested use cases  <a name="Suggested-use-cases"></a>
