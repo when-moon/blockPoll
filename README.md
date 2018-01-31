@@ -20,6 +20,7 @@
    4. [Running on your local machine](#Running-on-your-local-machine)
 6. [Suggested use cases](#Suggested-use-cases)
 7. [Current limitations and future considerations](#Current-limitations-and-future-considerations)
+8. [Designers](#Designers)
 
 ## What is it <a name="What-is-it"></a>
 
@@ -225,7 +226,7 @@ Currently, **blockPoll** has been built as a proof of concept **(PoC)** and is s
 That being said however, if the institution or registrar sends each voter their own public key, there is no way in which voters are able to link a public key to a specific voter. In this implementation, the administrator would pre-generate and distribute public-private key pairs to the voters. This distribution could be done by sending the voter a recovery seed via email, ensuring that each voter has a new and unique public key to vote with. Because the voter himself has not generated the address, there is no way to link him with his public key unless he or the registrar shares the key with another voter, or if he conducts a transaction of any type with that key. For best use, we suggest that each vote be conducted in this way.
 * In future it would be ideal for a monitoring dashboard to be built around the API that can display and monitor the state of an election. This would add to the user experience and increase its marketability.
 
-## Designers
+## Designers <a name="Designers"></a>
 
 **blockPoll** is a calaborative project by team **_WhenMoon?_**.
 
