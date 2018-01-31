@@ -15,7 +15,8 @@
    2. [Voter](#Voter)
    3. [Viewer](#Viewer)
    4. [Running on your local machine](#Running-on-your-local-machine)
-6. [Current limitations and future considerations](#Current-limitations-and-future-considerations)
+6. [Suggested use cases](#Suggested-use-cases)
+7. [Current limitations and future considerations](#Current-limitations-and-future-considerations)
 
 ## What is it <a name="What-is-it"></a>
 
@@ -154,7 +155,7 @@ Or download from [here]( https://github.com/when-moon/blockPoll.git)
 cd dapp
 meteor
 ```
-## Suggested use-cases
+## Suggested use cases  <a name="Suggested-use-cases"></a>
 
 * Proxy Voting 
   * Partial
